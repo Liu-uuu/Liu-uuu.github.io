@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>		
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			body{background: #f8c137;}
+			#mac{width: 800px; margin: 2px auto;}
+			#mockup-screen{width: 800px;height: 478px;background: black;}
+			#screen{width:760px; height:438px; background: url("http://s12.sinaimg.cn/orignal/001JEE6izy74DZCLndxab&690") no-repeat;position: relative;top: 20px;left: 20px;}
+			#logo-area{width: 800px;height: 76px;background: url("http://s10.sinaimg.cn/orignal/001JEE6izy74DZCJh2he9&690");}
+			#stand{width:800px; height: 76px;text-align: center;}
+
+			#meau{ width:100%; height:auto; position:absolute; bottom:0; text-align:center;}
+			#meau img{ width:64px;}
+		</style>
+		<script>
+
+		window.onload = function(){
+
+			var oDiv = document.getElementById('meau');
+			var aImg = oDiv.getElementsByTagName('img');
+			
+			document.onmousemove = function(ev){
+				
+				var ev = ev || window.event;
+				
+				for(var i=0;i<aImg.length;i++){
+
+					var pos=getPos(aImg[i])
+					var x = pos.left + aImg[i].offsetWidth/2;
+					var y = pos.top + aImg[i].offsetHeight/2
+				
+					var a = ev.clientX - x;
+					var b = ev.clientY - y;
+					
+					var c = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+					
+					var scale  = 1 - c/300;
+					
+					if(scale < 0.5){
+						scale = 0.5;
+					}
+					
+					aImg[i].style.width = scale * 128 + 'px';
+					aImg[i].style.height = scale * 128 + 'px';			
+				}				
+			};	
+
+			function getPos(obj) {
+				
+				var pos = {left:0, top:0};
+				
+				while (obj) {
+					pos.left += obj.offsetLeft;
+					pos.top += obj.offsetTop;
+					obj = obj.offsetParent;
+				}				
+				return pos;	
+			}
+
+		};
+
+		</script>
+		
+	</head>
+
+	<body>
+
+		<div id="mac">
+			<div id="mockup-screen">
+				<div id="screen">
+					<div id="meau">
+						<img src="http://s12.sinaimg.cn/orignal/001JEE6izy74DZCBJ594b&690">
+						<img src="http://s9.sinaimg.cn/orignal/001JEE6izy74DZCBIU098&690">
+						<img src="http://s14.sinaimg.cn/orignal/001JEE6izy74DZCDL4h0d&690">
+						<img src="http://s9.sinaimg.cn/orignal/001JEE6izy74DZCCnGwf8&690">
+						<img src="http://s1.sinaimg.cn/orignal/001JEE6izy74DZCBOMgd0&690">
+						<img src="http://s9.sinaimg.cn/orignal/001JEE6izy74DZCIDQQ88&690">
+					</div>
+				</div>
+			</div>
+			<div id="logo-area"></div>
+			<div id="stand"><img src="http://s1.sinaimg.cn/orignal/001JEE6izy74DZCKRcQ00&690"></div>
+		</div>
+	</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
