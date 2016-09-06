@@ -22,8 +22,9 @@
 			var btn=document.getElementById("btn");
 
 			btn.onclick=function(){
-				if (txt.value=="叮咚") {
-					window.open("welcome.html")
+				var password="lxx";
+				if (txt.value==password) {
+					window.open("welcome.html","_self")
 				}else{
 					alert("口令不对哦，再想想！")
 				}
