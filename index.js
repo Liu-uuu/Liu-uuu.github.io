@@ -16,4 +16,17 @@
 				obj.style.left=left+'px';
 				obj.style.top=(top+scrollTop)*1.1+'px';
 			}
+
+
+			var txt=document.getElementById("txt");
+			var btn=document.getElementById("btn");
+
+			btn.onclick=function(){
+				if (txt.value=="叮咚") {
+					window.open("welcome.html")
+				}else{
+					alert("口令不对哦，再想想！")
+				}
+			}
+
 		}
