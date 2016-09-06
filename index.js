@@ -24,7 +24,7 @@
 			function signIn(){
 				var password="lxx";
 				if (txt.value==password) {
-					window.open("welcome.html","_self")
+					window.open("desktop.html","_self")
 				}else{
 					alert("口令不对哦，再想想！")
 				}
