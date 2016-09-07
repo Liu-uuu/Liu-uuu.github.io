@@ -43,7 +43,7 @@
     height: 20px;
     margin-top: 4px;
     opacity: .6;
-    background: url("../img/ico-message.png") no-repeat;
+    background: url("ico-message.png") no-repeat;
 }
 .fileEdit a:hover{
     border: 1px solid #aaa;
