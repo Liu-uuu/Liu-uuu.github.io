@@ -1,0 +1,102 @@
+#yun{
+    width: 900px;
+    height: 600px;
+    border: 1px solid #aaa;
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    /*overflow: hidden;*/
+}
+
+/*以下头部样式*/
+#header{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #ddd;
+}
+#blueArea{
+    width: 100%;
+    height: 30px;
+    background: #278cde;
+}
+
+
+.fileEdit {
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+}
+.fileEdit a{   
+    height: 30px;
+    line-height: 30px;   
+    border: 1px solid #ccc;
+    padding: 0px 10px;
+    margin:10px 6px 0 6px;
+    background: #fff;
+    float: left;
+    overflow: hidden;
+}
+
+.fileEdit a i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    opacity: .6;
+    background: url("../img/ico-message.png") no-repeat;
+}
+.fileEdit a:hover{
+    border: 1px solid #aaa;
+}
+.fileEdit a:hover i{
+    opacity: 1;
+}
+
+.fileEdit a.create i{
+    background-position: 0px -550px;
+}
+
+.fileEdit a.rename i{
+    background-position: 0px -518px;
+}
+.fileEdit a.delect i{
+    background-position: 0px -326px;
+}
+.fileEdit a.move i{
+    background-position: 0px -455px;
+}
+.fileEdit a.reload i{
+    background-position: 3px -711px;
+}
+
+.fileEdit a span{
+    display: inline-block;
+    vertical-align: top;
+}
+/*头部样式至此结束*/
+
+/*以下主体样式*/
+
+#main{
+    position:relative;
+    background: red;
+}
+#mainLeft{
+    width: 200px;
+    background: #aaa;
+    
+}
+#mainRight{
+    background: #ccc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*padding-right: 160px;*/
+}
+
+
+
+
+
+
+
