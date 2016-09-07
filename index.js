@@ -22,10 +22,12 @@
 			var btn=document.getElementById("btn");
 
 			function signIn(){
-				var password="lxx";
-				if (txt.value==password) {
+				if (txt.value=="mac") {
 					window.open("desktop.html","_self")
-				}else{
+				}else if (text.value=="yun"){
+					window.open("yun.html","_self")
+				}
+				else{
 					alert("口令不对哦，再想想！")
 				}
 			}
