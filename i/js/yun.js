@@ -59,28 +59,35 @@ function haveChidDate(objDateid){
 //在obj对应的数据下创建一个子数据
 //参数：元素对应数据的ID、名字、类型。
 function addOneFile(obj,addName,addType){
-
-	var sameName=false;                               //变量记录是否重名，默认false。
-
-	for (var i = 0; i < data.files.length; i++) {	  //for循环找到同名数据，为true
-		if (data.files[i].pid==obj.id) {              //找到每条与子数据同目录的数据
-			if (data.files[i].title==addName) {       //逐条检验是否与新设文件名重复
-				sameName=true;                        //若重名，则为true;
-				break;
-			}	
+	if (obj) {
+		var sameName=false;                               //变量记录是否重名，默认false。
+		for (var i = 0; i < data.files.length; i++) {	  //for循环找到同名数据，为true
+			if (data.files[i].pid==obj.id) {              //找到每条与子数据同目录的数据
+				if (data.files[i].title==addName) {       //逐条检验是否与新设文件名重复
+					sameName=true;                        //若重名，则为true;
+					break;
+				}	
+			}
 		}
-	}
 
-	if (sameName) {                                   //重名弹出提示。不将新数据加进总数据。
-		alert("重名啦！再给文件宝宝想个名字吧！")
+		if (sameName) {                                   //重名弹出提示。不将新数据加进总数据。
+			alert("重名啦！再给文件宝宝想个名字吧！")
+		}else{
+			var newDateJson={id:0,pid:0,title:"",type:""};//定义一条新数据
+			newDateJson.id=new Date().getTime()           //生成唯一ID	
+			newDateJson.pid=obj.id
+			if (addName) {
+				newDateJson.title=addName;
+			}else{
+				newDateJson.title='新文件'+newDateJson.id;
+			}
+			
+			newDateJson.type=addType;		
+			data.files.push(newDateJson);                 //将这条文件数据加进总数据
+		}	
 	}else{
-		var newDateJson={id:0,pid:0,title:"",type:""};//定义一条新数据
-		newDateJson.id=new Date().getTime()           //生成唯一ID	
-		newDateJson.pid=obj.id
-		newDateJson.title=addName;
-		newDateJson.type=addType;		
-		data.files.push(newDateJson);                 //将这条文件数据加进总数据
-	}	
+		alert('出错啦！')
+	}
 }
 /*-------------------------------------------------*/
 //删除与obj对应的数据
@@ -602,21 +609,28 @@ toCreate.onclick=function(){
 	newDiv.appendChild(newA);
 	fileArea.appendChild(newDiv);
 	// alert(fileArea.visitorId)
-	//addOneFile(obj,addName,addType)
 	newInput.focus();
-	newInput.onclick=function(){
-		newInput.focus();
+
+	var thisParentFile;//定义并找到新文件的父文件夹
+	for (var i = 0; i < data.files.length; i++) {
+		if(data.files[i].id==fileArea.visitorId){
+			thisParentFile=data.files[i];
+			thisParentFile.fileid=data.files[i].id;
+		}
 	}
+	
 	newInput.onkeydown=function(e){
 		var e=e||window.event;
 		if (e.keyCode==13) {
 			newA.innerHTML=newInput.value;
 			newInput.style.display='none';
+			addOneFile(thisParentFile,newInput.value,'file');
+			renderChildFiles(thisParentFile)
+			fileTreeArea.innerHTML='';
+			renderTree(fileTreeArea)//树状导航
 		}
 	}
-	newInput.onblur=function(){
-		addOneFile(fileArea.visitorId,newInput.value,'file')
-	}
+
 }
 
 //重命名按钮
@@ -640,11 +654,25 @@ toRename.onclick=function(){
 		ipt.onkeydown=function(e){
 			var e=e||window.event;
 			if (e.keyCode==13) {
-				renameDiv.children[0].innerHTML=ipt.value;
-				ipt.style.display='none';
-				renameDiv.children[0].style.display='block'
-			}
 
+				var thisParentFile;//定义并找到文件的父文件夹
+				for (var i = 0; i < data.files.length; i++) {
+					if(data.files[i].id==fileArea.visitorId){
+						thisParentFile=data.files[i];
+						thisParentFile.fileid=data.files[i].id;
+					}
+				}
+				// alert(renameDiv.fileid)
+				for (var i = 0; i < data.files.length; i++) {
+					if(data.files[i].id==renameDiv.fileid){
+						data.files[i].title=ipt.value;
+						renderChildFiles(thisParentFile)//内容区
+						fileTreeArea.innerHTML='';
+						renderTree(fileTreeArea)//树状导航
+					}
+				}
+			}
+			
 		}
 
 	}else if(oneDiv==0){

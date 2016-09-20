@@ -195,11 +195,13 @@
     background:#5c5a68 url('../1.png') no-repeat bottom right;
 }
 #fileArea #nofile{
+    width: 80%;
     font-size: 20px;
     text-align: center;
     line-height: 200px;
     vertical-align: bottom;
     color: #ccc;
+    position: absolute;
 }
 #fileArea div{
     width: 90px;
