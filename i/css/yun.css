@@ -19,7 +19,8 @@
 #blueArea{
     width: 100%;
     height: 30px;
-    background: #278cde;
+    background: #5D778C;
+    /*#278cde;*/
     text-align: right;
     position: relative;
 }
