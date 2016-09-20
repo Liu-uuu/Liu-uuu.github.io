@@ -28,9 +28,10 @@
 					window.open("yun.html","_self")
 				}else if(txt.value=="作品"){
 					window.open("i/index.html","_self")
-				}
-				else{
-					alert("输入：作品 二字即可查看作品\n你也可以尝试输入以下关键字登录：\nmac")
+				}else if (txt.value=="小游戏") {
+					window.open("2048.html","_self")
+				}else{
+					alert("你可以先点击鼠标右键试试 那里有你要的通关文牒")
 				}
 			}
 			
@@ -52,7 +53,7 @@
 				listBox.style.display='block';
 				listBox.innerHTML='<ul>'+
 					'<li style="text-align:center">欢迎您来到这里！<br/>恭候多时了</li>'+
-					'<li>你可以输入以下关键字进行登录:<p>作品、mac</p></li>'+
+					'<li>你可以输入以下关键字进行登录:<p>作品、小游戏、mac</p></li>'+
 					'<li>欢迎提出指导意见</li>'+
 					'</ul>'
 				listBox.style.top=ev.clientY+'px';

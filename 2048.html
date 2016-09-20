@@ -44,23 +44,25 @@
 
 	<script type="text/javascript">
 
-		var container=document.getElementById('container');		
+		var container=document.getElementById('container');	
+		/*---------------------------------------------------*/	
 		//生成
 		var box='';
 		for (var i = 0; i < 16; i++) {
 			box+='<div>'+i+'</div>'
 		}
 		container.innerHTML+=box;
-
+		/*---------------------------------------------------*/	
 		//参数初始化
 		var nums=container.getElementsByTagName('div');
 		for (var i = 0; i < nums.length; i++) {
 			nums[i].title=i;
 			nums[i].innHTML='';
 		}
+		/*---------------------------------------------------*/	
 		//初始定位
 		toPos()
-
+		/*---------------------------------------------------*/	
 		//定位函数（根据title）
 		function toPos() {
 			for (var i = 0; i < nums.length; i++) {
@@ -68,17 +70,14 @@
 				nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
 			}
 		}
-
-		
-		var upDownArr=[[],[],[],[],[]];		//上下移动
-		var leftRightArr=[[],[],[],[],[]];	//左右移动
-
+		/*---------------------------------------------------*/	
+		//定义并填充数组	
+		var upDownArr=[[],[],[],[]];				//上下移动
+		var leftRightArr=[[],[],[],[]];				//左右移动
 		for (var i = 0; i < nums.length; i++) {
-
-			upDownArr[nums[i].title%4].push(nums[i])
-
+			upDownArr[nums[i].title%4].push(nums[i]);
+			leftRightArr[Math.floor(nums[i].title/4)].push(nums[i]);
 		}
-
 
 
 		
