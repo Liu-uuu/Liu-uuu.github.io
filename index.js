@@ -43,6 +43,8 @@
 					signIn();
 				}
 			}
+			txt.focus();
+			txt.select();
 
 			var listBox=document.getElementById('listbox')
 			document.oncontextmenu=function(ev){

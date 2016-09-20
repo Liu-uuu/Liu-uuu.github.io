@@ -79,7 +79,7 @@ function addOneFile(obj,addName,addType){
 			if (addName) {
 				newDateJson.title=addName;
 			}else{
-				newDateJson.title='新文件'+newDateJson.id;
+				newDateJson.title='file'+newDateJson.id;
 			}
 			
 			newDateJson.type=addType;		
@@ -600,7 +600,9 @@ window.onresize=function(){
 // var toDelect=document.getElementById('todelect');
 
 //新建文件夹按钮
-toCreate.onclick=function(){
+toCreate.onclick=function(e){
+	e=e||window.event;
+	 e.cancelBubble=true
 	var newDiv=document.createElement('div');
 	var newInput=document.createElement('input');
 	var newA=document.createElement('a');
@@ -610,8 +612,12 @@ toCreate.onclick=function(){
 	newDiv.appendChild(newA);
 	fileArea.appendChild(newDiv);
 	// alert(fileArea.visitorId)
+	newInput.value='请输入文件名';
+	newInput.select();
 	newInput.focus();
-
+	document.onclick=function(){
+		newInput.blur();
+	}
 	var thisParentFile;//定义并找到新文件的父文件夹
 	for (var i = 0; i < data.files.length; i++) {
 		if(data.files[i].id==fileArea.visitorId){
@@ -631,11 +637,21 @@ toCreate.onclick=function(){
 			renderTree(fileTreeArea)//树状导航
 		}
 	}
-
+	newInput.onblur=function(){
+		newA.innerHTML=newInput.value;
+		newInput.style.display='none';
+		addOneFile(thisParentFile,newInput.value,'file');
+		renderChildFiles(thisParentFile)
+		fileTreeArea.innerHTML='';
+		renderTree(fileTreeArea)//树状导航
+	}
+	return false;
 }
 
 //重命名按钮
-toRename.onclick=function(){
+toRename.onclick=function(e){
+	var e=e||window.event;
+	e.cancelBubble=true;
 	var areaDiv=fileArea.getElementsByTagName('div');
 	var oneDiv=0;
 	for (var i = 0; i < areaDiv.length; i++) {
@@ -652,6 +668,10 @@ toRename.onclick=function(){
 		renameDiv.children[0].style.display='none';
 		renameDiv.appendChild(ipt);
 		ipt.focus();
+		ipt.select();
+		document.onclick=function(){
+			ipt.blur();
+		}
 		ipt.onkeydown=function(e){
 			var e=e||window.event;
 			if (e.keyCode==13) {
@@ -674,6 +694,24 @@ toRename.onclick=function(){
 				}
 			}
 			
+		}
+		ipt.onblur=function(){
+			var thisParentFile;//定义并找到文件的父文件夹
+				for (var i = 0; i < data.files.length; i++) {
+					if(data.files[i].id==fileArea.visitorId){
+						thisParentFile=data.files[i];
+						thisParentFile.fileid=data.files[i].id;
+					}
+				}
+				// alert(renameDiv.fileid)
+				for (var i = 0; i < data.files.length; i++) {
+					if(data.files[i].id==renameDiv.fileid){
+						data.files[i].title=ipt.value;
+						renderChildFiles(thisParentFile)//内容区
+						fileTreeArea.innerHTML='';
+						renderTree(fileTreeArea)//树状导航
+					}
+				}
 		}
 
 	}else if(oneDiv==0){
