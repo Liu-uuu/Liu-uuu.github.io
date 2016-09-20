@@ -1,0 +1,284 @@
+#yun{
+    width: 800px;
+    height: 500px;
+    border: 1px solid #aaa;
+    position: absolute;
+    left: 200px;
+    top: 10px;
+    overflow: hidden;
+    box-shadow:1px 1px 8px  #eaedf4;
+    box-shadow:1px 1px 8px rgba(33,44,55,0.5);
+}
+
+/*以下头部样式*/
+#header{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #ddd;
+}
+#blueArea{
+    width: 100%;
+    height: 30px;
+    background: #278cde;
+    text-align: right;
+    position: relative;
+}
+#blueArea strong{
+    color: #fff;
+    position: absolute;
+    left: 10px;
+    line-height: 30px;
+    font-size: 14px;
+    text-indent: 20px;
+    background: url("../yunbtn.png") no-repeat;
+    background-position:-56px 0px;
+}
+#blueArea span{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background:url("../yunbtn.png") no-repeat;
+}
+#blueArea span.btnimg1{
+    background-position:2px 0px;
+}
+#blueArea span.btnimg2{
+    background-position:-26px 0px ;
+}
+#blueArea span.btnimg1:hover{
+    background-color: #479de3;
+}
+#blueArea span.btnimg2:hover{
+    background-color: #d44027 ;
+}
+
+.fileEdit {
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+    background: #f5f6f9 url('../cr.png') no-repeat right ;
+    /*padding-left: 210px;*/
+    overflow: hidden;
+}
+
+.fileEdit #welcome{
+    float: left;
+    width: 200px;
+    margin-right: 16px;
+    color:#FFED10;
+    font-size: 20px;
+    font-weight: bold;  
+    text-align: center;
+    text-shadow: 2px 2px 4px #000;
+    background: url("../yuncode.png");
+}
+
+.fileEdit a{   
+    height: 30px;
+    line-height: 30px;   
+    border: 1px solid #ccc;
+    padding: 0px 10px;
+    margin:10px 6px 0 6px;
+    background: #fff;
+    float: left;
+    overflow: hidden;
+}
+
+.fileEdit a i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    opacity: .6;
+    background: url("../img/ico-message.png") no-repeat;
+}
+.fileEdit a:hover{
+    border: 1px solid #aaa;
+}
+.fileEdit a:hover i{
+    opacity: 1;
+}
+
+.fileEdit a.create i{
+    background-position: 0px -550px;
+}
+
+.fileEdit a.rename i{
+    background-position: 0px -518px;
+}
+.fileEdit a.delect i{
+    background-position: 0px -326px;
+}
+
+.fileEdit a span{
+    display: inline-block;
+    vertical-align: top;
+}
+/*头部样式至此结束*/
+
+/*以下主体样式*/
+
+#main{
+    overflow: hidden;
+    background: #fff;
+    /*width height随窗口变化而变化，用js设置*/
+}
+#mainLeft{
+    float: left;
+    width: 200px;
+    background: #eaedf4;
+    overflow: auto;
+    background:#ddd url('http://img.taopic.com/uploads/allimg/111222/6350-11122212101534.jpg')center;
+    /*width固定 height随窗口变化而变化，用js设置*/
+}
+#mainLeft #fileTree{
+    padding-top: 50px;
+}
+#mainLeft h2{
+    width: 165px;
+    padding:20px 0 16px 20px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #002f6d;
+    position: absolute;
+    /*background:#eaedf4;*/
+    overflow: hidden; 
+}
+#fileTree{
+    padding-left:20px; 
+}
+
+
+#fileTree h3{
+    height:26px;
+    font-size: 14px;
+    line-height: 26px;
+    cursor:pointer;
+    color: #323e48;
+    background: url(../treeimg2.png) no-repeat 0 4px;
+        margin: 6px 0; 
+    padding-left: 26px;
+}
+#fileTree h3:hover{
+    height:24px;
+    line-height: 24px;
+    background:#e2e2fe  url(../treeimg2.png) no-repeat 0 6px;
+    border: 1px solid #bfdaf4;
+
+ }
+
+
+#mainRight{
+    float: left;
+    overflow: hidden;
+    /*width height随窗口变化而变化，用js设置*/
+}
+#path{
+    height: 30px;
+    border-bottom: 1px solid #e6e9f0;
+    overflow: hidden;
+}
+#path a{
+    cursor: pointer;
+    float: left;
+    /*display: inline-block;*/
+    height: 30px;
+    line-height: 30px;
+    background: url(../img/main-path.png) no-repeat;
+    background-position:right -50px;
+    padding: 0 16px 0 6px;
+    text-align: left;
+}
+
+#fileArea{
+    padding: 8px;
+    background:#5c5a68 url('../1.png') no-repeat bottom right;
+}
+#fileArea #nofile{
+    font-size: 20px;
+    text-align: center;
+    line-height: 200px;
+    vertical-align: bottom;
+    color: #ccc;
+}
+#fileArea div{
+    width: 90px;
+    height: 90px;
+    margin: 1px;
+    background:url(../img/file.png) no-repeat 12px 8px;
+    float: left;
+    position: relative;
+}
+#fileArea div:hover{
+    background-position: 12px 4px;
+}
+#fileArea a{  
+    position: absolute;
+    bottom:1px;
+    left: 0px;
+    width: 90px;
+    height: 20px;
+    color: #f6f6f0;
+    font-family: '微软雅黑';
+    text-align: center;
+}
+#fileArea input{
+    width: 80px;
+    position: absolute;
+    bottom:0;
+    text-align: center;
+}
+
+
+
+.checked{
+    background-position: 10px -310px;
+}
+.path-nav{
+    float: left;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.path-nav .current-path {
+    background-position: right -200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*以下附属右键菜单样式*/
+.contextmenu{
+    width: 100px;
+    border: 1px solid #ccc;
+    display: none;
+    position: absolute;
+}
+
+.contextmenu li{
+    line-height: 20px;
+    padding: 0 10px;
+    margin: 5px 0;
+    list-style: none;
+    font-family: "微软雅黑";
+}
+.contextmenu span{
+    position: absolute;
+    right: 10px;
+}
+/*附属右键菜单样式到此*/
+
+
