@@ -81,11 +81,6 @@ function addOneFile(obj,addName,addType){
 		newDateJson.type=addType;		
 		data.files.push(newDateJson);                 //将这条文件数据加进总数据
 	}	
-	if (sameName) {
-		return false;
-	}else{
-		return true;
-	}	
 }
 /*-------------------------------------------------*/
 //删除与obj对应的数据
@@ -615,7 +610,8 @@ toCreate.onclick=function(){
 	newInput.onkeydown=function(e){
 		var e=e||window.event;
 		if (e.keyCode==13) {
-			newInput.blur()
+			newA.innerHTML=newInput.value;
+			newInput.style.display='none';
 		}
 	}
 	newInput.onblur=function(){
@@ -630,10 +626,27 @@ toRename.onclick=function(){
 	for (var i = 0; i < areaDiv.length; i++) {
 		if(areaDiv[i].selected){
 			oneDiv++;
+			var renameDiv=areaDiv[i]
 		}
 	}
 	if (oneDiv==1) {
-		
+		var ipt=document.createElement('input');
+		ipt.type='text';
+		ipt.value=renameDiv.children[0].innerHTML;
+
+		renameDiv.children[0].style.display='none';
+		renameDiv.appendChild(ipt);
+		ipt.focus();
+		ipt.onkeydown=function(e){
+			var e=e||window.event;
+			if (e.keyCode==13) {
+				renameDiv.children[0].innerHTML=ipt.value;
+				ipt.style.display='none';
+				renameDiv.children[0].style.display='block'
+			}
+
+		}
+
 	}else if(oneDiv==0){
 		alert('逗我玩的吧 你并没有选中任何文件')
 	}else{
@@ -644,12 +657,15 @@ toRename.onclick=function(){
 //删除按钮
 toDelect.onclick=function(){
 	var areaDiv=fileArea.getElementsByTagName('div');
-
+	var delArr= []
 
 	for (var i = 0; i < areaDiv.length; i++) {
 		if(areaDiv[i].selected){
-			areaDiv[i].parentNode.removeChild(areaDiv[i])
+			delArr.push(areaDiv[i])
 		}
+	}
+	for (var i = 0; i < delArr.length; i++) {
+		delArr[i].parentNode.removeChild(delArr[i])
 	}
 }
 
