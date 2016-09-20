@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模拟文件窗口操作</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/yun.css" />
+    <style type="text/css"></style>
+</head>
 
+<body style="background:url('bg.jpg')">
+  <!-- 模拟窗口 -->
+   <div id="yun">
+        <!-- 以下头部结构 -->
+       <div id="header">
+            <div id="blueArea">
+                <strong title="最小化时点击还原窗口">我的文件</strong>
+                <span class="btnimg1"></span>
+                <span class="btnimg2"></span>
+            </div>
+
+            <!-- 以下操作按钮区 -->
+            <div class="fileEdit">
+                <span id="welcome">HTML+CSS+JS</span>
+
+                <a href="#" class="nav-a create" id="tocreate">
+                    <span>
+                        <i></i>
+                        <span >新建文件夹</span>
+                    </span>
+                </a>
+                <a href="#" class="nav-a rename" id="torename">
+                    <span>
+                        <i></i>
+                        <span >重命名&nbsp</span>
+                    </span>
+                </a>
+                <a href="#" class="nav-a delect" id="todelect">
+                    <span>
+                        <i></i>
+                        <span>删&nbsp&nbsp除&nbsp&nbsp</span>
+                    </span>
+                </a>
+            </div>
+            <!-- 操作按钮区至此 --> 
+       </div>
+       <!-- 头部结构至此 -->
+
+
+       <!-- 以下主体结构 -->
+       <div id="main">
+           <div id="mainLeft">
+              <h2>我的文件</h2>
+              <div id="fileTree"></div> 
+           </div>
+           <div id="mainRight">
+               <div id="path">
+                  <a href="">我的文件</a>
+               </div>
+               <div id="fileArea"></div>
+           </div>
+       </div>
+       <!-- 主体结构至此 -->
+
+
+
+   </div>
+   <!-- 模拟窗口至此 -->
+
+
+
+   <!-- javascript引用 -->
+   <script type="text/javascript" src="js/data.js"></script>
+   <script type="text/javascript" src="js/yun.js"></script>
+ 
+   <!-- javascript至此 -->
+
+   <!-- 以下是附属右键菜单 -->
+   <div id="contextmenu" class="contextmenu">
+    <ul>
+      <li>新建文件</li>
+      <li>刷新</li><hr>
+      <li>暂无</li>
+      <li>暂无</li>
+    </ul>
+   </div>
+
+   <div id="filecontextmenu" class="contextmenu">
+    <ul>
+      <li>打开</li>
+      <li>删除</li>
+      <li>重命名</li><hr>
+      <li>暂无</li>
+    </ul>
+   </div>
+   <!-- 附属右键菜单至此 -->
+</body>
+
+</html>
