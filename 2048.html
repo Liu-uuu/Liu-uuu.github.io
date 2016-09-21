@@ -12,6 +12,8 @@
 	<style type="text/css">
 		body{
 			background: pink;
+			font-size: 0.5rem;
+			text-align: center;
 		}
 		#container{
 			width: 3.60rem;
@@ -34,12 +36,12 @@
 			color: #A7D0B1;
 			text-align: center;
 			position: absolute;
-			font-size: 20px;
+			transition: .1s;
 		}
 		input{
-
-			/*margin: 0;*/
-			padding:0 0.02rem;
+			font-size: 0.3rem;
+			
+			padding:0.01rem;
 		}
 
 	</style>
@@ -48,16 +50,15 @@
 <body>
 	<div id="container"></div>
 	<input type="button" value="左">
-	<input type="button" value="右">
+	<input type="button" value="右"><br/>
 	<input type="button" value="上">
 	<input type="button" value="下">
-	<input type="button" value="生成">
 
 	<script type="text/javascript">
 		
 /*--------------------------------------------------------------------------------------*/	
 /*--------------------------------------------------------------------------------------*/	
-		// alert('还未完成 敬请期待')
+		// alert('还在调试 敬请期待! 这是手机端页面 电脑查看请按F12打开模拟')
 		var container=document.getElementById('container');	
 		/*---------------------------------------------------*/	
 		//生成结构
@@ -75,53 +76,33 @@
 			nums[i].id='id'+i;
 			nums[i].title=i;
 			nums[i].value=0;
-			nums[i].innerHTML=nums[i].id;
+			nums[i].innerHTML='';
 		}		
-		var posArr=[ [] , [] , [] , [] ];				//二维数组容器
-		for (var i = 0; i < nums.length; i++) {			//初始数组
-			posArr[Math.floor(nums[i].title/4)].push(nums[i]);		
-		}		
-		divPos()										//初始定位
-		// //初始化定位		
-		// for (var i = 0; i < nums.length; i++) {
-		// 	nums[i].style.left=0.04+nums[i].title%4*0.9+'rem'
-		// 	nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
-		// }
+	
+
+		//初始化定位		
+		for (var i = 0; i < nums.length; i++) {
+			nums[i].style.left=0.04+i%4*0.9+'rem'
+			nums[i].style.top=0.04+Math.floor(i/4)*0.9+'rem';
+		}
 		randomInner();									//初始生成2次数字2
 		randomInner();
 
 /*--------------------------------------------------------------------------------------*/	
 /*--------------------------------------------------------------------------------------*/	
 
-		//根据数组id属性获取div
-		function getDiv(divId){
-			return document.getElementById(divId)
-		}
-
-
-		/*---------------------------------------------------*/
-		//定位
-		function divPos(){
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					posArr[i][j].style.left=0.04+j*0.9+'rem'
-					posArr[i][j].style.top=0.04+i*0.9+'rem'
-				}
-			}
-		}
-
 	
 		/*---------------------------------------------------*/	
 		//随机位置的空白格生成数字2
 		function randomInner(){
 			var ranNum=Math.floor(Math.random()*16);
-			if (nums[ranNum].value==0) {
+			if (nums[ranNum].innerHTML=='') {
 				nums[ranNum].value=2;
-				nums[ranNum].innerHTML=2+nums[ranNum].id;
+				nums[ranNum].innerHTML=2;
 			}else{
 				var nextRanNum=false;
 				for (var i = 0; i < 16; i++) {
-					if (nums[i].value==0) {
+					if (nums[i].innerHTML=='') {
 						nextRanNum=true;
 						break;
 					}
@@ -132,73 +113,158 @@
 			}
 		}
 
-/*--------------------------------------------------------------------------------------*/	
-/*--------------------------------------------------------------------------------------*/	
-
-		//数组左排序：无内容在后
-		// sortArrL(posArr);
-		function sortArrL(arr){
-			// alert(arr[0])
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value!=0){
-						arr[i].push(arr[i][j])
-					}
-				}
-			}
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value==0){
-						// alert(0)
-						arr[i].push(arr[i][j])
-					}
-				}
-			}
-			for (var i = 0; i < 4; i++) {
-				arr[i].splice(0,4);	
-			}
+		var iArr=[];
+		for (var i = 0; i < 16; i++) {
+			iArr[i]=nums[i]
 		}
 
 
-		/*---------------------------------------------------*/	
-		//数组右排序：无内容在前
-		// sortArrL(posArr);
-		function sortArrR(arr){
-			// alert(arr[0])
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value==0){
-						arr[i].push(arr[i][j])
+		function toDown(num){				//向下移动
+			var arr=[];
+			for (var i = 0; i < 16; i++) {
+				if (i%4==num) {
+					if (iArr[i].value==0) {
+						arr.push(iArr[i])
 					}
 				}
 			}
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value!=0){
-						// alert(0)
-						arr[i].push(arr[i][j])
+			for (var i = 0; i < 16; i++) {
+				if (i%4==num) {
+					if (iArr[i].value!=0) {
+						arr.push(iArr[i])
 					}
 				}
 			}
+			return arr;
+		}
+		function mDown(){
+			var arr2=[]
 			for (var i = 0; i < 4; i++) {
-				arr[i].splice(0,4);	
+				for(var j=0;j<4;j++){
+					arr2.push(toDown(j)[i])
+				}
+				
 			}
+			iArr=arr2
+		}	
+		// toPos()
+
+		
+
+		function toUp(num){				//向上移动
+			var arr=[];
+			for (var i = 0; i < 16; i++) {
+				if (i%4==num) {
+					if (iArr[i].value!=0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			for (var i = 0; i < 16; i++) {
+				if (i%4==num) {
+					if (iArr[i].value==0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			return arr;
 		}
 
-
-		/*---------------------------------------------------*/	
-		//横向相邻数字相等抵消
-		function sameNumX(arr){
+		function mUp(){
+			var arr2=[]
 			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if (arr[i][j+1]) {
-						if(arr[i][j].value==arr[i][j+1].value){
-							arr[i][j].value=arr[i][j].value*2;
-							if (arr[i][j].value!=0) {
-								arr[i][j].innerHTML=arr[i][j].value+arr[i][j].id;
-							}							
-							arr[i][j+1].value=0;
-							arr[i][j+1].innerHTML=arr[i][j+1].id;	
+				for(var j=0;j<4;j++){
+					arr2.push(toUp(j)[i])
+				}
+				
+			}
+			iArr=arr2
+		}	
+		// toPos()
+		// console.log(iArr)
+
+
+		function toLeft(num){				//向左移动
+			var arr=[];
+			for (var i = 0; i < 16; i++) {
+				if (Math.floor(i/4)==num) {
+					if (iArr[i].value!=0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			for (var i = 0; i < 16; i++) {
+				if (Math.floor(i/4)==num) {
+					if (iArr[i].value==0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			return arr;
+		}
+		function mLeft(){
+			iArr=toLeft(0).concat(toLeft(1),toLeft(2),toLeft(3),toLeft(4));
+		}
+		// console.log(iArr)
+
+
+		function toRight(num){				//向右移动
+			var arr=[];
+			for (var i = 0; i < 16; i++) {
+				if (Math.floor(i/4)==num) {
+					if (iArr[i].value==0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			for (var i = 0; i < 16; i++) {
+				if (Math.floor(i/4)==num) {
+					if (iArr[i].value!=0) {
+						arr.push(iArr[i])
+					}
+				}
+			}
+			return arr;
+		}
+		function mRight(){
+			iArr=toRight(0).concat(toRight(1),toRight(2),toRight(3),toRight(4));
+		}
+		// console.log(iArr)
+
+
+		function sameX(num){							//横向消除		
+			for (var i = 0; i < 16; i++) {
+				if (Math.floor(i/4)==num) {
+					if (Math.floor((i+1)/4)!=num+1) {	//如果i+1不在下一行
+						if (iArr[i].value==iArr[i+1].value) {
+							iArr[i].value=iArr[i].value*2;
+							if (iArr[i].value!=0) {
+								iArr[i].innerHTML=iArr[i].value;
+							}
+							iArr[i+1].value=0;
+							iArr[i+1].innerHTML='';
+							// alert(1)
+						}
+					}
+				}
+			}
+		}
+		// for (var i = 0; i < 4; i++) {
+		// 	sameX(i)
+		// }
+		
+
+		function sameY(num){							//纵向消除		
+			for (var i = 0; i < 16; i++) {
+				if (i%4==num) {
+					if (iArr[i+4]) {					//如果i+4存在
+						if (iArr[i].value==iArr[i+4].value) {
+							iArr[i].value=iArr[i].value*2;
+							if (iArr[i].value!=0) {
+								iArr[i].innerHTML=iArr[i].value;
+							}
+							iArr[i+4].value=0;
+							iArr[i+4].innerHTML='';
 						}
 					}
 				}
@@ -206,85 +272,76 @@
 		}
 
 
-		/*-----------------------------------------------------------*/
-		/*-----------------------------------------------------------*/
+		// for (var i = 0; i < 4; i++) {
+		// 	sameY(i)
+		// }		
+		// for (var i = 0; i < iArr.length; i++) {
+		// 	console.log(i+':'+iArr[i].value)
+		// }
 
 
-		//数组纵向（Y轴）排序（无内容在后）
-		// sortArrY(posArr);
-		function sortArrT(arr){
-			
-
-			var newarr=arr;
-			console.dir(newarr)
-
-			var mi=0;
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-
-					if (arr[i][j].value!=0) {
-						newarr[mi][j]=arr[i][j];
-					}
-					
-				}
+		//定位函数
+		function toPos(){
+			for (var i = 0; i < 16; i++) {
+				iArr[i].style.left=0.04+i%4*0.9+'rem'
+				iArr[i].style.top=0.04+Math.floor(i/4)*0.9+'rem';
 			}
 
-
-			
 		}
 
-		/*---------------------------------------------------*/	
-		//纵向相邻数字相等抵消
-
-		function sameNumY(arr){
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					if (arr[i+1][j]) {
-						if(arr[i][j].value==arr[i+1][j].value){
-							arr[i][j].value=arr[i][j].value*2;
-							if (arr[i][j].value!=0) {
-								arr[i][j].innerHTML=arr[i][j].value;
-							}	
-							arr[i+1][j].value=0;
-							arr[i+1][j].innerHTML='';	
-						}
-					}		
-				}
-			}
-		}
 
 /*--------------------------------------------------------------------------------------*/	
 /*--------------------------------------------------------------------------------------*/	
+
 
 		var btn=document.getElementsByTagName('input');
-		btn[4].onclick=randomInner;
 
 		btn[0].onclick=function(){
-			sortArrL(posArr);
-			sameNumX(posArr);
-			sortArrL(posArr);
-
-			divPos()		//定位
+			mLeft();
+			for (var i = 0; i < 4; i++) {
+				sameX(i);
+			}
+			mLeft();		
+			toPos();
 			randomInner();	//生成数字2
 		}
-		btn[1].onclick=function(){
-			sortArrR(posArr);
-			console.dir(posArr)
-			// sameNumX(posArr);
-			// sortArrR(posArr);
 
-			divPos()		//定位
-			// randomInner();	//生成数字2
+		btn[1].onclick=function(){
+
+			mRight();
+			for (var i = 0; i < 4; i++) {
+				sameX(i)
+			}
+			mRight();
+			toPos();
+			randomInner();	//生成数字2
 		}
 
 		btn[2].onclick=function(){
-			sortArrT(posArr);
-			// sameNumY(posArr);
-			// sortArrT(posArr);
-
-			// divPos()		//定位
-			// randomInner();	//生成数字2
+			mUp();
+			for (var i = 0; i < 4; i++) {
+				sameY(i)
+			}
+			mUp();
+			toPos()
+			randomInner();	//生成数字2
 		}
+
+		btn[3].onclick=function(){
+			mDown();
+			for (var i = 0; i < 4; i++) {
+				sameY(i)
+			}
+			mDown();		
+			toPos();
+			randomInner();	//生成数字2
+		}
+
+/*--------------------------------------------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
+
+
+
 
 	
 	</script>
