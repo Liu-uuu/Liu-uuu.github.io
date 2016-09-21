@@ -57,7 +57,8 @@
 		var nums=container.getElementsByTagName('div');
 		for (var i = 0; i < nums.length; i++) {
 			nums[i].title=i;
-			nums[i].innHTML='';
+			nums[i].numValue=Math.floor(Math.random()*2);
+			nums[i].innerHTML=nums[i].numValue*2;
 		}
 		/*---------------------------------------------------*/	
 		//初始定位
@@ -71,19 +72,102 @@
 			}
 		}
 		/*---------------------------------------------------*/	
-		//定义并填充数组	
-		var upDownArr=[[],[],[],[]];				//上下移动
-		var leftRightArr=[[],[],[],[]];				//左右移动
-		for (var i = 0; i < nums.length; i++) {
-			upDownArr[nums[i].title%4].push(nums[i]);
-			leftRightArr[Math.floor(nums[i].title/4)].push(nums[i]);
+		//定义并填充数组		
+		var xArr=[[],[],[],[]];					//左右方向滑动(X轴)
+		var yArr=[[],[],[],[]];					//上下方向滑动(Y轴)
+		for (var i = 0; i < nums.length; i++) {			
+			xArr[Math.floor(nums[i].title/4)].push(nums[i]);
+			yArr[nums[i].title%4].push(nums[i]);
 		}
 
 
-		
+		//数组根据内容排序，有内容在前，无内容在后。
+		function sortArr(arr){
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j].numValue){
+						arr[i].push(arr[i][j])
+					}
+				}
+			}
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(!xArr[i][j].numValue){
+						arr[i].push(arr[i][j])
+					}
+				}
+			}
+
+			for (var i = 0; i < 4; i++) {
+				arr[i].splice(0,4);	
+			}
+		}
+
+		//根据数组重新分配title
+		for (var i = 0; i < 4; i++) {
+			for (var i = 0; i < 4; i++) {
+				xArr[i][j].title=i*4+j;
+				yArr[i][j].title=i+4*j;
+			}
+		}
 	
 
-		
+
+		//思维图
+		// if (a1=0) {
+		// 	a1置尾
+		// 	break;
+		// }else{
+		// 	if (a1+a2==a1) {
+		// 		a2=0 a2置尾
+
+		// 	}if (a1+a2==a1*2) {
+		// 		a1置零置尾，a2*2
+		// 		break;
+		// 	}
+		// }
+		// a2/a3/再来一次		
+		// 新数组形成，按数组位置重新编title。
+
+		// 复杂行不通///////////////////////////////
+
+
+		// 先清空title数组
+
+		// var eg=[
+		// 	{
+		// 		title:"a",
+		// 		name:1
+		// 	},
+		// 	{
+		// 		title:"b",
+		// 		name:0
+		// 	},
+		// 	{
+		// 		title:"c",
+		// 		name:3
+		// 	},
+		// 	{
+		// 		title:'d',
+		// 		name:4
+		// 	},
+		// 	{
+		// 		title:"e",
+		// 		name:5
+		// 	}
+		// ]
+		// for (var i = 0; i < 5; i++) {
+		// 	if (eg[i].name!=0) {
+		// 		eg.push(eg[i])
+		// 	}		
+		// }
+		// for (var i = 0; i < 5; i++) {
+		// 	if (eg[i].name==0) {
+		// 		eg.push(eg[i])
+		// 	}		
+		// }
+		// eg.splice(0,5)
+		// console.log(eg)	
 
 		
 
