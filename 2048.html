@@ -34,6 +34,7 @@
 			color: #A7D0B1;
 			text-align: center;
 			position: absolute;
+			font-size: 20px;
 		}
 		input{
 
@@ -53,8 +54,10 @@
 	<input type="button" value="生成">
 
 	<script type="text/javascript">
+		
+/*--------------------------------------------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
 		// alert('还未完成 敬请期待')
-
 		var container=document.getElementById('container');	
 		/*---------------------------------------------------*/	
 		//生成结构
@@ -67,37 +70,58 @@
 
 		/*---------------------------------------------------*/	
 		//参数初始化
-		var nums=container.getElementsByTagName('div');
-		for (var i = 0; i < nums.length; i++) {
+		var nums=container.getElementsByTagName('div'); //获取
+		for (var i = 0; i < nums.length; i++) {			//属性设置
+			nums[i].id='id'+i;
 			nums[i].title=i;
 			nums[i].value=0;
-			nums[i].innerHTML='';
+			nums[i].innerHTML=nums[i].id;
+		}		
+		var posArr=[ [] , [] , [] , [] ];				//二维数组容器
+		for (var i = 0; i < nums.length; i++) {			//初始数组
+			posArr[Math.floor(nums[i].title/4)].push(nums[i]);		
+		}		
+		divPos()										//初始定位
+		// //初始化定位		
+		// for (var i = 0; i < nums.length; i++) {
+		// 	nums[i].style.left=0.04+nums[i].title%4*0.9+'rem'
+		// 	nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
+		// }
+		randomInner();									//初始生成2次数字2
+		randomInner();
+
+/*--------------------------------------------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
+
+		//根据数组id属性获取div
+		function getDiv(divId){
+			return document.getElementById(divId)
 		}
 
 
+		/*---------------------------------------------------*/
+		//定位
+		function divPos(){
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					posArr[i][j].style.left=0.04+j*0.9+'rem'
+					posArr[i][j].style.top=0.04+i*0.9+'rem'
+				}
+			}
+		}
+
+	
 		/*---------------------------------------------------*/	
-		//初始化定位		
-		for (var i = 0; i < nums.length; i++) {
-			nums[i].style.left=0.04+nums[i].title%4*0.9+'rem'
-			nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
-		}	
-
-
-		/*---------------------------------------------------*/	
-		//初始生成2个数字2
-		randomInner();
-		randomInner();
-
 		//随机位置的空白格生成数字2
 		function randomInner(){
 			var ranNum=Math.floor(Math.random()*16);
-			if (nums[ranNum].innerHTML=='') {
+			if (nums[ranNum].value==0) {
 				nums[ranNum].value=2;
-				nums[ranNum].innerHTML=2;
+				nums[ranNum].innerHTML=2+nums[ranNum].id;
 			}else{
 				var nextRanNum=false;
 				for (var i = 0; i < 16; i++) {
-					if (nums[i].innerHTML=='') {
+					if (nums[i].value==0) {
 						nextRanNum=true;
 						break;
 					}
@@ -108,19 +132,9 @@
 			}
 		}
 
-
-		/*---------------------------------------------------*/	
-		//定义二维数组记录坐标		
-		var posArr=[ [] , [] , [] , [] ];
-		//各个元素装进数组
-		for (var i = 0; i < nums.length; i++) {		
-			posArr[Math.floor(nums[i].title/4)].push(nums[i]);		
-		}
-		// console.dir(posArr)
-
-
 /*--------------------------------------------------------------------------------------*/	
-		/*---------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
+
 		//数组左排序：无内容在后
 		// sortArrL(posArr);
 		function sortArrL(arr){
@@ -181,67 +195,66 @@
 						if(arr[i][j].value==arr[i][j+1].value){
 							arr[i][j].value=arr[i][j].value*2;
 							if (arr[i][j].value!=0) {
-								arr[i][j].innerHTML=arr[i][j].value;
+								arr[i][j].innerHTML=arr[i][j].value+arr[i][j].id;
 							}							
 							arr[i][j+1].value=0;
-							arr[i][j+1].innerHTML='';	
+							arr[i][j+1].innerHTML=arr[i][j+1].id;	
 						}
 					}
 				}
 			}
 		}
-		/*---------------------------------------------------*/	
 
 
-/*--------------------------------------------------------------------------------------*/
+		/*-----------------------------------------------------------*/
+		/*-----------------------------------------------------------*/
 
 
-		/*---------------------------------------------------*/	
 		//数组纵向（Y轴）排序（无内容在后）
 		// sortArrY(posArr);
-		function sortArrY(arr){
-			arr.push(arr)
-			var arrIndex=4;
-			for (var i = 0; i < 4; i++) {
+		function sortArrT(arr){
+			
 
-				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value!=0){
-						arr[arrIndex][j].value=arr[i][j].value;
-						arrIndex++;	
-					}
-				}
-			}
+			var newarr=arr;
+			console.dir(newarr)
+
+			var mi=0;
 			for (var i = 0; i < 4; i++) {
 				for (var j = 0; j < 4; j++) {
-					if(arr[i][j]==0){
-						arr[arrIndex][j].value=arr[i][j].value
-						arrIndex++;	
+
+					if (arr[i][j].value!=0) {
+						newarr[mi][j]=arr[i][j];
 					}
+					
 				}
 			}
-				
-			arr.splice(0,4);
+
+
+			
 		}
 
 		/*---------------------------------------------------*/	
 		//纵向相邻数字相等抵消
-		function sameNumY(){
+
+		function sameNumY(arr){
 			for (var i = 0; i < 4; i++) {
 				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].value==arr[i+1][j].value){
-						arr[i][j].value*=2;
-						arr[i+1][j].value=0;
-						arr[i+1][j].innerHTML='';
-					}
+					if (arr[i+1][j]) {
+						if(arr[i][j].value==arr[i+1][j].value){
+							arr[i][j].value=arr[i][j].value*2;
+							if (arr[i][j].value!=0) {
+								arr[i][j].innerHTML=arr[i][j].value;
+							}	
+							arr[i+1][j].value=0;
+							arr[i+1][j].innerHTML='';	
+						}
+					}		
 				}
 			}
 		}
 
-
-
-
-		//辅助区
-		/*---------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
+/*--------------------------------------------------------------------------------------*/	
 
 		var btn=document.getElementsByTagName('input');
 		btn[4].onclick=randomInner;
@@ -251,43 +264,29 @@
 			sameNumX(posArr);
 			sortArrL(posArr);
 
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					posArr[i][j].style.left=0.04+j*0.9+'rem'
-					posArr[i][j].style.top=0.04+i*0.9+'rem'
-				}
-			}
-			randomInner();
+			divPos()		//定位
+			randomInner();	//生成数字2
 		}
 		btn[1].onclick=function(){
 			sortArrR(posArr);
-			sameNumX(posArr);
-			sortArrR(posArr);
+			console.dir(posArr)
+			// sameNumX(posArr);
+			// sortArrR(posArr);
 
-			for (var i = 0; i < 4; i++) {
-				for (var j = 0; j < 4; j++) {
-					posArr[i][j].style.left=0.04+j*0.9+'rem'
-					posArr[i][j].style.top=0.04+i*0.9+'rem'
-				}
-			}
-			randomInner();
+			divPos()		//定位
+			// randomInner();	//生成数字2
 		}
 
-		// btn[2].onclick=function(){
-		// 	sortArrY(posArr);
-		// 	sameNumX(posArr);
-		// 	sortArrY(posArr);
+		btn[2].onclick=function(){
+			sortArrT(posArr);
+			// sameNumY(posArr);
+			// sortArrT(posArr);
 
-		// 	for (var i = 0; i < 4; i++) {
-		// 		for (var j = 0; j < 4; j++) {
-		// 			posArr[i][j].style.left=0.04+j*0.9+'rem'
-		// 			posArr[i][j].style.top=0.04+i*0.9+'rem'
-		// 		}
-		// 	}
-		// 	randomInner();
-		// }
+			// divPos()		//定位
+			// randomInner();	//生成数字2
+		}
 
-
+	
 	</script>
 </body>
 
