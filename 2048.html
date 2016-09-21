@@ -43,6 +43,7 @@
 	<div id="container"></div>
 
 	<script type="text/javascript">
+		alert('还未完成 敬请期待')
 
 		var container=document.getElementById('container');	
 		/*---------------------------------------------------*/	
@@ -57,27 +58,34 @@
 		var nums=container.getElementsByTagName('div');
 		for (var i = 0; i < nums.length; i++) {
 			nums[i].title=i;
-			nums[i].numValue=Math.floor(Math.random()*2);
-			nums[i].innerHTML=nums[i].numValue*2;
+			nums[i].innerHTML=Math.floor(Math.random()*2)*2;
 		}
 		/*---------------------------------------------------*/	
-		//初始定位
-		toPos()
+		//定义元素的定位坐标
+		for (var i = 0; i < nums.length; i++) {
+			nums[i].posX=nums[i].title%4;
+			nums[i].poxY=Math.floor(nums[i].title/4);
+		}
 		/*---------------------------------------------------*/	
-		//定位函数（根据title）
+		toPos()//初始化定位
+
+		//定位函数
 		function toPos() {
 			for (var i = 0; i < nums.length; i++) {
-				nums[i].style.left=0.04+nums[i].title%4*0.9+'rem'
-				nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
+				nums[i].style.left=0.04+nums[i].posX*0.9+'rem'
+				nums[i].style.top=0.04+nums[i].poxY*0.9+'rem';
 			}
 		}
+				
 		/*---------------------------------------------------*/	
-		//定义并填充数组		
-		var xArr=[[],[],[],[]];					//左右方向滑动(X轴)
-		var yArr=[[],[],[],[]];					//上下方向滑动(Y轴)
-		for (var i = 0; i < nums.length; i++) {			
-			xArr[Math.floor(nums[i].title/4)].push(nums[i]);
-			yArr[nums[i].title%4].push(nums[i]);
+		//二维数组记录坐标		
+		var posArr=[[],[],[],[]];
+
+		for (var i = 0; i < nums.length; i++) {
+			for(var j=0;j<nums.length;j++){
+
+			}			
+
 		}
 
 
@@ -101,15 +109,10 @@
 			for (var i = 0; i < 4; i++) {
 				arr[i].splice(0,4);	
 			}
-		}
 
-		//根据数组重新分配title
-		for (var i = 0; i < 4; i++) {
-			for (var i = 0; i < 4; i++) {
-				xArr[i][j].title=i*4+j;
-				yArr[i][j].title=i+4*j;
-			}
+
 		}
+	window.location.herf='a.html'
 	
 
 
