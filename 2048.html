@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1" />
-	<title>2048ForYou</title>
+	<title>移动端--2048ForYou</title>
 	<script>
 		var thisHtml=document.getElementsByTagName('html');
 		var deviceW=document.documentElement.clientWidth;
@@ -35,144 +35,258 @@
 			text-align: center;
 			position: absolute;
 		}
+		input{
+
+			/*margin: 0;*/
+			padding:0 0.02rem;
+		}
 
 	</style>
 </head>
 
 <body>
 	<div id="container"></div>
+	<input type="button" value="左">
+	<input type="button" value="右">
+	<input type="button" value="上">
+	<input type="button" value="下">
+	<input type="button" value="生成">
 
 	<script type="text/javascript">
-		alert('还未完成 敬请期待')
+		// alert('还未完成 敬请期待')
 
 		var container=document.getElementById('container');	
 		/*---------------------------------------------------*/	
-		//生成
+		//生成结构
 		var box='';
 		for (var i = 0; i < 16; i++) {
 			box+='<div>'+i+'</div>'
 		}
 		container.innerHTML+=box;
+
+
 		/*---------------------------------------------------*/	
 		//参数初始化
 		var nums=container.getElementsByTagName('div');
 		for (var i = 0; i < nums.length; i++) {
 			nums[i].title=i;
-			nums[i].innerHTML=Math.floor(Math.random()*2)*2;
+			nums[i].value=0;
+			nums[i].innerHTML='';
 		}
-		/*---------------------------------------------------*/	
-		//定义元素的定位坐标
-		for (var i = 0; i < nums.length; i++) {
-			nums[i].posX=nums[i].title%4;
-			nums[i].poxY=Math.floor(nums[i].title/4);
-		}
-		/*---------------------------------------------------*/	
-		toPos()//初始化定位
 
-		//定位函数
-		function toPos() {
-			for (var i = 0; i < nums.length; i++) {
-				nums[i].style.left=0.04+nums[i].posX*0.9+'rem'
-				nums[i].style.top=0.04+nums[i].poxY*0.9+'rem';
+
+		/*---------------------------------------------------*/	
+		//初始化定位		
+		for (var i = 0; i < nums.length; i++) {
+			nums[i].style.left=0.04+nums[i].title%4*0.9+'rem'
+			nums[i].style.top=0.04+Math.floor(nums[i].title/4)*0.9+'rem';
+		}	
+
+
+		/*---------------------------------------------------*/	
+		//初始生成2个数字2
+		randomInner();
+		randomInner();
+
+		//随机位置的空白格生成数字2
+		function randomInner(){
+			var ranNum=Math.floor(Math.random()*16);
+			if (nums[ranNum].innerHTML=='') {
+				nums[ranNum].value=2;
+				nums[ranNum].innerHTML=2;
+			}else{
+				var nextRanNum=false;
+				for (var i = 0; i < 16; i++) {
+					if (nums[i].innerHTML=='') {
+						nextRanNum=true;
+						break;
+					}
+				}
+				if (nextRanNum) {
+					randomInner()
+				}					
 			}
 		}
-				
+
+
 		/*---------------------------------------------------*/	
-		//二维数组记录坐标		
-		var posArr=[[],[],[],[]];
-
-		for (var i = 0; i < nums.length; i++) {
-			for(var j=0;j<nums.length;j++){
-
-			}			
-
+		//定义二维数组记录坐标		
+		var posArr=[ [] , [] , [] , [] ];
+		//各个元素装进数组
+		for (var i = 0; i < nums.length; i++) {		
+			posArr[Math.floor(nums[i].title/4)].push(nums[i]);		
 		}
+		// console.dir(posArr)
 
 
-		//数组根据内容排序，有内容在前，无内容在后。
-		function sortArr(arr){
+/*--------------------------------------------------------------------------------------*/	
+		/*---------------------------------------------------*/	
+		//数组左排序：无内容在后
+		// sortArrL(posArr);
+		function sortArrL(arr){
+			// alert(arr[0])
 			for (var i = 0; i < 4; i++) {
 				for (var j = 0; j < 4; j++) {
-					if(arr[i][j].numValue){
+					if(arr[i][j].value!=0){
 						arr[i].push(arr[i][j])
 					}
 				}
 			}
 			for (var i = 0; i < 4; i++) {
 				for (var j = 0; j < 4; j++) {
-					if(!xArr[i][j].numValue){
+					if(arr[i][j].value==0){
+						// alert(0)
 						arr[i].push(arr[i][j])
 					}
 				}
 			}
-
 			for (var i = 0; i < 4; i++) {
 				arr[i].splice(0,4);	
 			}
-
-
 		}
-	window.location.herf='a.html'
-	
 
 
-		//思维图
-		// if (a1=0) {
-		// 	a1置尾
-		// 	break;
-		// }else{
-		// 	if (a1+a2==a1) {
-		// 		a2=0 a2置尾
+		/*---------------------------------------------------*/	
+		//数组右排序：无内容在前
+		// sortArrL(posArr);
+		function sortArrR(arr){
+			// alert(arr[0])
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j].value==0){
+						arr[i].push(arr[i][j])
+					}
+				}
+			}
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j].value!=0){
+						// alert(0)
+						arr[i].push(arr[i][j])
+					}
+				}
+			}
+			for (var i = 0; i < 4; i++) {
+				arr[i].splice(0,4);	
+			}
+		}
 
-		// 	}if (a1+a2==a1*2) {
-		// 		a1置零置尾，a2*2
-		// 		break;
+
+		/*---------------------------------------------------*/	
+		//横向相邻数字相等抵消
+		function sameNumX(arr){
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if (arr[i][j+1]) {
+						if(arr[i][j].value==arr[i][j+1].value){
+							arr[i][j].value=arr[i][j].value*2;
+							if (arr[i][j].value!=0) {
+								arr[i][j].innerHTML=arr[i][j].value;
+							}							
+							arr[i][j+1].value=0;
+							arr[i][j+1].innerHTML='';	
+						}
+					}
+				}
+			}
+		}
+		/*---------------------------------------------------*/	
+
+
+/*--------------------------------------------------------------------------------------*/
+
+
+		/*---------------------------------------------------*/	
+		//数组纵向（Y轴）排序（无内容在后）
+		// sortArrY(posArr);
+		function sortArrY(arr){
+			arr.push(arr)
+			var arrIndex=4;
+			for (var i = 0; i < 4; i++) {
+
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j].value!=0){
+						arr[arrIndex][j].value=arr[i][j].value;
+						arrIndex++;	
+					}
+				}
+			}
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j]==0){
+						arr[arrIndex][j].value=arr[i][j].value
+						arrIndex++;	
+					}
+				}
+			}
+				
+			arr.splice(0,4);
+		}
+
+		/*---------------------------------------------------*/	
+		//纵向相邻数字相等抵消
+		function sameNumY(){
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					if(arr[i][j].value==arr[i+1][j].value){
+						arr[i][j].value*=2;
+						arr[i+1][j].value=0;
+						arr[i+1][j].innerHTML='';
+					}
+				}
+			}
+		}
+
+
+
+
+		//辅助区
+		/*---------------------------------------------------*/	
+
+		var btn=document.getElementsByTagName('input');
+		btn[4].onclick=randomInner;
+
+		btn[0].onclick=function(){
+			sortArrL(posArr);
+			sameNumX(posArr);
+			sortArrL(posArr);
+
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					posArr[i][j].style.left=0.04+j*0.9+'rem'
+					posArr[i][j].style.top=0.04+i*0.9+'rem'
+				}
+			}
+			randomInner();
+		}
+		btn[1].onclick=function(){
+			sortArrR(posArr);
+			sameNumX(posArr);
+			sortArrR(posArr);
+
+			for (var i = 0; i < 4; i++) {
+				for (var j = 0; j < 4; j++) {
+					posArr[i][j].style.left=0.04+j*0.9+'rem'
+					posArr[i][j].style.top=0.04+i*0.9+'rem'
+				}
+			}
+			randomInner();
+		}
+
+		// btn[2].onclick=function(){
+		// 	sortArrY(posArr);
+		// 	sameNumX(posArr);
+		// 	sortArrY(posArr);
+
+		// 	for (var i = 0; i < 4; i++) {
+		// 		for (var j = 0; j < 4; j++) {
+		// 			posArr[i][j].style.left=0.04+j*0.9+'rem'
+		// 			posArr[i][j].style.top=0.04+i*0.9+'rem'
+		// 		}
 		// 	}
+		// 	randomInner();
 		// }
-		// a2/a3/再来一次		
-		// 新数组形成，按数组位置重新编title。
 
-		// 复杂行不通///////////////////////////////
-
-
-		// 先清空title数组
-
-		// var eg=[
-		// 	{
-		// 		title:"a",
-		// 		name:1
-		// 	},
-		// 	{
-		// 		title:"b",
-		// 		name:0
-		// 	},
-		// 	{
-		// 		title:"c",
-		// 		name:3
-		// 	},
-		// 	{
-		// 		title:'d',
-		// 		name:4
-		// 	},
-		// 	{
-		// 		title:"e",
-		// 		name:5
-		// 	}
-		// ]
-		// for (var i = 0; i < 5; i++) {
-		// 	if (eg[i].name!=0) {
-		// 		eg.push(eg[i])
-		// 	}		
-		// }
-		// for (var i = 0; i < 5; i++) {
-		// 	if (eg[i].name==0) {
-		// 		eg.push(eg[i])
-		// 	}		
-		// }
-		// eg.splice(0,5)
-		// console.log(eg)	
-
-		
 
 	</script>
 </body>
