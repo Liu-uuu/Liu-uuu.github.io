@@ -64,9 +64,9 @@
 	<div id="container"></div>
 	<div id="btns">
 		<input type="button" value="左">
-		<input type="button" value="右">
 		<input type="button" value="上">
 		<input type="button" value="下">
+		<input type="button" value="右">
 	</div>
 
 
@@ -303,7 +303,7 @@
 
 		var btn=document.getElementsByTagName('input');
 
-		btn[0].onclick=function(){
+		btn[0].onclick=function(){			//左
 			mLeft();
 			for (var i = 0; i < 4; i++) {
 				sameX(i);
@@ -313,7 +313,7 @@
 			randomInner();	//生成数字2
 		}
 
-		btn[1].onclick=function(){
+		btn[3].onclick=function(){			//右
 
 			mRight();
 			for (var i = 0; i < 4; i++) {
@@ -324,7 +324,7 @@
 			randomInner();	//生成数字2
 		}
 
-		btn[2].onclick=function(){
+		btn[1].onclick=function(){			//上
 			mUp();
 			for (var i = 0; i < 4; i++) {
 				sameY(i)
@@ -334,7 +334,7 @@
 			randomInner();	//生成数字2
 		}
 
-		btn[3].onclick=function(){
+		btn[2].onclick=function(){			//下
 			mDown();
 			for (var i = 0; i < 4; i++) {
 				sameY(i)
