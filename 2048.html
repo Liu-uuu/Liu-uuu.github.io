@@ -11,9 +11,12 @@
 	</script>
 	<style type="text/css">
 		body{
-			background: pink;
-			font-size: 0.5rem;
-			text-align: center;
+			background: #21CC75;
+			font-size: 16px;
+			font-family: "微软雅黑";
+		}
+		#love{
+			/*text-align: center;*/
 		}
 		#container{
 			width: 3.60rem;
@@ -36,23 +39,37 @@
 			color: #A7D0B1;
 			text-align: center;
 			position: absolute;
-			transition: .1s;
+			transition: 0.1s;
+		}
+		#btns{
+			border: 2px solid #fff;
+			border-radius:10%;
+			padding: 5%;
+			font-size: 0.2rem;
+			text-align: center;
+			position:relative;
+			top: 10px;
 		}
 		input{
-			font-size: 0.3rem;
-			
+			font-size: 0.3rem;		
 			padding:0.01rem;
+			position: relative;
+			bottom: 0.02rem;
 		}
 
 	</style>
 </head>
 
 <body>
+	<div id="love">For LXX</div>
 	<div id="container"></div>
-	<input type="button" value="左">
-	<input type="button" value="右"><br/>
-	<input type="button" value="上">
-	<input type="button" value="下">
+	<div id="btns">
+		<input type="button" value="左">
+		<input type="button" value="右">
+		<input type="button" value="上">
+		<input type="button" value="下">
+	</div>
+
 
 	<script type="text/javascript">
 		
