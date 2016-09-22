@@ -105,11 +105,11 @@ function removeOneFile(obj){
 /*----------------------响应式调整主体内容区宽高---------------------*/
 var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
 var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
-if (windowW<600) {windowW=600}
+if (windowW<1000) {windowW=1000}
 if (windowH<400) {windowH=400}
-yun.style.width=windowW*0.7+'px';
-yun.style.height=windowH*0.9+'px';		
-yun.style.left=windowW*0.15+'px';
+yun.style.width=windowW*0.66+'px';
+yun.style.height=windowW*0.4+'px';		
+yun.style.left=windowW*0.17+'px';
 yun.style.top=windowH*0.05+'px';//模拟窗口大小根据打开时的浏览器窗口大小初始化
 
 
