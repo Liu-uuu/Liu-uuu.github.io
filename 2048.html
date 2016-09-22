@@ -17,7 +17,9 @@
 			font-family: "微软雅黑";
 		}
 		#love{
-			/*text-align: center;*/
+			line-height: 60px;
+			color: #fff;
+			text-align: center;
 		}
 		#container{
 			width: 3.60rem;
@@ -60,8 +62,7 @@
 	</style>
 </head>
 
-<body>
-	<div id="love">For LXX</div>
+<body>	
 	<div id="container"></div>
 	<div id="btns">
 		<input type="button" value="左">
@@ -69,7 +70,7 @@
 		<input type="button" value="下">
 		<input type="button" value="右">
 	</div>
-
+	<div id="love">--- BY JXXL ---</div>
 
 	<script type="text/javascript">
 		
@@ -345,6 +346,9 @@
 			randomInner();	//生成数字2
 		}
 
+		document.ontuchmove=function(e){
+			e.prevnentDefault();
+		}
 /*--------------------------------------------------------------------------------------*/	
 /*--------------------------------------------------------------------------------------*/	
 
