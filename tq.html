@@ -77,8 +77,18 @@
 			overflow: hidden;
 			position: relative;
 		}
+		.tomorrow div,.yesterday div{
+			position: relative;
+		}
 		.twodays strong{
-			float: right;
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: inline-block;
+			text-align: right;
+		}
+		.twodays b{
+			display: inline-block;
 		}
 		.yesterday{
 			width: 40%;
@@ -92,12 +102,7 @@
 			top: 0;
 			right: 0;
 		}
-		.twodays strong{
-			text-align: right;
-			/*display: inline-block;*/
-		}
-
-
+	
 		.tab_btn{
 			border-bottom: 1px solid #5FA3E4;
 			background: #2684C5;
