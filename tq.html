@@ -161,10 +161,10 @@
 	        <span class="wea_wind">加载中</span>
 	    </div>
 
-	    <div class="time">
-		    <span class="week">星期五</span>
-		    <span class="date">18:32</span>
-		    <span class="ym">9月25日</span>	    
+	    <div class="time" id="time">
+		    <span class="week">星期</span>
+		    <span class="date">00:00</span>
+		    <span class="ym">0月0日</span>	    
 	    </div>
 
 	    <div class="twodays">
@@ -280,6 +280,7 @@
 	var fs=document.getElementById('fs');
 	var yd=document.getElementById('yd');
 	var xc=document.getElementById('xc');
+	var timeDiv=document.getElementById('time');
 
 	var date;
 	var xhr=new XMLHttpRequest();
@@ -290,7 +291,7 @@
 		if (xhr.readyState==4) {
 			if (xhr.status==200) {
 				date=JSON.parse(xhr.responseText);
-				console.log(date)
+				// console.log(date)
 				today.innerHTML="<span class="+"wea_type"+">"+date.retData.today.type+"</span>"+
 		    "<span class="+"wea_tem"+">"+date.retData.today.curTemp+"</span>"+
 		    "<span class="+"wea_wind"+">"+date.retData.today.fengxiang+date.retData.today.fengli+"</span>"+
@@ -304,6 +305,16 @@
 			}	
 		}
 	}
+	var week=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+	setInterval(settime,60000);
+	settime()
+	function settime(){
+		var newtime=new Date();
+		timeDiv.innerHTML="<span class="+"week"+">"+week[newtime.getDay()]+"</span><span class="+"date"+">"+newtime.getHours()+":"+newtime.getMinutes()+"</span><span class="+"ym"+">"+(newtime.getMonth()+1)+"月"+newtime.getDate()+"日</span>";
+		// console.log(newtime.getTime())	
+	}
+	
+  
 </script>
 </body>
 </html>
