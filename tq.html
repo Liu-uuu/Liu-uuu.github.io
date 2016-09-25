@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+	<title>JXXL-天气</title>
+	<script>
+		var thisHtml=document.getElementsByTagName('html');
+		var deviceW=document.documentElement.clientWidth;
+		thisHtml[0].style.fontSize=deviceW/3.75+"px";
+	</script>
+	<style type="text/css">
+
+		html,body{
+			height: 100%;
+		}
+		body,ul,li{
+			margin: 0;
+			padding: 0;
+			font-size: 0.16rem;
+			/*background: #212158;*/
+			color: #fff;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			height: 100%;
+			background: #0D5AA5;
+		}
+		
+		.topmsg .city{
+			line-height: 0.4rem;
+			font-size: 0.18rem;
+			text-align: center;
+		}
+
+
+		#today{
+			position: relative;
+			background: #2684C5;
+		}
+		.time{
+			width: 1.2rem;
+			border:1px solid #5FA3E4; 
+			line-height: 0.36rem;
+			font-size: 0.18rem;
+			text-align: center;
+			position: absolute;
+			right: 0.1rem;
+			top: 0.1rem;
+
+		}
+		.time span{
+			display: block;
+		}
+		.time .date{
+			font-size: 0.40rem;
+			font-weight: bold;
+		}
+
+		.today_wea{
+			padding:0.3rem;
+		}
+		.today_wea span{
+			display: block;
+			line-height: 0.26rem;
+		}
+		.today_wea .wea_tem{
+			font-size:0.5rem;
+			line-height: 0.44rem;
+		}
+
+		.twodays{
+			border-top: 1px solid #5FA3E4;
+			 position: relative;
+		}
+		.twodays strong{
+			float: right;
+		}
+		.yesterday{
+			width: 40%;
+			padding: 0.1rem 0.2rem;
+		}
+		.tomorrow{
+			width: 40%;
+			padding: 0.1rem 0.2rem;
+			border-left: 1px solid #fff;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		.twodays strong{
+			text-align: right;
+		}
+
+
+		.tab_btn{
+			border-bottom: 1px solid #5FA3E4;
+		}
+		.tab_btn span{
+			height: 0.3rem;
+			padding: 0.06rem;
+			font-size: 0.16rem;
+			line-height: 0.3rem;
+			display: inline-block;
+		}
+		.tab_btn span.active{
+			background: #5FA3E4;
+		}
+		.tab_today ul{
+			text-align: center;
+			font-size: 0;
+		}
+		.tab_today li{
+			display: inline-block;
+			width:49%;
+			height: 1.5rem;
+			border: 1px solid #5FA3E4;
+			font-size: 0; 
+			text-align: center;
+		}
+		.tab_allday{
+			display: none;
+		}
+
+
+	</style>
+</head>
+<body>
+<div id="container">
+
+	<div class="topmsg">
+	    <div class="city">当前：北京市</div>
+
+	</div>
+
+	<div id="today">
+
+	    <div class="today_wea">
+		    <span class="wea_type">多云</span>
+		    <span class="wea_tem">21</span>
+		    <span class="wea_wind">北风1级</span>
+	        <span class="wea_wind">最低21,最高温度25</span>
+	    </div>
+
+	    <div class="time">
+		    <span class="week">星期五</span>
+		    <span class="date">18:32</span>
+		    <span class="ym">9月25日</span>	    
+	    </div>
+
+	    <div class="twodays">
+	        <div class="yesterday">
+	            <div>
+	                <b>昨天</b>
+	                <strong>19 / 27°</strong>
+	            </div>
+	            <div>
+		            <b>星期111</b>
+	                <strong>多云</strong>
+	            </div>
+	        </div>
+
+	        <div class="tomorrow">
+	            <div>
+	                <b>明天</b>
+	                <strong>18/25°C</strong>
+	            </div>
+	            <div>
+		            <b>星期222</b>
+	                <strong>阵雨</strong>
+	            </div>
+	        </div>
+
+	    </div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<div class="tab">
+
+	    <div class="tab_btn">
+	        <span class="active">今日天气详情</span>
+	        <span>未来7天天气</span>
+	    </div>
+
+	    <div class="tab_body">
+	        <div class="tab_today">
+	            <ul>
+	                <li>
+	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/20.png"></span>
+	                    <em>穿衣 凉爽</em>
+	                </li>
+	                <li>
+	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/21.png"></span>
+	                    <em>紫外线 弱</em>
+	                </li>
+	            </ul>
+                <ul>
+	                <li>
+	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/26.png"></span>
+	                    <em>运动 不适宜</em>
+	                </li>
+	                <li>
+	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/17.png"></span>
+	                    <em>洗车 较不适宜</em>
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+
+	    <div class="tab_allday">
+	        <div class="weak_wea">
+	            <ul>
+	                <li data-high="29" data-low="17">
+
+	                    <em>周六</em>
+	                    <dl class="wea">
+	                        <dt><img src="http://cdn.moji.com/mtianqi/assets/images/wea/w4.png" alt="" /></dt>
+	                        <dd><strong>雷阵雨</strong></dd>
+	                    </dl>
+	                    <dl class="wind">
+	                        <dd>北风</dd>
+	                        <dd>3级</dd>
+	                    </dl>
+
+	                </li>
+
+	                <li data-high="27" data-low="19">
+
+	                    <em>周日</em>
+	                    <dl class="wea">
+	                        <dt><img src="http://cdn.moji.com/mtianqi/assets/images/wea/w2.png" alt="" /></dt>
+	                        <dd><strong>阴</strong></dd>
+	                    </dl>
+	                    <dl class="wind">
+	                        <dd>北风</dd>
+	                        <dd>3级</dd>
+	                    </dl>
+
+	                </li>
+	            </ul>
+
+	        </div>
+	    </div>
+
+
+
+	</div>
+</div>
+</body>
+</html>
