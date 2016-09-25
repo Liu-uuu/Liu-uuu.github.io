@@ -59,7 +59,7 @@
 		}
 
 		.today_wea{
-			padding:0.3rem;
+			padding:0.2rem 0.3rem;
 		}
 		.today_wea span{
 			display: block;
@@ -122,17 +122,19 @@
 		.tab_today li{
 			display: inline-block;
 			width:1.64rem;
-			height: 1.2rem;
+			height: 1.56rem;
 			border: 1px solid #5FA3E4;
 			padding:0.1rem 0.1rem;
 			/*font-size: 0; */
 			text-align: center;
+			overflow: hidden;
 		}
 		.tab_today li span{
 			display: block;
+			padding: 0.02rem;
 		}
 		.tab_allday{
-			/*display: none;*/
+			display: none;
 		}
 		.tab_allday li{
 			display: inline-block;
@@ -152,11 +154,11 @@
 
 	<div id="today">
 
-	    <div class="today_wea">
-		    <span class="wea_type">多云</span>
-		    <span class="wea_tem">21</span>
-		    <span class="wea_wind">北风1级</span>
-	        <span class="wea_wind">最低21,最高温度25</span>
+	    <div class="today_wea" id="today_wea">
+		    <span class="wea_type">加载中</span>
+		    <span class="wea_tem">加载中</span>
+		    <span class="wea_wind">加载中</span>
+	        <span class="wea_wind">加载中</span>
 	    </div>
 
 	    <div class="time">
@@ -166,25 +168,25 @@
 	    </div>
 
 	    <div class="twodays">
-	        <div class="yesterday">
+	        <div class="yesterday" id="yesterday">
 	            <div>
 	                <b>昨天</b>
 	                <strong>19 / 27°</strong>
 	            </div>
 	            <div>
-		            <b>星期111</b>
-	                <strong>多云</strong>
+		            <b>加载中</b>
+	                <strong>加载中</strong>
 	            </div>
 	        </div>
 
-	        <div class="tomorrow">
+	        <div class="tomorrow" id="tomorrow">
 	            <div>
 	                <b>明天</b>
-	                <strong>18/25°C</strong>
+	                <strong>加载中/加载中</strong>
 	            </div>
 	            <div>
-		            <b>星期222</b>
-	                <strong>阵雨</strong>
+		            <b>加载中</b>
+	                <strong>加载中</strong>
 	            </div>
 	        </div>
 
@@ -203,7 +205,7 @@
 
 	    <div class="tab_btn">
 	        <span class="active">今日天气详情</span>
-	        <span>未来7天天气</span>
+	        <span><!-- 未来7天天气 --></span>
 	    </div>
 
 	    <div class="tab_body">
@@ -211,21 +213,21 @@
 	            <ul>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/20.png"></span>
-	                    <apan>穿衣 凉爽</apan>
+	                    <div id="cy"><apan>穿衣 加载中</apan></div>
 	                </li>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/21.png"></span>
-	                    <apan>紫外线 弱</apan>
+	                    <div id="fs"><apan>紫外线 加载中</apan></div>
 	                </li>
 	            </ul>
                 <ul>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/26.png"></span>
-	                    <apan>运动 不适宜</apan>
+	                    <div id="yd"><apan>运动 加载中</apan></div>
 	                </li>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/17.png"></span>
-	                    <apan>洗车 较不适宜</apan>
+	                    <div id="xc"><apan>洗车 加载中</apan></div>
 	                </li>
 	            </ul>
 	        </div>
@@ -270,5 +272,38 @@
 
 	</div>
 </div>
+<script type="text/javascript">
+	var today=document.getElementById('today_wea');
+	var yesterday=document.getElementById('yesterday');
+	var tomorrow=document.getElementById('tomorrow');
+	var cy=document.getElementById('cy');
+	var fs=document.getElementById('fs');
+	var yd=document.getElementById('yd');
+	var xc=document.getElementById('xc');
+
+	var date;
+	var xhr=new XMLHttpRequest();
+	xhr.open('get','http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=北京',true);
+	xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436')
+	xhr.send();
+	xhr.onreadystatechange=function(){
+		if (xhr.readyState==4) {
+			if (xhr.status==200) {
+				date=JSON.parse(xhr.responseText);
+				console.log(date)
+				today.innerHTML="<span class="+"wea_type"+">"+date.retData.today.type+"</span>"+
+		    "<span class="+"wea_tem"+">"+date.retData.today.curTemp+"</span>"+
+		    "<span class="+"wea_wind"+">"+date.retData.today.fengxiang+date.retData.today.fengli+"</span>"+
+	        "<span class="+"wea_temp"+">"+"温度最低"+date.retData.today.lowtemp+"/最高"+date.retData.today.hightemp+"</span>";
+	        	yesterday.innerHTML="<div><b>昨天</b><strong>"+date.retData.history[6].lowtemp+"/"+date.retData.history[6].hightemp+"</strong></div><div><b>"+date.retData.history[6].week+"</b><strong>"+date.retData.history[6].type+"</strong></div>";
+	        	tomorrow.innerHTML="<div><b>明天</b><strong>"+date.retData.forecast[0].lowtemp+"/"+date.retData.forecast[0].hightemp+"</strong></div><div><b>"+date.retData.forecast[0].week+"</b><strong>"+date.retData.forecast[0].type+"</strong></div>";
+	        	cy.innerHTML="<span>穿衣指数:"+date.retData.today.index[2].index+"</span><span>"+date.retData.today.index[2].details+"</span>";
+	        	fs.innerHTML="<span>紫外线指数:"+date.retData.today.index[1].index+"</span><span>"+date.retData.today.index[1].details+"</span>";
+	        	yd.innerHTML="<span>运动指数:"+date.retData.today.index[3].index+"</span><span>"+date.retData.today.index[3].details+"</span>";
+	        	xc.innerHTML="<span>洗车线指数:"+date.retData.today.index[4].index+"</span><span>"+date.retData.today.index[4].details+"</span>";
+			}	
+		}
+	}
+</script>
 </body>
 </html>
