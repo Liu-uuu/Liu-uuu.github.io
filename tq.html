@@ -298,8 +298,10 @@
 		    "<span class="+"wea_tem"+">"+date.retData.today.curTemp+"</span>"+
 		    "<span class="+"wea_wind"+">"+date.retData.today.fengxiang+date.retData.today.fengli+"</span>"+
 	        "<span class="+"wea_temp"+">"+"温度最低"+date.retData.today.lowtemp+"/最高"+date.retData.today.hightemp+"</span>";
-	        	yesterday.innerHTML="<div><b>昨天</b><strong>"+date.retData.history[6].lowtemp+"/"+date.retData.history[6].hightemp+"</strong></div><div><b>"+date.retData.history[6].week+"</b><strong>"+date.retData.history[6].type+"</strong></div>";
-	        	tomorrow.innerHTML="<div><b>明天</b><strong>"+date.retData.forecast[0].lowtemp+"/"+date.retData.forecast[0].hightemp+"</strong></div><div><b>"+date.retData.forecast[0].week+"</b><strong>"+date.retData.forecast[0].type+"</strong></div>";
+	        	yesterday.innerHTML="<div>"+"<b>昨天</b><strong>"+date.retData.history[6].lowtemp+"/"+date.retData.history[6].hightemp+"</strong></div><div><b>"+date.retData.history[6].week+"</b><strong>"+date.retData.history[6].type+"</strong></div>";
+	        	tomorrow.innerHTML="<div><b>明天</b><strong>"+date.retData.forecast[0].lowtemp+"/"+date.retData.forecast[0].hightemp+"</strong></div><div><b>"+date.retData.forecast[0].week+"</b><strong>"+"000"+"</strong></div>";
+// date.retData.forecast[0].type
+
 	        	cy.innerHTML="<span>穿衣指数:"+date.retData.today.index[2].index+"</span><span>"+date.retData.today.index[2].details+"</span>";
 	        	fs.innerHTML="<span>紫外线指数:"+date.retData.today.index[1].index+"</span><span>"+date.retData.today.index[1].details+"</span>";
 	        	yd.innerHTML="<span>运动指数:"+date.retData.today.index[3].index+"</span><span>"+date.retData.today.index[3].details+"</span>";
