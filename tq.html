@@ -106,11 +106,14 @@
 			line-height: 0.3rem;
 			display: inline-block;
 		}
-		.tab_btn span:hover{/*.active*/
+		.tab_btn span.active{
 			background: #5FA3E4;
 		}
 		.tab_body{
 			background: #0D5AA5;
+		}
+		.tab_today{
+			/*display: none;*/
 		}
 		.tab_today ul{
 			text-align: center;
@@ -119,14 +122,21 @@
 		.tab_today li{
 			display: inline-block;
 			width:1.64rem;
-			height: 1rem;
+			height: 1.2rem;
 			border: 1px solid #5FA3E4;
 			padding:0.1rem 0.1rem;
-			font-size: 0; 
+			/*font-size: 0; */
 			text-align: center;
 		}
+		.tab_today li span{
+			display: block;
+		}
 		.tab_allday{
-			display: none;
+			/*display: none;*/
+		}
+		.tab_allday li{
+			display: inline-block;
+			border: 1px solid red;
 		}
 
 
@@ -201,21 +211,21 @@
 	            <ul>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/20.png"></span>
-	                    <em>穿衣 凉爽</em>
+	                    <apan>穿衣 凉爽</apan>
 	                </li>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/21.png"></span>
-	                    <em>紫外线 弱</em>
+	                    <apan>紫外线 弱</apan>
 	                </li>
 	            </ul>
                 <ul>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/26.png"></span>
-	                    <em>运动 不适宜</em>
+	                    <apan>运动 不适宜</apan>
 	                </li>
 	                <li>
 	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/17.png"></span>
-	                    <em>洗车 较不适宜</em>
+	                    <apan>洗车 较不适宜</apan>
 	                </li>
 	            </ul>
 	        </div>
