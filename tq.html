@@ -37,7 +37,8 @@
 
 		#today{
 			position: relative;
-			background: #2684C5;
+			background: #2684C5 url('tq.png') no-repeat bottom;
+			background-size:100% 50%;
 		}
 		.time{
 			width: 1.2rem;
@@ -59,7 +60,7 @@
 		}
 
 		.today_wea{
-			padding:0.2rem 0.3rem;
+			padding:0.3rem 0.3rem;
 		}
 		.today_wea span{
 			display: block;
@@ -320,7 +321,11 @@
 	settime()
 	function settime(){
 		var newtime=new Date();
-		timeDiv.innerHTML="<span class="+"week"+">"+week[newtime.getDay()]+"</span><span class="+"date"+">"+newtime.getHours()+":"+newtime.getMinutes()+"</span><span class="+"ym"+">"+(newtime.getMonth()+1)+"月"+newtime.getDate()+"日</span>";
+		var minu=newtime.getMinutes();
+		if (minu<10) {
+			minu="0"+''+minu
+		}
+		timeDiv.innerHTML="<span class="+"week"+">"+week[newtime.getDay()]+"</span><span class="+"date"+">"+newtime.getHours()+":"+minu+"</span><span class="+"ym"+">"+(newtime.getMonth()+1)+"月"+newtime.getDate()+"日</span>";
 		// console.log(newtime.getTime())	
 	}
 	
