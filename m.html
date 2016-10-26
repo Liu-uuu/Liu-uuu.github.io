@@ -17,22 +17,25 @@
 			margin:0; padding:0; list-style:none;
 		}
 		#search{
-			height:0.9rem; border-bottom:1px solid red;
+			border-bottom:1px solid red;
 			overflow:auto;
 		}
 		#list ul{
-			margin:0.04rem; /*border:1px solid red;*//* border:1px solid red; border-bottom:0; border-right:0;*/
+			padding:0.02rem;
 			font-size:0;
 		}
 		#list li{
 			width:25%;
-			display: inline-block;
+			display: inline-block; text-align:center;
 		}
-		#list span{
-			display: block;
-			height:0.36rem; margin:0.02rem; border:1px solid red; border-radius:0.06rem; background:blue;
-			font-size:0.18rem; line-height:0.36rem; text-align:center;
+		#list img{
+			width:0.5rem; height:0.5rem;
 		}
+		#list p{
+			padding:0.04rem; margin:0;
+			font-size: 0.12rem;
+		}
+
 		#box{
 			font-size:0; text-align:center; display: none;
 			margin-top:0.3rem;
@@ -47,7 +50,8 @@
 
 
 <div id="search">
-	<div id="list"></div>
+	<div id="list">
+	</div>
 	<div id="box">
 		<input type="text" name=""><input type="button" name=""><input type="button" value="返回" name="">
 	</div>
@@ -60,50 +64,80 @@
 
 
 <script type="text/javascript">
-	var search=[
+	var search=[	
+		{
+			title:"搜豆瓣",
+			url:function(val) {return "https://www.douban.com/search?q="+val},
+			img:"https://img3.doubanio.com/f/frodo/144e6fb7d96701944e7dbb1a9bad51bdb1debe29/pics/app/logo.png"
+		},
+		{
+			title:"搜知乎",
+			url:function(val) {return "https://www.zhihu.com/search?type=content&q="+val},
+			img:"http://ww4.sinaimg.cn/mw690/718878b5jw8enn0r74tgdj2050050mx4.jpg"
+		},
+		{
+			title:"搜果壳",
+			url:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"},
+			img:"http://ww2.sinaimg.cn/mw690/74f67c55jw1di8x8lskt6j.jpg"
+		},
+		{
+			title:"地图搜索",
+			url:function(val) {return "http://api.map.baidu.com/geocoder?address="+val+"&output=html&src=app"},
+			img:"http://tva1.sinaimg.cn/crop.0.0.512.512.180/6b3da363jw8ezvssbsk7vj20e80e8aal.jpg"
+		},
+		{
+			title:"百度搜索",
+			url:function(val) {return "http://www.baidu.com/s?ie=UTF-8&wd="+val},
+			img:"https://ss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/b42a6059252dd42a85580f7d0b3b5bb5c8eab897.jpg"
+		},
+		{
+			title:"百度知道",
+			url:function(val) {return "https://zhidao.baidu.com/search?word="+val},
+			img:"http://www.ddooo.com/logo/151113/201511131135581804.jpg"
+		},
+		{
+			title:"百度文库",
+			url:function(val) {return "http://wenku.baidu.com/search?word="+val},
+			img:"https://ss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/fb22720e0cf3d7ca40639692fa1fbe096a63a9b9.jpg"
+		},
+		{
+			title:"百度百科",
+			url:function(val) {return "http://baike.baidu.com/item/"+val},
+			img:"http://tva1.sinaimg.cn/crop.285.285.930.930.180/622f00edjw1e8m8ns3b37j215o15o49u.jpg"
+		}	
+	];
 		
-		{title:"搜豆瓣",url:function(val) {return "https://www.douban.com/search?q="+val}},
-		{title:"搜知呼",url:function(val) {return "https://www.zhihu.com/search?type=content&q="+val}},
-		{title:"搜果壳",url:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}},
-		{title:"地图搜索",url:function(val) {return "http://api.map.baidu.com/geocoder?address="+val+"&output=html&src=app"}},
-		{title:"百度搜索",url:function(val) {return "http://www.baidu.com/s?ie=UTF-8&wd="+val}}
+	var listBox=document.getElementById('list');
+	var searchBox=document.getElementById('box');
+	var thisHtml="";
+	for (var i = 0; i < search.length; i++) {
+		thisHtml+=("<li><img src="+search[i].img+"></img><p>"+search[i].title+"<p></li>");
+	}
+	thisHtml="<ul>"+thisHtml+"</ul>"
+	listBox.innerHTML=thisHtml;
 
-		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}},
-		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}},
-		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}}
-	]
-	// alert(search[0].title)
-	// window.open(search.douban('hh'))
-var listBox=document.getElementById('list');
-var searchBox=document.getElementById('box');
-var thisHtml="";
-for (var i = 0; i < search.length; i++) {
-	thisHtml+=("<li><span>"+search[i].title+"</span></li>");
-}
-thisHtml="<ul>"+thisHtml+"</ul>"
-listBox.innerHTML=thisHtml;
+	var lis=listBox.getElementsByTagName('li');
+	var ipts=searchBox.getElementsByTagName('input');
+	for (var i = 0; i < search.length; i++) {
+		(function(i){
+			lis[i].onclick=function(){
+				searchBox.style.display="block";
+				listBox.style.display="none";
+				ipts[1].value=search[i].title;
 
-var listSpan=listBox.getElementsByTagName('span');
-var ipts=searchBox.getElementsByTagName('input');
-for (var i = 0; i < search.length; i++) {
-	(function(i){
-		listSpan[i].onclick=function(){
-			searchBox.style.display="block";
-			listBox.style.display="none";
-			ipts[1].value=search[i].title;
-
-			ipts[1].onclick=function(){
-				window.open(search[i].url(ipts[0].value))
+				ipts[1].onclick=function(){
+					window.open(search[i].url(ipts[0].value))
+				}
+				ipts[2].onclick=function(){
+					searchBox.style.display="none";
+					listBox.style.display="block";
+				}
 			}
-			ipts[2].onclick=function(){
-				searchBox.style.display="none";
-				listBox.style.display="block";
-			}
-		}
-	})(i)
-}
-
-
+		})(i)
+	}
 </script>
+
+
+
 </body>
 </html>
