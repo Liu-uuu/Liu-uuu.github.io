@@ -17,32 +17,36 @@
 			margin:0; padding:0; list-style:none;
 		}
 		#search{
-			border-bottom:1px solid red;
+			height:1.72rem; border:1px solid red;
 			overflow:auto;
 		}
 		#list ul{
-			padding:0.02rem;
+			padding:0.06rem;
 			font-size:0;
 		}
 		#list li{
-			width:25%;
+			width:25%; padding:0.06rem 0;
 			display: inline-block; text-align:center;
 		}
 		#list img{
-			width:0.5rem; height:0.5rem;
+			width:0.5rem; height:0.5rem; border-radius:0.25rem;
 		}
 		#list p{
-			padding:0.04rem; margin:0;
+			padding:0.04rem 0 0 0; margin:0;
 			font-size: 0.12rem;
 		}
 
 		#box{
 			font-size:0; text-align:center; display: none;
-			margin-top:0.3rem;
+			margin-top:0.73rem;
 		}
 		#box input{
 			margin:0 0.06rem; padding:0.06rem;
-			font-size:0.15rem; vertical-align:middle;
+			font-size:0.14rem; vertical-align:middle;
+		}
+		#box .txt{
+			background: no-repeat 0.04rem center; background-size: 0.16rem;
+			text-indent:0.16rem;
 		}
 	</style>
 </head>
@@ -53,7 +57,7 @@
 	<div id="list">
 	</div>
 	<div id="box">
-		<input type="text" name=""><input type="button" name=""><input type="button" value="返回" name="">
+		<input type="text" name="" class="txt"><input type="button" name="" class="btn"><input type="button" value="返&nbsp&nbsp回" name="" class="btn">
 	</div>
 </div>
 
@@ -81,7 +85,7 @@
 			img:"http://ww2.sinaimg.cn/mw690/74f67c55jw1di8x8lskt6j.jpg"
 		},
 		{
-			title:"地图搜索",
+			title:"搜地图",
 			url:function(val) {return "http://api.map.baidu.com/geocoder?address="+val+"&output=html&src=app"},
 			img:"http://tva1.sinaimg.cn/crop.0.0.512.512.180/6b3da363jw8ezvssbsk7vj20e80e8aal.jpg"
 		},
@@ -91,17 +95,17 @@
 			img:"https://ss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/b42a6059252dd42a85580f7d0b3b5bb5c8eab897.jpg"
 		},
 		{
-			title:"百度知道",
+			title:"搜知道",
 			url:function(val) {return "https://zhidao.baidu.com/search?word="+val},
 			img:"http://www.ddooo.com/logo/151113/201511131135581804.jpg"
 		},
 		{
-			title:"百度文库",
+			title:"搜文库",
 			url:function(val) {return "http://wenku.baidu.com/search?word="+val},
 			img:"https://ss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/fb22720e0cf3d7ca40639692fa1fbe096a63a9b9.jpg"
 		},
 		{
-			title:"百度百科",
+			title:"搜百科",
 			url:function(val) {return "http://baike.baidu.com/item/"+val},
 			img:"http://tva1.sinaimg.cn/crop.285.285.930.930.180/622f00edjw1e8m8ns3b37j215o15o49u.jpg"
 		}	
@@ -111,7 +115,7 @@
 	var searchBox=document.getElementById('box');
 	var thisHtml="";
 	for (var i = 0; i < search.length; i++) {
-		thisHtml+=("<li><img src="+search[i].img+"></img><p>"+search[i].title+"<p></li>");
+		thisHtml+="<li><img src="+search[i].img+"></img><p>"+search[i].title+"</p></li>";
 	}
 	thisHtml="<ul>"+thisHtml+"</ul>"
 	listBox.innerHTML=thisHtml;
@@ -123,6 +127,8 @@
 			lis[i].onclick=function(){
 				searchBox.style.display="block";
 				listBox.style.display="none";
+				ipts[0].focus();
+				ipts[0].style.backgroundImage="url("+search[i].img+")"
 				ipts[1].value=search[i].title;
 
 				ipts[1].onclick=function(){
