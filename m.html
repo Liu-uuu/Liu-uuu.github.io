@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>生活小助手</title>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+// JavaScript Document
+function urlredirect() {
+    var sUserAgent = navigator.userAgent.toLowerCase(); 
+    if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
+        // PC跳转移动端
+        window.location.href = "https://liu-uuu.github.io"; //跳转为网址后面加mobile的路径
+          
+    }
+}
+urlredirect();
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var search={
+		baidu:function(val) {return "http:www.baidu.com/s?ie=UTF-8&wd="+val},
+		douban:function(val) {return "https:www.douban.com/search?q="+val},
+		zhihu:function(val) {return "https://www.zhihu.com/search?type=content&q="+val},
+		guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"},
+		map:function(val) {return "http://api.map.baidu.com/geocoder?address="+val+"&output=html&src=app"}
+
+
+		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}},
+		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}},
+		// guoke:function(val) {return "http://www.guokr.com/search/all/?wd="+val+"&sort=&term=False"}}
+
+	}
+	// // window.open("https://www.hao123.com")
+	// window.open(search.douban('hh'))
+	// console.log(search.map("hh"))
+</script>
+</body>
+</html>
