@@ -14,146 +14,64 @@
 		html,body{
 			height: 100%;
 		}
-		body,ul,li{
+		body,ul,li,h3,h4,p{
 			margin: 0;
 			padding: 0;
 			font-size: 0.16rem;
-			color: #fff;
 		}
 		ul{
 			list-style: none;
 		}
-	/*	#container{
-			background: #0D5AA5;
-		}*/
-		
-		.topmsg .city{
-			line-height: 0.4rem;
-			font-size: 0.18rem;
-			text-align: center;
-			background: #0D5AA5;
-		}
-
-
-		#today{
-			position: relative;
-			background: #2684C5 url('tq.png') no-repeat bottom;
-			background-size:100% 50%;
-		}
-		.time{
-			width: 1.2rem;
-			border:1px solid #5FA3E4; 
-			line-height: 0.36rem;
-			font-size: 0.18rem;
-			text-align: center;
-			position: absolute;
-			right: 0.1rem;
-			top: 0.1rem;
-
-		}
-		.time span{
-			display: block;
-		}
-		.time .date{
-			font-size: 0.40rem;
-			font-weight: bold;
-		}
-
-		.today_wea{
-			padding:0.6rem 0.3rem;
-		}
-		.today_wea span{
-			display: block;
-			line-height: 0.26rem;
-		}
-		.today_wea .wea_tem{
-			font-size:0.5rem;
-			line-height: 0.44rem;
-		}
-
-		.twodays{
-			border-top: 1px solid #5FA3E4;
-			border-bottom: 1px solid #5FA3E4;
-			height: 0.56rem;
-			overflow: hidden;
-			position: relative;
-		}
-		.tomorrow div,.yesterday div{
-			position: relative;
-		}
-		.twodays strong{
-			position: absolute;
-			top: 0;
-			right: 0;
-			display: inline-block;
-			text-align: right;
-		}
-		.twodays b{
-			display: inline-block;
-		}
-		.yesterday{
-			width: 40%;
-			padding: 0.1rem 0.2rem;
-		}
-		.tomorrow{
-			width: 40%;
-			padding: 0.1rem 0.2rem;
-			border-left: 1px solid #5FA3E4;
-			position: absolute;
-			top: 0;
-			right: 0;
-		}
 	
-		.tab_btn{
-			border-bottom: 1px solid #5FA3E4;
-			background: #2684C5;
-			font-size: 0;
+		#top{
+			width:100%; background: #0D5AA5;
+			font-size: 0.16rem; line-height: 0.36rem; text-align: center; color: #fff;
+			position:fixed;
 		}
-		.tab_btn span{
-			padding: 0.06rem;
-			font-size: 0.16rem;
-			line-height: 0.3rem;
-			display: inline-block;
+		/*更多*/
+		#more{
+			position:absolute;left:4px;
 		}
-		.tab_btn span.active{
-			background: #5FA3E4;
-		}
-		.tab_body{
-			background: #0D5AA5;
-		}
-		.tab_today{
-			/*display: none;*/
-		}
-		.tab_today ul{
-			text-align: center;
-			font-size: 0;
-		}
-		.tab_today li{
-			display: inline-block;
-			width:1.64rem;
-			height: 1.6rem;
-			border: 1px solid #5FA3E4;
-			padding:0.1rem 0.1rem;
-			/*font-size: 0; */
-			text-align: center;
-			overflow: auto;
-		}
-		.tab_today li span{
-			display: block;
-			padding: 0.02rem;
-		}
-		.tab_allday{
-			display: none;
-		}
-		.tab_allday li{
-			display: inline-block;
-			border: 1px solid red;
+		/*css3图标*/
+		#top .css3-icon{
+			display:inline-block;
+			width:0.15rem; height:0.03rem; background:#fff; padding:0.02rem 0; margin-right:4px;
+			border-top:0.03rem solid #fff; border-bottom:0.03rem solid #fff;
+			background-clip:content-box;	
 		}
 
+		#weather{
+			padding-top:0.36rem; /*background:#ccc;*/
+		}
+		/*更新时间*/
+		#updateTime{
+			padding:6px;
+			text-align:right;
+		}
+		/*生活指数*/
+		#shzs ul{
+			width:95%; border-top:1px solid #ccc; margin:0 auto;
+			font-size:0; color:#fff;
+		}
+		#shzs li{
+			display:inline-block;
+			width:33.33%;
+		}
+		#shzs div{
+			padding:0.08rem; margin:0.01rem; /*border-radius:0.1rem;*/ background:#00BCD4;
+		}
+		#shzs h4{
+			text-align:center;
+		}
+		#shzs p{
+			height:0.6rem;
+			overflow:auto;
+		}
+		/*底部*/
 		#footer{
 			width:100%; background:#fefefe;
+			box-shadow:0 -1px 6px #ccc; font-size:0;
 			position:fixed; bottom:0; left:0;
-			box-shadow:0 -1px 6px #ccc;
 		}
 		#footer span{
 			display:inline-block;
@@ -167,188 +85,177 @@
 		}
 	</style>
 </head>
+
 <body>
-<div id="container">
 
-	<div class="topmsg">
-	    <div class="city">当前：北京市</div>
+	<div id="top">
+	 	<div id="more"><span class="css3-icon"></span><span>更多</span></div>
+		<span id="city">当前天气：北京市</span>
+	</div>
+	<!-- 天气信息 -->
+	<div id="weather">
+
+		<div id="updateTime">数据更新于:0000-00-00 00:00</div>
+		<!-- 实况天气 -->
+		<div>
+			<h3>实况天气</h3>
+			<div id="sktq"></div>
+		</div>
+		<!-- 空气质量 -->
+		<div>
+			<h3>空气质量</h3>
+			<div id="kqzl"></div>
+		</div>
+		<!-- 生活指数 -->
+		<div id="shzs">
+			<h3>生活指数</h3>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
 
 	</div>
 
-	<div id="today">
 
-	    <div class="today_wea" id="today_wea">
-		    <span class="wea_type">加载中</span>
-		    <span class="wea_tem">加载中</span>
-		    <span class="wea_wind">加载中</span>
-	        <span class="wea_wind">加载中</span>
-	    </div>
-
-	    <div class="time" id="time">
-		    <span class="week">星期</span>
-		    <span class="date">00:00</span>
-		    <span class="ym">0月0日</span>	    
-	    </div>
-
-	    <div class="twodays">
-	        <div class="yesterday" id="yesterday">
-	            <div>
-	                <b>昨天</b>
-	                <strong>19 / 27°</strong>
-	            </div>
-	            <div>
-		            <b>星期</b>
-	                <strong>天气</strong>
-	            </div>
-	        </div>
-
-	        <div class="tomorrow" id="tomorrow">
-	            <div>
-	                <b>明天</b>
-	                <strong>温度/加载中</strong>
-	            </div>
-	            <div>
-		            <b>星期</b>
-	                <strong>天气</strong>
-	            </div>
-	        </div>
-
-	    </div>
-
+	<div id="footer">
+		<span><a href="./m.html">首页</a></span>
+		<span><a href="./tq.html">天气</a></span>
+		<span><a href="./news.html">新闻</a></span>
+		<span><a href="./2048.html">小游戏</a></span>
 	</div>
 
 
 
 
 
-
-
-
-	<div class="tab">
-
-	    <div class="tab_btn">
-	        <span class="active">今日天气详情</span>
-	        <span><!-- 未来7天天气 --></span>
-	    </div>
-
-	    <div class="tab_body">
-	        <div class="tab_today">
-	            <ul>
-	                <li>
-	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/20.png"></span>
-	                    <div id="cy"><apan>穿衣 加载中</apan></div>
-	                </li>
-	                <li>
-	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/21.png"></span>
-	                    <div id="fs"><apan>紫外线 加载中</apan></div>
-	                </li>
-	            </ul>
-                <ul>
-	                <li>
-	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/26.png"></span>
-	                    <div id="yd"><apan>运动 加载中</apan></div>
-	                </li>
-	                <li>
-	                    <span><img src="http://cdn.moji.com/mtianqi/assets/images/script/17.png"></span>
-	                    <div id="xc"><apan>洗车 加载中</apan></div>
-	                </li>
-	            </ul>
-	        </div>
-	    </div>
-
-	    <div class="tab_allday">
-	        <div class="weak_wea">
-	            <ul>
-	                <li data-high="29" data-low="17">
-
-	                    <em>星期</em>
-	                    <dl class="wea">
-	                        <dt><img src="http://cdn.moji.com/mtianqi/assets/images/wea/w4.png" alt="" /></dt>
-	                        <dd><strong>雷阵雨</strong></dd>
-	                    </dl>
-	                    <dl class="wind">
-	                        <dd>北风</dd>
-	                        <dd>3级</dd>
-	                    </dl>
-
-	                </li>
-
-	                <li data-high="27" data-low="19">
-
-	                    <em>星期</em>
-	                    <dl class="wea">
-	                        <dt><img src="http://cdn.moji.com/mtianqi/assets/images/wea/w2.png" alt="" /></dt>
-	                        <dd><strong>阴</strong></dd>
-	                    </dl>
-	                    <dl class="wind">
-	                        <dd>北风</dd>
-	                        <dd>3级</dd>
-	                    </dl>
-
-	                </li>
-	            </ul>
-
-	        </div>
-	    </div>
-
-
-
-	</div>
-</div>
-
-<div id="footer">
-	<span><a href="./m.html">首页</a></span><span><a href="./tq.html">天气</a></span><span><a href="./news.html">新闻</a></span><span><a href="./2048.html">小游戏</a></span>
-</div>
-
-<script type="text/javascript">
-	var today=document.getElementById('today_wea');
-	var yesterday=document.getElementById('yesterday');
-	var tomorrow=document.getElementById('tomorrow');
-	var cy=document.getElementById('cy');
-	var fs=document.getElementById('fs');
-	var yd=document.getElementById('yd');
-	var xc=document.getElementById('xc');
-	var timeDiv=document.getElementById('time');
-
-	var date;
-	var xhr=new XMLHttpRequest();
-	xhr.open('get','https://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=北京',true);
-	xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436')
-	xhr.send();
-	xhr.onreadystatechange=function(){
-		if (xhr.readyState==4) {
-			if (xhr.status==200) {
-				date=JSON.parse(xhr.responseText);
-				// console.log(date)
-				today.innerHTML="<span class="+"wea_type"+">"+date.retData.today.type+"</span>"+
-		    "<span class="+"wea_tem"+">"+date.retData.today.curTemp+"</span>"+
-		    "<span class="+"wea_wind"+">"+date.retData.today.fengxiang+date.retData.today.fengli+"</span>"+
-	        "<span class="+"wea_temp"+">"+"温度最低"+date.retData.today.lowtemp+"/最高"+date.retData.today.hightemp+"</span>";
-	        	yesterday.innerHTML="<div>"+"<b>昨天</b><strong>"+date.retData.history[6].lowtemp+"/"+date.retData.history[6].hightemp+"</strong></div><div><b>"+date.retData.history[6].week+"</b><strong>"+date.retData.history[6].type+"</strong></div>";
-	        	tomorrow.innerHTML="<div><b>明天</b><strong>"+date.retData.forecast[0].lowtemp+"/"+date.retData.forecast[0].hightemp+"</strong></div><div><b>"+date.retData.forecast[0].week+"</b><strong>"+date.retData.forecast[0].type.toString()+"</strong></div>";
-
-
-	        	cy.innerHTML="<span>穿衣指数:"+date.retData.today.index[2].index+"</span><span>"+date.retData.today.index[2].details+"</span>";
-	        	fs.innerHTML="<span>紫外线指数:"+date.retData.today.index[1].index+"</span><span>"+date.retData.today.index[1].details+"</span>";
-	        	yd.innerHTML="<span>运动指数:"+date.retData.today.index[3].index+"</span><span>"+date.retData.today.index[3].details+"</span>";
-	        	xc.innerHTML="<span>洗车线指数:"+date.retData.today.index[4].index+"</span><span>"+date.retData.today.index[4].details+"</span>";
-			}	
+	<script type="text/javascript">
+		var data='';
+		function requestData(fn){
+			var xhr=new XMLHttpRequest();
+			xhr.open('get','https://apis.baidu.com/heweather/weather/free?city=北京',true);
+			xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+			xhr.send();
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState==4) {
+					if (xhr.status==200) {
+						data=JSON.parse(xhr.responseText)["HeWeather data service 3.0"][0];
+						fn();
+					}
+				}
+			}
 		}
-	}
-	var week=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
-	setInterval(settime,60000);
-	settime()
-	function settime(){
-		var newtime=new Date();
-		var minu=newtime.getMinutes();
-		if (minu<10) {
-			minu="0"+''+minu
+		
+		var week=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+		function settime(){
+			var newtime=new Date();
+			var minu=newtime.getMinutes();
+			if (minu<10) {
+				minu="0"+''+minu
+			}
+			return minu;
 		}
-		timeDiv.innerHTML="<span class="+"week"+">"+week[newtime.getDay()]+"</span><span class="+"date"+">"+newtime.getHours()+":"+minu+"</span><span class="+"ym"+">"+(newtime.getMonth()+1)+"月"+newtime.getDate()+"日</span>";
-		// console.log(newtime.getTime())	
-	}
+		
+		var city=document.getElementById('city');
+		var updateTime=document.getElementById('updateTime');
+
+		var shzs=document.getElementById('shzs');
+		requestData(function(){
+			if (data.status=="ok") {
+				//basic基本信息
+				city.innerHTML="当前天气:"+data.basic.city;
+				updateTime.innerHTML="数据更新于:"+data.basic.update.loc;
+
+				//"实况天气"
+				var sktqBox=document.getElementById('sktq');
+				var sktqArr=[
+					("天气状况："+data.now.cond.txt),
+					("体感温度："+data.now.fl),
+					("相对湿度（%）："+data.now.hum),
+					("降水量（mm）："+data.now.pcpn),
+					("气压："+data.now.pres),
+					("温度："+data.now.tmp),
+					("能见度（km）："+data.now.vis),
+					("风向："+data.now.wind.dir),
+					("风力："+data.now.wind.sc),
+					("风速（kmph）："+data.now.wind.spd)
+				];
+				var sktqBoxInner="";
+				for (var i = 0; i < sktqArr.length; i++) {
+					sktqBoxInner+="<p>"+sktqArr[i]+"</p>";
+				}
+				sktqBox.innerHTML=sktqBoxInner;
+
+
+				//"空气质量"
+				var kqzlBox=document.getElementById('kqzl');
+				var kqzlArr=[
+					("空气质量指数："+data.aqi.city.aqi),
+					("空气质量类别："+data.aqi.city.qlty),
+					("一氧化碳1小时平均值(ug/m³)："+data.aqi.city.co),
+					("二氧化氮1小时平均值(ug/m³)："+data.aqi.city.no2),
+					("臭氧1小时平均值(ug/m³)："+data.aqi.city.o3),
+					("PM10 1小时平均值(ug/m³)"+data.aqi.city.pm10),
+					("PM2.5 1小时平均值(ug/m³)"+data.aqi.city.pm25),
+					("二氧化硫1小时平均值(ug/m³)："+data.aqi.city.so2)
+				];
+				var kqzlBoxInner="";
+				for (var i = 0; i < kqzlArr.length; i++) {
+					kqzlBoxInner+="<p>"+kqzlArr[i]+"</p>";
+				}
+				kqzlBox.innerHTML=kqzlBoxInner;
+
+				//生活指数
+				var ii=0;
+				var attr2=attr
+				for(var attr in data.suggestion){
+					
+					switch(attr){
+						case "comf":
+							attr2="舒适度指数"
+							break;
+						case "cw":
+							attr2="洗车指数"
+							break;
+						case "drsg":
+							attr2="穿衣指数"
+							break;
+						case "flu":
+							attr2="感冒指数"
+							break;
+						case "sport":
+							attr2="运动指数"
+							break;
+						case "trav":
+							attr2="旅游指数"
+							break;
+						case "uv":
+							attr2="紫外线指数"
+							break;
+						default:
+							console.log("有新数据");
+					}
+					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"<br/>"+data.suggestion[attr].brf+"</h4><p>"+data.suggestion[attr].txt+"</p></div>";
+					ii++;
+				}
+			}else{
+				alert("服务器返回信息："+data.status)
+			}
+		})
+
+		
 	
-  
-</script>
+		
+	
+	  
+	</script>
+
 </body>
 </html>
