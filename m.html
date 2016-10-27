@@ -149,8 +149,8 @@
 
 
 	var xhr=new XMLHttpRequest();
-	xhr.open('get','http://apis.baidu.com/heweather/weather/free?city=北京',true);
-	xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436')
+	xhr.open('get','https://apis.baidu.com/heweather/weather/free?city=北京',true);
+	xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
 	xhr.send();
 	xhr.onreadystatechange=function(){
 		if (xhr.readyState==4) {
