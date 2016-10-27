@@ -46,7 +46,7 @@
 		}
 		#btns{
 			border: 2px solid #fff;
-			border-radius:10%;
+			border-radius:0.16rem;
 			padding: 5%;
 			font-size: 0.2rem;
 			text-align: center;
@@ -58,7 +58,21 @@
 			position: relative;
 			bottom: 0.02rem;
 		}
-
+		#footer{
+			width:100%; background:#fefefe;
+			position:fixed; bottom:0; left:0;
+			box-shadow:0 -1px 6px #ccc;
+		}
+		#footer span{
+			display:inline-block;
+			width:25%;
+			text-align:center;
+		}
+		#footer a{
+			display:block;
+			border-right:1px solid #eee;
+			font-size:0.16rem; font-weight:normal; line-height:0.4rem; text-decoration:none; color:#000;
+		}
 	</style>
 </head>
 
@@ -71,6 +85,9 @@
 		<input type="button" value="右">
 	</div>
 	<div id="love">--- BY JXXL ---</div>
+	<div id="footer">
+		<span><a href="./m.html">首页</a></span><span><a href="./tq.html">天气</a></span><span><a href="./news.html">新闻</a></span><span><a href="./2048.html">小游戏</a></span>
+	</div>
 
 	<script type="text/javascript">
 		
