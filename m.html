@@ -212,6 +212,10 @@
 
 	//笑话
 	(function happyData(page){
+		var contentlist="";
+		if (contentlist) {
+			document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[0].text+"</p>";
+		}
 		var xhr=new XMLHttpRequest();
 		xhr.open('get','http://apis.baidu.com/showapi_open_bus/showapi_joke/joke_text?page='+page+'',true);
 		xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
@@ -221,7 +225,7 @@
 				if (xhr.status==200) {
 					var data=JSON.parse(xhr.responseText);
 					if (data.showapi_res_error=="") {
-						var contentlist=data.showapi_res_body.contentlist
+						contentlist=data.showapi_res_body.contentlist
 						document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[0].text+"</p>";
 						// setInterval(function(){
 						// 	document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[Math.floor(Math.random()*contentlist.length)].text+"</p>";
