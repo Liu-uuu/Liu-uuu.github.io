@@ -22,7 +22,7 @@
 		}
 		/*顶部*/
 		#tip{
-			background:#0D5AA5;
+			background:#2196F3;
 			font-size:0.18rem; color:#fff; line-height:0.4rem;
 		}
 
@@ -100,7 +100,7 @@
 <body>
 
 <div id="tip">
-	<span class="css3-icon"></span>今天是
+	<span>欢迎来到我的GitHub个人主页！</span>
 </div>
 
 <div id="weather">
@@ -131,6 +131,7 @@
 
 <script type="text/javascript">
 
+	//数据
 	var search=[	
 		{
 			title:"搜豆瓣",
@@ -173,39 +174,44 @@
 			img:"https://tva1.sinaimg.cn/crop.285.285.930.930.180/622f00edjw1e8m8ns3b37j215o15o49u.jpg"
 		}	
 	];
-		
-	var listBox=document.getElementById('list');
-	var searchBox=document.getElementById('box');
-	var thisHtml="";
-	for (var i = 0; i < search.length; i++) {
-		thisHtml+="<li><img src="+search[i].img+"></img><p>"+search[i].title+"</p></li>";
-	}
-	thisHtml="<ul>"+thisHtml+"</ul>"
-	listBox.innerHTML=thisHtml;
 
-	var lis=listBox.getElementsByTagName('li');
-	var ipts=searchBox.getElementsByTagName('input');
-	for (var i = 0; i < search.length; i++) {
-		(function(i){
-			lis[i].onclick=function(){
-				searchBox.style.display="block";
-				listBox.style.display="none";
-				ipts[0].focus();
-				ipts[0].style.backgroundImage="url("+search[i].img+")"
-				ipts[2].value=search[i].title;
+	//搜索
+	(function(){
+		var listBox=document.getElementById('list');
+		var searchBox=document.getElementById('box');
+		var thisHtml="";
+		for (var i = 0; i < search.length; i++) {
+			thisHtml+="<li><img src="+search[i].img+"></img><p>"+search[i].title+"</p></li>";
+		}
+		thisHtml="<ul>"+thisHtml+"</ul>";
+		listBox.innerHTML=thisHtml;
 
-				ipts[2].onclick=function(){
-					window.open(search[i].url(ipts[0].value))
+		var lis=listBox.getElementsByTagName('li');
+		var ipts=searchBox.getElementsByTagName('input');
+		for (var i = 0; i < search.length; i++) {
+			(function(i){
+				lis[i].onclick=function(){
+					searchBox.style.display="block";
+					listBox.style.display="none";
+					ipts[0].focus();
+					ipts[0].style.backgroundImage="url("+search[i].img+")"
+					ipts[2].value=search[i].title;
+
+					ipts[2].onclick=function(){
+						window.open(search[i].url(ipts[0].value))
+					}
+					ipts[1].onclick=function(){
+						searchBox.style.display="none";
+						listBox.style.display="block";
+					}
 				}
-				ipts[1].onclick=function(){
-					searchBox.style.display="none";
-					listBox.style.display="block";
-				}
-			}
-		})(i)
-	}
+			})(i)
+		}
+	})();
 
-	function happyData(page){
+
+	//笑话
+	(function happyData(page){
 		var xhr=new XMLHttpRequest();
 		xhr.open('get','http://apis.baidu.com/showapi_open_bus/showapi_joke/joke_text?page='+page+'',true);
 		xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
@@ -214,16 +220,17 @@
 			if (xhr.readyState==4) {
 				if (xhr.status==200) {
 					var data=JSON.parse(xhr.responseText);
-					console.dir(data)
 					if (data.showapi_res_error=="") {
-						document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+data.showapi_res_body.contentlist[0].text+"</p>"
+						var contentlist=data.showapi_res_body.contentlist
+						document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[0].text+"</p>";
+						// setInterval(function(){
+						// 	document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[Math.floor(Math.random()*contentlist.length)].text+"</p>";
+						// },15000)
 					}
 				}
 			}
 		}
-	}
-
-	happyData(1)
+	})(1);
 	
 
 
