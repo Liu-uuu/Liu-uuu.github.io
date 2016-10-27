@@ -10,6 +10,9 @@
 		thisHtml[0].style.fontSize=deviceW/3.75+"px";
 	</script>
 	<style type="text/css">
+	/*	html,body{
+			height:100%;
+		}*/
 		body{
 			margin:0;
 			font-size:0.12rem;
@@ -17,8 +20,16 @@
 		ul,li{
 			margin:0; padding:0; list-style:none;
 		}
+		#tip{
+			background:#0D5AA5;
+			font-size:0.18rem; color:#fff; line-height:0.4rem;
+		}
+		#weather{
+			height:1.2rem; background: red;
+		}
+
 		#search{
-			height:1.72rem; border:1px solid red;
+			height:1.72rem; border:1px solid #ccc;
 			overflow:auto;
 		}
 		#list ul{
@@ -52,10 +63,31 @@
 		#box .btn{
 			margin:0 0.15rem;
 		}
+		#footer{
+			width:100%; background:#eee;
+			position:fixed; bottom:0;
+		}
+		#footer span{
+			display:inline-block;
+			width:25%;
+			text-align:center;
+		}
+		#footer strong{
+			display:block;
+			border-right:1px solid #ccc;
+			font-size:0.16rem; line-height:0.4rem;
+		}
 	</style>
 </head>
 <body>
 
+<div id="tip">
+	<span class="css3-icon"></span>现在是
+</div>
+
+<div id="weather">
+	天气轮播
+</div>
 
 <div id="search">
 	<div id="list">
@@ -66,13 +98,16 @@
 	</div>
 </div>
 
-
+<div id="footer">
+	<span><strong>首页</strong></span><span><strong>天气</strong></span><span><strong>新闻</strong></span><span><strong>小游戏</strong></span>
+</div>
 
 
 
 
 
 <script type="text/javascript">
+
 	var search=[	
 		{
 			title:"搜豆瓣",
@@ -280,8 +315,6 @@
 
 		        
 		    ]
-
-
 
 
 		}
