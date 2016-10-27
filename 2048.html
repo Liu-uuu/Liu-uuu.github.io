@@ -12,14 +12,19 @@
 	</script>
 	<style type="text/css">
 		body{
+			margin:0;
 			background: #20AB64;
 			font-size: 16px;
 			font-family: "微软雅黑";
 		}
 		#love{
-			line-height: 60px;
 			color: #fff;
 			text-align: center;
+		}
+		#tip{
+			background:#fff; border: 2px solid #fcfcfc; padding:0.06rem; margin-bottom:0.16rem;
+			font-size: 0.15rem; line-height:1.5; /*text-align:center;*/
+			box-shadow:0 1px 6px #ccc;
 		}
 		#container{
 			width: 3.60rem;
@@ -47,11 +52,9 @@
 		#btns{
 			border: 2px solid #fff;
 			border-radius:0.16rem;
-			padding: 5%;
+			padding: 5%; margin:0.2rem;
 			font-size: 0.2rem;
 			text-align: center;
-			position:relative;
-			top: 4px;
 		}
 		input{
 			font-size: 0.2rem;		
@@ -77,6 +80,7 @@
 </head>
 
 <body>	
+	<div id="tip">欢迎来到我的GitHub！生活需要乐趣，玩下游戏吧！</div>
 	<div id="container"></div>
 	<div id="btns">
 		<input type="button" value="左">
