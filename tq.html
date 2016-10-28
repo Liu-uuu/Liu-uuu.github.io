@@ -23,6 +23,7 @@
 		}
 		body{
 			padding-bottom:0.5rem;
+			background:#f0f0f0;
 		}
 		ul{
 			list-style: none;
@@ -46,11 +47,11 @@
 		}
 
 		#weather{
-			padding-top:0.36rem; /*background:#ccc;*/
+			padding-top:0.36rem;
 		}
 		/*更新时间*/
 		#updateTime{
-			padding:6px;
+			padding:6px; background:#fff; margin-bottom:0.06rem;
 			text-align:right;
 		}
 
@@ -59,7 +60,7 @@
 			padding:0.06rem;
 		}
 		#sktq p{
-			padding-left:0.1rem;
+			padding-left:0.3rem;
 		}
 		#sktq .tmp{
 			font-size:0.5rem;
@@ -132,7 +133,7 @@
 
 		<div id="updateTime">数据更新于:0000-00-00 00:00</div>
 		<!-- 实况天气 -->
-		<div>
+		<div style="background:#fff; margin-bottom:0.06rem; padding:0.06rem 0;">
 			<h3>实况天气</h3>
 			<div id="sktq">
 				<p><span>温度|</span><span>天气状况</span></p>
@@ -142,23 +143,18 @@
 		</div>
 
 		<!-- 空气质量 -->
-		<div>
+		<div style="background:#fff; margin-bottom:0.06rem; padding:0.06rem 0;">
 			<h3>空气污染物</h3>
 			<div id="kqzl">
 				<h4>空气污染物1小时平均值(单位:ug/m³)</h4>
 				<div>
-					<span>PM2.5</span>
-					<span>PM10</span>
-					<span>臭氧</span>
-					<span>一氧化碳</span>
-					<span>二氧化氮</span>
-					<span>二氧化硫</span>
+					<span>PM2.5|PM10|臭氧|一氧化碳|二氧化氮|二氧化硫|这些都是空气污染物呢</span>
 				</div>
 			</div>
 		</div>
 
 		<!-- 生活指数 -->
-		<div id="shzs">
+		<div id="shzs" style="background:#fff; margin-bottom:0.06rem; padding:0.06rem 0;">
 			<h3>生活指数</h3>
 			<ul>
 				<li style="display: none;"></li>
@@ -204,15 +200,6 @@
 			}
 		}
 		
-		var week=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
-		function settime(){
-			var newtime=new Date();
-			var minu=newtime.getMinutes();
-			if (minu<10) {
-				minu="0"+''+minu
-			}
-			return minu;
-		}
 		
 		var city=document.getElementById('city');
 		var updateTime=document.getElementById('updateTime');

@@ -18,7 +18,7 @@
 			margin:0;
 			font-size:0.12rem;
 		}
-		ul,li{
+		ul,li,p{
 			margin:0; padding:0; list-style:none;
 		}
 		/*顶部*/
@@ -30,6 +30,20 @@
 		/*天气*/
 		#weather{
 			height:1.2rem; background:#eee;
+		}
+		#weather h3{
+			margin:0; padding:0.04rem 0.2rem;
+		}
+		/*实况天气*/
+		#sktq{
+			padding:0.06rem;
+		}
+	
+		#sktq p{
+			padding-left:0.3rem;
+		}
+		#sktq .tmp{
+			font-size:0.4rem;
 		}
 
 		/*搜索*/
@@ -105,7 +119,8 @@
 </div>
 
 <div id="weather">
-	天气轮播
+	<h3>实况天气</h3>
+	<div id="sktq">当前网络环境有点慢哦！</div>
 </div>
 
 <div id="search">
@@ -131,6 +146,32 @@
 
 
 <script type="text/javascript">
+	//天气
+	var data='';
+	function requestData(fn){
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','https://apis.baidu.com/heweather/weather/free?city=北京',true);
+		xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					data=JSON.parse(xhr.responseText)["HeWeather data service 3.0"][0];
+					if (data.status=="ok") {
+						fn();
+					}
+				}
+			}
+		}
+	}
+
+	requestData(function(){
+		var sktqBox=document.getElementById('sktq');
+		sktqBox.innerHTML="<p><span class='tmp'>"+data.now.tmp+"℃</span><span class='condTxt'>"+data.now.cond.txt+"</span></p>"+
+		"<p><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气质量:"+data.aqi.city.qlty+"</span></p>"+
+		"<p><span class='dir'>"+data.now.wind.dir+"</span><span class='sc'>"+data.now.wind.sc+"级</span></p>";
+	})
+
 
 	//数据
 	var search=[	
