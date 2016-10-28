@@ -3,7 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
-	<title>JXXL-天气</title>
+	<link rel="shortcut icon"  href="myicon.png">
+	<title>天气-JXXL</title>
+	
 	<script>
 		var thisHtml=document.getElementsByTagName('html');
 		var deviceW=document.documentElement.clientWidth;
@@ -51,9 +53,39 @@
 			padding:6px;
 			text-align:right;
 		}
+
+		/*实况天气*/
+		#sktq{
+			padding:0.06rem;
+		}
+		#sktq p{
+			padding-left:0.1rem;
+		}
+		#sktq .tmp{
+			font-size:0.5rem;
+		}
+
+		/*空气质量*/
+		#kqzl{
+			padding:0.06rem;
+		}
+		#kqzl h4{
+			text-align:center;
+		}
+		#kqzl p{
+			display:inline-block;
+			width:16.6%; border-top:1px solid #ccc;
+		}
+		#kqzl span{
+			display:block;
+			border-bottom:1px solid #ccc;
+			font-size:0.14rem; text-align:center;
+		}
+
+
 		/*生活指数*/
 		#shzs ul{
-			width:95%; /*border-top:1px solid #ccc;*/ margin:0 auto;
+			width:95%; margin:0 auto;
 			font-size:0; color:#fff;
 		}
 		#shzs li{
@@ -102,13 +134,29 @@
 		<!-- 实况天气 -->
 		<div>
 			<h3>实况天气</h3>
-			<div id="sktq"></div>
+			<div id="sktq">
+				<p><span>温度|</span><span>天气状况</span></p>
+				<p><span>相对湿度|</span><span>pm2.5|</span><span>空气质量</span></p>
+				<p><span>风向|</span><span>风力</span></p>
+			</div>
 		</div>
+
 		<!-- 空气质量 -->
 		<div>
-			<h3>空气质量</h3>
-			<div id="kqzl"></div>
+			<h3>空气污染物</h3>
+			<div id="kqzl">
+				<h4>空气污染物1小时平均值(单位:ug/m³)</h4>
+				<div>
+					<span>PM2.5</span>
+					<span>PM10</span>
+					<span>臭氧</span>
+					<span>一氧化碳</span>
+					<span>二氧化氮</span>
+					<span>二氧化硫</span>
+				</div>
+			</div>
 		</div>
+
 		<!-- 生活指数 -->
 		<div id="shzs">
 			<h3>生活指数</h3>
@@ -178,43 +226,28 @@
 
 				//"实况天气"
 				var sktqBox=document.getElementById('sktq');
-				var sktqArr=[
-					("天气状况："+data.now.cond.txt),
-					("体感温度："+data.now.fl),
-					("相对湿度（%）："+data.now.hum),
-					("降水量（mm）："+data.now.pcpn),
-					("气压："+data.now.pres),
-					("温度："+data.now.tmp),
-					("能见度（km）："+data.now.vis),
-					("风向："+data.now.wind.dir),
-					("风力："+data.now.wind.sc),
-					("风速（kmph）："+data.now.wind.spd)
-				];
-				var sktqBoxInner="";
-				for (var i = 0; i < sktqArr.length; i++) {
-					sktqBoxInner+="<p>"+sktqArr[i]+"</p>";
-				}
-				sktqBox.innerHTML=sktqBoxInner;
-
-
-				//"空气质量"
+				sktqBox.innerHTML="<p><span class='tmp'>"+data.now.tmp+"℃</span><span class='condTxt'>"+data.now.cond.txt+"</span></p>"+
+				"<p><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气质量:"+data.aqi.city.qlty+"</span></p>"+
+				"<p><span class='dir'>"+data.now.wind.dir+"</span><span class='sc'>"+data.now.wind.sc+"级</span></p>";
+			
+			
+				//"空气污染物"
 				var kqzlBox=document.getElementById('kqzl');
-				var kqzlArr=[
-					("空气质量指数："+data.aqi.city.aqi),
-					("空气质量类别："+data.aqi.city.qlty),
-					("一氧化碳1小时平均值(ug/m³)："+data.aqi.city.co),
-					("二氧化氮1小时平均值(ug/m³)："+data.aqi.city.no2),
-					("臭氧1小时平均值(ug/m³)："+data.aqi.city.o3),
-					("PM10 1小时平均值(ug/m³)"+data.aqi.city.pm10),
-					("PM2.5 1小时平均值(ug/m³)"+data.aqi.city.pm25),
-					("二氧化硫1小时平均值(ug/m³)："+data.aqi.city.so2)
-				];
-				var kqzlBoxInner="";
-				for (var i = 0; i < kqzlArr.length; i++) {
-					kqzlBoxInner+="<p>"+kqzlArr[i]+"</p>";
-				}
-				kqzlBox.innerHTML=kqzlBoxInner;
+				kqzlBox.innerHTML=
+				"<table>"+
+					"<h4>空气污染物1小时平均值(单位:ug/m³)</h4>"+
+					"<div>"+
+						"<p><span>PM2.5</span><span>"+data.aqi.city.pm25+"</span></p>"+
+						"<p><span>PM10</span><span>"+data.aqi.city.pm10+"</span></p>"+
+						"<p><span>臭氧</span><span>"+data.aqi.city.o3+"</span></p>"+
+						"<p><span>一氧化碳</span><span>"+data.aqi.city.co+"</span></p>"+
+						"<p><span>二氧化氮</span><span>"+data.aqi.city.no2+"</span></p>"+
+						"<p><span>二氧化硫</span><span>"+data.aqi.city.so2+"</span></p>"+
+					"</div>"+
 
+				"</table>"
+
+				
 				//生活指数
 				var ii=0;
 				var attr2=attr

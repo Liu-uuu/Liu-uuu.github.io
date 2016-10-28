@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>生活小助手--移动端首页</title>
+	<link rel="shortcut icon"  href="myicon.png">
 	<script>
 		var thisHtml=document.getElementsByTagName('html');
 		var deviceW=document.documentElement.clientWidth;
@@ -165,7 +166,7 @@
 		},
 		{
 			title:"搜文库",
-			url:function(val) {return "http://wenku.baidu.com/search?word="+encodeURI(val)},
+			url:function(val) {return "http://wenku.baidu.com/search?word="+val},
 			img:"https://ss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/fb22720e0cf3d7ca40639692fa1fbe096a63a9b9.jpg"
 		},
 		{
@@ -198,7 +199,8 @@
 					ipts[2].value=search[i].title;
 
 					ipts[2].onclick=function(){
-						window.open(search[i].url(ipts[0].value))
+						var uriVal=encodeURI(ipts[0].value);
+						window.open(search[i].url(uriVal))
 					}
 					ipts[1].onclick=function(){
 						searchBox.style.display="none";
