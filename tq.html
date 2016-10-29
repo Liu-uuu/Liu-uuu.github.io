@@ -96,14 +96,8 @@
 
 		/*实况天气*/
 		#sktq{
-			padding:0.3rem 0rem 0.3rem 0.3rem; background:url('./tqimg.jpg') no-repeat; background-size:100% 100%;
+			padding:0.2rem 0rem 0.2rem 0.4rem; background:url('./tqimg.jpg') no-repeat; background-size:100% 100%;
 			color:#fff;
-		}
-		#sktq p{
-			display:inline-block;
-		}
-		.displayblock{
-			display: block;
 		}
 		#sktq .tmp{
 			font-size:0.56rem;
@@ -112,7 +106,7 @@
 			font-size:0.2rem;padding-right:0.2rem;
 		}
 		#sktq span{
-			font-size:0.16rem; line-height:1.5;
+			font-size:0.16rem;
 		}
 
 		/*3小时预报*/
@@ -318,10 +312,8 @@
 				// }
 				sktqBox.innerHTML=
 				"<p><span class='tmp'>"+data.now.tmp+"℃</span><span class='condTxt'>"+data.now.cond.txt+"</span></p>"+
-				"<p>"+
-					"<span  class='displayblock'><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气:"+air+"</span></span>"+
-					"<span  class='displayblock'><span class='dir'>"+data.now.wind.dir+"</span><span class='sc'>"+data.now.wind.sc+"级</span></span>"+
-				"</p>";
+				"<p><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气:"+air+"</span></p>"+
+				"<p><span class='dir'>"+data.now.wind.dir+"</span><span class='sc'>"+data.now.wind.sc+"级</span></p>";
 			
 			
 				//"3小时预报"
