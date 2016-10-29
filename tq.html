@@ -109,7 +109,7 @@
 		}
 		#shzs li{
 			display:inline-block;
-			width:50%;
+			width:33.33%;
 		}
 
 		#shzs div{
@@ -296,7 +296,7 @@
 						default:
 							console.log("有新数据");
 					}
-					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"："+data.suggestion[attr].brf+"</h4><p>"+data.suggestion[attr].txt+"</p></div>";
+					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"<br/>"+data.suggestion[attr].brf+"</h4><p>"+data.suggestion[attr].txt+"</p></div>";
 					ii++;
 				}
 			}else{
