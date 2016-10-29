@@ -152,6 +152,22 @@
 			overflow:auto;
 		}
 
+		/*7天预报*/
+		#daily{
+			padding:0 0.1rem;
+		}
+		#daily span{
+			display:inline-block;
+			min-width:23%;
+			text-align:center; vertical-align:middle;
+		}
+		#daily .wind{
+			width:31%; 
+		}
+		#daily li{
+			padding:0.04rem 0; border-bottom:1px solid #f0f0f0;
+		}
+
 		/*底部*/
 		#footer{
 			width:100%; background:#fefefe;
@@ -183,7 +199,10 @@
 				<li>杭州</li>
 				<li>南京</li>
 				<li>郑州</li>
-				<li class="others">其他城市:<input type="text" class="txt"><input type="button" value="确定"></li>
+				<li class="others">
+					<div>其他城市:<input type="text" class="txt"></div>
+					<input type="button" value="确定">
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -226,6 +245,21 @@
 				<li style="display: none;"></li>
 				<li></li>
 				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<div class="sec-box"">
+			<h3>7天预报</h3>
+			<ul id="daily">
+				<li>
+					<h4><span>时间</span><span>天气</span><span>温度</span><span>风</span></h4>	
+				</li>
+				<li>
+					<p><span>--</span><span>--</span><span>--</span><span>--</span></p>
+				</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -335,6 +369,17 @@
 					}
 					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"</h4><p>"+data.suggestion[attr].brf+":"+data.suggestion[attr].txt+"</p></div>";
 					ii++;
+				}
+
+				//"7天预报"
+				var dailyBox=document.getElementById('daily');
+				var dailyDate="";
+				for (var i = 0; i < data.daily_forecast.length; i++) {
+					dailyDate+="<li><span>"+data.daily_forecast[i].date+"</span><span>"+data.daily_forecast[i].cond.txt_d+"</span><span>"+data.daily_forecast[i].tmp.min+"-"+data.daily_forecast[i].tmp.max+"℃</span><span class='wind'>"+data.daily_forecast[i].wind.dir+"<br/>"+data.daily_forecast[i].wind.sc+"级</span></li>";
+				}
+				if (dailyDate) {
+					dailyBox.innerHTML=
+					"<li><h4><span>时间</span><span>天气</span><span>温度</span><span class='wind'>风</span></h4></li>"+dailyDate;
 				}
 			}else{
 				alert(data.status+'：没有找到这个城市的天气。注意所输入城市名不能带有"市"或"县"字"，如果输入没错，那就是服务器挂了！')
