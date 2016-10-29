@@ -109,7 +109,7 @@
 		}
 		#shzs li{
 			display:inline-block;
-			width:33.33%;
+			width:50%;
 		}
 
 		#shzs div{
@@ -121,7 +121,7 @@
 		#shzs h4{
 			text-align:center;
 		}
-		#shzs div p{
+		#shzs p{
 			height:0.6rem;
 			overflow:auto;
 		}
@@ -296,7 +296,7 @@
 						default:
 							console.log("有新数据");
 					}
-					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"<br/>"+data.suggestion[attr].brf+"</h4><p>"+data.suggestion[attr].txt+"</p></div>";
+					shzs.getElementsByTagName('li')[ii].innerHTML="<div><h4>"+attr2+"："+data.suggestion[attr].brf+"</h4><p>"+data.suggestion[attr].txt+"</p></div>";
 					ii++;
 				}
 			}else{
