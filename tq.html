@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="key">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
 	<link rel="shortcut icon"  href="myicon.png">
 	<title>天气-JXXL</title>
@@ -47,13 +48,33 @@
 			background-clip:content-box;	
 		}
 
+		/*城市列表*/
+		#citylist{
+			position:absolute;
+			display:none;
+		}
+		#citylist ul{
+			width:1.6rem; padding:0 0.1rem; background:#455667;
+			font-size:0;
+		}
+		#citylist li{
+			 padding-left:0.05rem; border-bottom:1px solid #E0EBEF;
+			font-size:0.2rem; line-height:1.5; color:#fff; text-align:left;
+		}
+		#citylist .others{
+			padding:0.1rem 0 0.2rem 0.05rem; border:0;
+			font-size:0.16rem;line-height:1.2;
+		}
+		#citylist input{
+			font-size:0.18rem;
+		}
+		#citylist .txt{
+			width:0.8rem; text-indent:0.06rem;
+		}
+
+		/*天气*/
 		#weather{
 			padding-top:0.36rem;
-		}
-		/*更新时间*/
-		#updateTime{
-			padding:6px; background:#fff; margin-bottom:0.06rem;
-			text-align:right;
 		}
 
 		/*各个板块的盒模型*/
@@ -63,7 +84,13 @@
 
 		.sec-box h3{
 			padding:0.02rem 0 0.02rem 0.08rem; border-left:4px solid #79bbdd; border-bottom:1px solid #E0EBEF;
-			font-size:0.18rem;color:#565656;
+			font-size:0.18rem;line-height:0.26rem; color:#565656;
+		}
+
+		/*更新时间*/
+		#updateTime{
+			font-size:0.12rem;
+			position:absolute;right:0.1rem;
 		}
 
 		/*实况天气*/
@@ -87,23 +114,18 @@
 			font-size:0.16rem; line-height:1.5;
 		}
 
-		/*空气质量*/
-		#kqzl{
-			padding:0.06rem;
-		}
-		#kqzl h4{
+		/*3小时预报*/
+		#hourly span{
+			display:inline-block;
+			min-width:23%;
 			text-align:center;
 		}
-		#kqzl p{
-			display:inline-block;
-			width:16.6%; border-top:1px solid #ddd;
+		#hourly .wind{
+			width:31%; 
 		}
-		#kqzl span{
-			display:block;
-			border-bottom:1px solid #ddd;
-			font-size:0.14rem; line-height:1.5; text-align:center;
+		#hourly h4,#hourly p{
+			padding:0.04rem 0; border-bottom:1px solid #f0f0f0;
 		}
-
 
 		/*生活指数*/
 		#shzs ul{
@@ -125,7 +147,7 @@
 			text-align:center;
 		}
 		#shzs p{
-			height:0.6rem;
+			height:0.56rem;
 			overflow:auto;
 		}
 
@@ -151,16 +173,27 @@
 <body>
 
 	<div id="top">
-	 	<div id="more"><span class="css3-icon"></span><span>更多</span></div>
+	 	<div id="more"><span class="css3-icon"></span><span>更多城市</span></div>
 		<span id="city">当前天气：北京市</span>
+		<div id="citylist">
+			<ul>
+				<li>北京</li>
+				<li>上海</li>
+				<li>杭州</li>
+				<li>南京</li>
+				<li>郑州</li>
+				<li class="others">其他城市:<input type="text" class="txt">&nbsp<input type="button" value="确定"></li>
+			</ul>
+		</div>
 	</div>
+
 	<!-- 天气信息 -->
 	<div id="weather">
 
-		<div id="updateTime">数据更新于:0000-00-00 00:00</div>
+		
 		<!-- 实况天气 -->
 		<div class="sec-box">
-			<h3>实况天气</h3>
+			<h3>实况天气<span id="updateTime">数据更新于:0000-00-00 00:00</span></h3>
 			<div id="sktq">
 				<p><span class="tmp">-℃|</span><span class="condTxt">天气</span></p>
 				<p>
@@ -176,11 +209,11 @@
 
 		<!-- 空气质量 -->
 		<div class="sec-box">
-			<h3>空气污染物</h3>
-			<div id="kqzl">
-				<h4>空气污染物1小时平均值(单位:ug/m³)</h4>
+			<h3>3小时预报</h3>
+			<div id="hourly">
+				<h4><span>时间</span><span>温度</span><span>降水概率</span><span>风</span></h4>
 				<div>
-					<span>数据正在赶来</span>
+					<p><span>无数据</span><span>--</span><span>--</span><span>--</span></p>
 				</div>
 			</div>
 		</div>
@@ -216,9 +249,9 @@
 
 	<script type="text/javascript">
 		var data='';
-		function requestData(fn){
+		function requestData(fn,city){
 			var xhr=new XMLHttpRequest();
-			xhr.open('get','https://apis.baidu.com/heweather/weather/free?city=北京',true);
+			xhr.open('get','https://apis.baidu.com/heweather/weather/free?city='+city,true);
 			xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
 			xhr.send();
 			xhr.onreadystatechange=function(){
@@ -230,13 +263,12 @@
 				}
 			}
 		}
-		
-		
+				
 		var city=document.getElementById('city');
 		var updateTime=document.getElementById('updateTime');
-
 		var shzs=document.getElementById('shzs');
-		requestData(function(){
+
+		function render(){
 			if (data.status=="ok") {
 				//basic基本信息
 				city.innerHTML="当前天气:"+data.basic.city;
@@ -244,30 +276,31 @@
 
 				//"实况天气"
 				var sktqBox=document.getElementById('sktq');
+				// if (data.aqi.city.qlty) {
+					var air=data.aqi?data.aqi.city.qlty:("--")
+				// }else{
+				// 	var air="--";
+				// }
 				sktqBox.innerHTML=
 				"<p><span class='tmp'>"+data.now.tmp+"℃</span><span class='condTxt'>"+data.now.cond.txt+"</span></p>"+
 				"<p>"+
-					"<span  class='displayblock'><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气:"+data.aqi.city.qlty+"</span></span>"+
+					"<span  class='displayblock'><span  class='hum'>湿度"+data.now.hum+"%|</span><span class='qlty'>空气:"+air+"</span></span>"+
 					"<span  class='displayblock'><span class='dir'>"+data.now.wind.dir+"</span><span class='sc'>"+data.now.wind.sc+"级</span></span>"+
 				"</p>";
 			
 			
-				//"空气污染物"
-				var kqzlBox=document.getElementById('kqzl');
-				kqzlBox.innerHTML=
-				"<table>"+
-					"<h4>空气污染物1小时平均值(单位:ug/m³)</h4>"+
-					"<div>"+
-						"<p><span>PM2.5</span><span>"+data.aqi.city.pm25+"</span></p>"+
-						"<p><span>PM10</span><span>"+data.aqi.city.pm10+"</span></p>"+
-						"<p><span>臭氧</span><span>"+data.aqi.city.o3+"</span></p>"+
-						"<p><span>一氧化碳</span><span>"+data.aqi.city.co+"</span></p>"+
-						"<p><span>二氧化氮</span><span>"+data.aqi.city.no2+"</span></p>"+
-						"<p><span>二氧化硫</span><span>"+data.aqi.city.so2+"</span></p>"+
-					"</div>"+
-
-				"</table>"
-
+				//"3小时预报"
+				var hourlyBox=document.getElementById('hourly');
+				var hourlyDate="";
+				for (var i = 0; i < data.hourly_forecast.length; i++) {
+					hourlyDate+="<p><span>"+data.hourly_forecast[i].date.match(/\d{2}:\d{2}/)[0]+"</span><span>"+data.hourly_forecast[i].tmp+"℃</span><span>"+data.hourly_forecast[i].pop+"%</span><span class='wind'>"+data.hourly_forecast[i].wind.dir+data.hourly_forecast[i].wind.sc+"级</span></p>";
+				}
+				if (hourlyDate) {
+					hourlyBox.innerHTML=
+					"<h4><span>时间</span><span>温度</span><span>降水概率</span><span class='wind'>风</span></h4>"+
+					"<div>"+hourlyDate+"</div>";
+				}
+				
 				
 				//生活指数
 				var ii=0;
@@ -303,12 +336,45 @@
 					ii++;
 				}
 			}else{
-				alert("服务器返回信息："+data.status)
+				alert(data.status+'：没有找到这个城市的天气。注意所输入城市名不能带有"市"或"县"字"，如果输入没错，那就是服务器挂了！')
+			}
+		}
+
+		requestData(render,"北京");
+
+		var more=document.getElementById('more');
+		var citylist=document.getElementById('citylist');
+		more.addEventListener("touchend",function(){
+			if (citylist.onoff) {
+				citylist.style.display="none";
+				citylist.onoff=false;
+				this.innerHTML="<span class='css3-icon'></span><span>更多城市</span>"
+			}else{
+				citylist.style.display="block";
+				citylist.onoff=true;
+				this.innerHTML="<span class='css3-icon'></span><span>收起</span>"
+			}
+			
+		}) 
+		citylist.addEventListener("touchend",function(ev){
+			if (ev.target.innerHTML.length==2) {
+				requestData(render,ev.target.innerHTML);
+				citylist.style.display="none";
+				citylist.onoff=false;
+				more.innerHTML="<span class='css3-icon'></span><span>更多城市</span>"
 			}
 		})
-
-		
-	
+		var ipts=citylist.getElementsByTagName("input");
+		ipts[1].addEventListener("touchend",function(){
+			if (ipts[0].value) {
+				requestData(render,ipts[0].value);
+				citylist.style.display="none";
+				citylist.onoff=false;
+				more.innerHTML="<span class='css3-icon'></span><span>更多城市</span>"
+			}else{
+				alert('')
+			}
+		})
 		
 	
 	  
