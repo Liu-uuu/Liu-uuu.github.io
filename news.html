@@ -208,10 +208,18 @@
 			}
 		)
 
+		var ismoved=false;
+		channelList.addEventListener("touchstart",function(){
+			ismoved=false;		
+		});
+		
+		channelList.addEventListener("touchmove",function(){
+			ismoved=true;
+		});
 		// 点击频道出新闻数据
 		channelList.addEventListener("touchend",function(ev){
-
-			if (ev.target.getAttribute("channelId")) {
+			
+			if (ev.target.getAttribute("channelId")&&ismoved==false) {
 
 				channelList.style.display="none";
 				channelList.onoff=false;
@@ -230,7 +238,6 @@
 									"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
 									"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
 									"<div class='newshtml' style='display:none;'>"+data.showapi_res_body.pagebean.contentlist[i].html+"</div>"+
-									// "<div></div>"+
 								"</li>");
 							}
 							document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
@@ -240,7 +247,7 @@
 			}
 			
 		})
-		//全文切换
+		//打开全文
 		document.getElementById('news').addEventListener("touchend",function(ev){
 			if (ev.target.className=="newsdesc") {
 				// alert("sc")
