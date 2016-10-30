@@ -74,8 +74,15 @@
 		#news li div{
 			padding:0.08rem 0.16rem; line-height:1.3;
 		}
+		#news p{
+			padding-bottom:0.12rem;
+		}
 		#news img{
 			width:100%;
+		}
+
+		.onoff{
+			color:blue;
 		}
 
 
@@ -152,29 +159,35 @@
 			}
 		};
 
-		// 频道列表数据
-		requestData("http://apis.baidu.com/showapi_open_bus/channel_news/channel_news",function(){
-			if (data.showapi_res_error) {
-				alert("请求错误："+data.showapi_res_error)
-			}else{
-				var newType=document.getElementById("newType"), newTypeContent="";
-				var newType=document.getElementById("newType"), hotTypeContent="";
 
-				for (var i = 0; i < data.showapi_res_body.channelList.length; i++) {
-					if (/最新/.test(data.showapi_res_body.channelList[i].name)) {
-						newTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
-					}
-					if (/焦点/.test(data.showapi_res_body.channelList[i].name)) {
-						hotTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
-					}
-				}
-				newType.innerHTML="<ul>"+newTypeContent+"<ul>";
-				hotType.innerHTML="<ul>"+hotTypeContent+"<ul>";		
-			}		
-		});
-		// 频道李彪展开收起
+		// 频道列表展开收起
 		var channelList=document.getElementById('channelList');
+		var noData=true;
 		document.getElementById("more").addEventListener("touchend",function(){
+			if (noData) {
+				// 频道列表数据
+				requestData("http://apis.baidu.com/showapi_open_bus/channel_news/channel_news",function(){
+					if (data.showapi_res_error) {
+						alert("请求错误："+data.showapi_res_error)
+					}else{
+						var newType=document.getElementById("newType"), newTypeContent="";
+						var newType=document.getElementById("newType"), hotTypeContent="";
+
+						for (var i = 0; i < data.showapi_res_body.channelList.length; i++) {
+							if (/最新/.test(data.showapi_res_body.channelList[i].name)) {
+								newTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
+							}
+							if (/焦点/.test(data.showapi_res_body.channelList[i].name)) {
+								hotTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
+							}
+						}
+						newType.innerHTML="<ul>"+newTypeContent+"<ul>";
+						hotType.innerHTML="<ul>"+hotTypeContent+"<ul>";		
+					}		
+				});
+				noData=false;
+			}
+
 			if (channelList.onoff) {
 				channelList.style.display="none";
 				channelList.onoff=false;
@@ -186,6 +199,7 @@
 			}
 			
 		});
+		
 		//默认显示数据
 		requestData("http://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1",
 			function(){
@@ -198,9 +212,8 @@
 						newsContent+=
 						("<li>"+
 							"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
-							"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
-							"<div class='newshtml' style='display:none;'>"+data.showapi_res_body.pagebean.contentlist[i].html+"</div>"+
-							"<div></div>"+
+							"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"<span class='onoff' index="+i+">展开↓↓</span></div>"+
+							"<div class='newshtml' style='display:none;'>"+1+"<span class='onoff'>收起↑↑</span></div>"+
 						"</li>");
 					}
 					document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
@@ -209,11 +222,11 @@
 		)
 
 		var ismoved=false;
-		channelList.addEventListener("touchstart",function(){
+		document.addEventListener("touchstart",function(){
 			ismoved=false;		
 		});
 		
-		channelList.addEventListener("touchmove",function(){
+		document.addEventListener("touchmove",function(){
 			ismoved=true;
 		});
 		// 点击频道出新闻数据
@@ -236,8 +249,8 @@
 								newsContent+=
 								("<li>"+
 									"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
-									"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
-									"<div class='newshtml' style='display:none;'>"+data.showapi_res_body.pagebean.contentlist[i].html+"</div>"+
+									"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"<span class='onoff' index="+i+">展开↓↓</span></div>"+
+									"<div class='newshtml' style='display:none;'>"+1+"<span class='onoff'>收起↑↑</span></div>"+
 								"</li>");
 							}
 							document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
@@ -249,14 +262,15 @@
 		})
 		//打开全文
 		document.getElementById('news').addEventListener("touchend",function(ev){
-			if (ev.target.className=="newsdesc") {
+			if (ev.target.innerHTML=="展开↓↓"&&ismoved==false) {
 				// alert("sc")
-				ev.target.style.display="none";
-				ev.target.nextSibling.style.display="block";
-			}else if (ev.target.className=="newshtml") {
+				ev.target.parentNode.style.display="none";
+				ev.target.parentNode.nextSibling.style.display="block";
+				ev.target.parentNode.nextSibling.innerHTML=data.showapi_res_body.pagebean.contentlist[ev.target.getAttribute("index")].html+"<span class='onoff'>收起↑↑</span>"
+			}else if (ev.target.innerHTML=="收起↑↑"&&ismoved==false) {
 				// alert("html")
-				ev.target.style.display="none";
-				ev.target.previousSibling.style.display="block";
+				ev.target.parentNode.style.display="none";
+				ev.target.parentNode.previousSibling.style.display="block";
 			}
 		})
 
