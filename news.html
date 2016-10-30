@@ -12,8 +12,8 @@
 	</script>
 	<style type="text/css">
 
-		html,body{
-			height: 100%;
+		body{
+			background:#ccc;
 		}
 		body,ul,li,h3,h4,p{
 			margin: 0;
@@ -26,7 +26,7 @@
 	
 		#top{
 			width:100%; background: #0D5AA5;
-			font-size: 0.16rem; line-height: 0.36rem; text-align: center; color: #fff;
+			font-size: 0.18rem; line-height: 0.4rem; text-align: center; color: #fff;
 			position:fixed;
 		}
 		/*更多*/
@@ -39,6 +39,43 @@
 			width:0.15rem; height:0.03rem; background:#fff; padding:0.02rem 0; margin-right:4px;
 			border-top:0.03rem solid #fff; border-bottom:0.03rem solid #fff;
 			background-clip:content-box;	
+		}
+
+		/*频道列表*/
+		#channelList{
+			width:70%; height:4.5rem; overflow:auto; background:#03A9F4;
+			position:absolute;
+		}
+		#channelList h2{
+			font-size:0.2rem; margin:0; background:#0D5AA5;
+			border-top:1px solid #5099E0;
+		}
+	
+		#channelList li{
+			display:inline-block;width:50%; border-bottom:1px solid #5099E0;
+			font-size:0.18rem; text-align:center;
+		}
+		#channelList span{
+			display:block;
+			border-right:1px solid #5099E0;
+		}
+
+		/*news*/
+		#news{
+			padding:0.4rem 0;
+		}
+		#news h4{
+			height:0.26rem; padding:0.02rem 0 0.02rem 0.08rem; border-left:4px solid #5099E0; border-bottom:1px solid #86BAEA;
+			font-size:0.16rem;line-height:0.26rem; color:#565656; overflow:hidden; text-overflow:ellipsis;
+		}
+		#news li{
+			background:#fff; margin-bottom:0.06rem;
+		}
+		#news li div{
+			padding:0.08rem 0.16rem; line-height:1.3;
+		}
+		#news img{
+			width:100%;
 		}
 
 
@@ -65,10 +102,29 @@
 
 	<div id="top">
 	 	<div id="more"><span class="css3-icon"></span><span>更多</span></div>
-		<span id="news-type">国内新闻</span>
+		<span id="thisChannel">新闻首页</span>
+		<!-- 频道列表 -->
+		<div id="channelList" style="display: none;">
+			<h2>焦点频道</h2>
+			<div id="hotType"></div>
+			<h2>最新频道</h2>
+			<div id="newType"></div>
+		</div>
 	</div>
-	<!-- 天气信息 -->
-	<div id="weather"></div>
+
+
+
+	<div id="news">
+		<div>
+			<h3>频道名</h3>
+			<ul>
+				<li>
+					<h4>新闻标题</h4>
+					<div>网络有点慢呀！坐下喝杯茶吧！</div>
+				</li>
+			</ul>
+		</div>
+	</div>
 
 
 	<div id="footer">
@@ -78,26 +134,124 @@
 		<span><a href="./2048.html">小游戏</a></span>
 	</div>
 
-
-
-
-
+	<!-- -********************************************************** -->
 	<script type="text/javascript">
 		var data='';
-		function requestData(fn){
+		function requestData(url,fn){
 			var xhr=new XMLHttpRequest();
-			xhr.open('get','https://apis.baidu.com/heweather/weather/free?city=北京',true);
+			xhr.open('get',url,true);
 			xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
 			xhr.send();
 			xhr.onreadystatechange=function(){
 				if (xhr.readyState==4) {
 					if (xhr.status==200) {
-						data=JSON.parse(xhr.responseText)["HeWeather data service 3.0"][0];
+						data=JSON.parse(xhr.responseText);
 						fn();
 					}
 				}
 			}
-		}
+		};
+
+		// 频道列表数据
+		requestData("http://apis.baidu.com/showapi_open_bus/channel_news/channel_news",function(){
+			if (data.showapi_res_error) {
+				alert("请求错误："+data.showapi_res_error)
+			}else{
+				var newType=document.getElementById("newType"), newTypeContent="";
+				var newType=document.getElementById("newType"), hotTypeContent="";
+
+				for (var i = 0; i < data.showapi_res_body.channelList.length; i++) {
+					if (/最新/.test(data.showapi_res_body.channelList[i].name)) {
+						newTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
+					}
+					if (/焦点/.test(data.showapi_res_body.channelList[i].name)) {
+						hotTypeContent+=("<li><span channelId="+data.showapi_res_body.channelList[i].channelId+">"+data.showapi_res_body.channelList[i].name+"</span></li>");
+					}
+				}
+				newType.innerHTML="<ul>"+newTypeContent+"<ul>";
+				hotType.innerHTML="<ul>"+hotTypeContent+"<ul>";		
+			}		
+		});
+		// 频道李彪展开收起
+		var channelList=document.getElementById('channelList');
+		document.getElementById("more").addEventListener("touchend",function(){
+			if (channelList.onoff) {
+				channelList.style.display="none";
+				channelList.onoff=false;
+				this.innerHTML="<span class='css3-icon'></span><span>更多</span>"
+			}else{
+				channelList.style.display="block";
+				channelList.onoff=true;
+				this.innerHTML="<span class='css3-icon'></span><span>收起</span>"
+			}
+			
+		});
+		//默认显示数据
+		requestData("http://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1",
+			function(){
+				if (data.showapi_res_error) {
+					alert("未获取到这个频道的数据！")
+				}else{
+					var newsContent="";
+					document.getElementById('thisChannel').innerHTML="国内焦点";
+					for (var i = 0; i < data.showapi_res_body.pagebean.contentlist.length; i++) {
+						newsContent+=
+						("<li>"+
+							"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
+							"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
+							"<div class='newshtml' style='display:none;'>"+data.showapi_res_body.pagebean.contentlist[i].html+"</div>"+
+							"<div></div>"+
+						"</li>");
+					}
+					document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
+				}
+			}
+		)
+
+		// 点击频道出新闻数据
+		channelList.addEventListener("touchend",function(ev){
+
+			if (ev.target.getAttribute("channelId")) {
+
+				channelList.style.display="none";
+				channelList.onoff=false;
+				document.getElementById("more").innerHTML="<span class='css3-icon'></span><span>更多</span>"
+
+				requestData("http://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+ev.target.getAttribute('channelId')+"&needHtml=1",
+					function(){
+						if (data.showapi_res_error) {
+							alert("未获取到这个频道的数据！")
+						}else{
+							var newsContent="";
+							document.getElementById('thisChannel').innerHTML=ev.target.innerHTML;
+							for (var i = 0; i < data.showapi_res_body.pagebean.contentlist.length; i++) {
+								newsContent+=
+								("<li>"+
+									"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
+									"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
+									"<div class='newshtml' style='display:none;'>"+data.showapi_res_body.pagebean.contentlist[i].html+"</div>"+
+									// "<div></div>"+
+								"</li>");
+							}
+							document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
+						}
+					}
+				)
+			}
+			
+		})
+		//全文切换
+		document.getElementById('news').addEventListener("touchend",function(ev){
+			if (ev.target.className=="newsdesc") {
+				// alert("sc")
+				ev.target.style.display="none";
+				ev.target.nextSibling.style.display="block";
+			}else if (ev.target.className=="newshtml") {
+				// alert("html")
+				ev.target.style.display="none";
+				ev.target.previousSibling.style.display="block";
+			}
+		})
 
 	</script>
 
