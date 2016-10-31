@@ -15,7 +15,7 @@
 			height:100%;
 		}*/
 		body{
-			margin:0;
+			margin:0; background:#eee;
 			font-size:0.12rem;
 		}
 		ul,li,p{
@@ -32,14 +32,15 @@
 			height:1.2rem; background:#2196F3 url('./qr-code.png') no-repeat 2.5rem;
 			background-size:1rem; color:#fff;
 		}
-		#weather h3{
+/*		#weather h3{
 			margin:0; padding:0.04rem 0;
 			font-size:0.12rem; color:#eee; font-weight:normal;
-		}
+		}*/
 
 		/*实况天气*/
 		#sktq p{
 			padding-left:0.3rem;
+			font-family:"微软雅黑"; line-height:1.5;
 		}
 		#sktq .tmp{
 			font-size:0.4rem;
@@ -47,7 +48,7 @@
 
 		/*搜索*/
 		#search{
-			height:1.72rem; border:1px solid #ccc;
+			height:1.72rem; background:#fff; border-bottom:1px solid #ccc;
 			overflow:auto;
 		}
 		#list ul{
@@ -84,17 +85,21 @@
 
 		/*笑话*/
 		#happy{
-			background:#fff; margin-bottom:0.06rem; padding:0 0 0.06rem 0;
+			margin-bottom:0.06rem; padding:0 0 0.06rem 0;
 		}
 		#happy h3{
-			margin:0; padding:0.02rem 0 0.02rem 0.08rem;
+			background:#fff; margin:0; padding:0 0 0 0.08rem;
 			border-left:4px solid #79bbdd;
-			border-bottom:1px solid #E0EBEF;
-			font-size:0.18rem;line-height:0.26rem; color:#565656;
+			border-bottom:1px solid #ccc;
+			font-size:0.18rem;line-height:0.36rem; color:#565656;
 		}
 		#happy .content{
-			height:1.8rem; padding:0.1rem 0.18rem;
-			font-size:0.16rem; line-height:1.5; overflow:auto;
+			height:1.8rem; overflow:auto;
+		}
+		#happy .content li{
+			background:#fff; margin:0.06rem 0.15rem; padding:0.1rem 0.18rem;
+			font-size:0.16rem; line-height:1.5;
+			box-shadow:1px 1px 6px #aaa;
 		}
 
 
@@ -124,7 +129,7 @@
 </div>
 
 <div id="weather">
-	<h3>实况天气:</h3>
+	<!-- <h3>实况天气:</h3> -->
 	<div id="sktq">当前网络环境有点慢哦！</div>
 </div>
 
@@ -263,25 +268,26 @@
 		var contentlist="";
 		if (contentlist) {
 			document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[0].text+"</p>";
-		}
-		var xhr=new XMLHttpRequest();
-		xhr.open('get','https://apis.baidu.com/showapi_open_bus/showapi_joke/joke_text?page='+page+'',true);
-		xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
-		xhr.send();
-		xhr.onreadystatechange=function(){
-			if (xhr.readyState==4) {
-				if (xhr.status==200) {
-					var data=JSON.parse(xhr.responseText);
-					if (data.showapi_res_error=="") {
-						contentlist=data.showapi_res_body.contentlist;
-						document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><div class='content'>"+contentlist[0].text+"</div>";
-						// setInterval(function(){
-						// 	document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><p>"+contentlist[Math.floor(Math.random()*contentlist.length)].text+"</p>";
-						// },15000)
+		}else{
+			var xhr=new XMLHttpRequest();
+			xhr.open('get','https://apis.baidu.com/showapi_open_bus/showapi_joke/joke_text?page='+page+'',true);
+			xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+			xhr.send();
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState==4) {
+					if (xhr.status==200) {
+						var data=JSON.parse(xhr.responseText);
+						if (data.showapi_res_error=="") {
+							for (var i = 0; i < data.showapi_res_body.contentlist.length; i++) {
+								contentlist+="<li>"+data.showapi_res_body.contentlist[i].text+"</li>"
+							}
+							document.getElementById('happy').innerHTML="<h3>每日笑话|为生活添乐趣</h3><div class='content'><ul>"+contentlist+"</ul></div>";
+						}
 					}
 				}
 			}
 		}
+
 	})(1);
 	
 
