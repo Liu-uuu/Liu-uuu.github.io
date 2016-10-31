@@ -616,7 +616,9 @@ toCreate.onclick=function(e){
 	newInput.select();
 	newInput.focus();
 	document.onclick=function(){
-		newInput.blur();
+		if (newInput) {
+			newInput.blur();
+		}	
 	}
 	var thisParentFile;//定义并找到新文件的父文件夹
 	for (var i = 0; i < data.files.length; i++) {
@@ -635,6 +637,7 @@ toCreate.onclick=function(e){
 			renderChildFiles(thisParentFile)
 			fileTreeArea.innerHTML='';
 			renderTree(fileTreeArea)//树状导航
+			newInput=null;
 		}
 	}
 	newInput.onblur=function(){
@@ -644,6 +647,7 @@ toCreate.onclick=function(e){
 		renderChildFiles(thisParentFile)
 		fileTreeArea.innerHTML='';
 		renderTree(fileTreeArea)//树状导航
+		newInput=null;
 	}
 	return false;
 }
@@ -670,7 +674,9 @@ toRename.onclick=function(e){
 		ipt.focus();
 		ipt.select();
 		document.onclick=function(){
-			ipt.blur();
+			if (ipt) {
+				ipt.blur();
+			}
 		}
 		ipt.onkeydown=function(e){
 			var e=e||window.event;
@@ -692,26 +698,28 @@ toRename.onclick=function(e){
 						renderTree(fileTreeArea)//树状导航
 					}
 				}
+				ipt=null;
 			}
 			
 		}
 		ipt.onblur=function(){
 			var thisParentFile;//定义并找到文件的父文件夹
-				for (var i = 0; i < data.files.length; i++) {
-					if(data.files[i].id==fileArea.visitorId){
-						thisParentFile=data.files[i];
-						thisParentFile.fileid=data.files[i].id;
-					}
+			for (var i = 0; i < data.files.length; i++) {
+				if(data.files[i].id==fileArea.visitorId){
+					thisParentFile=data.files[i];
+					thisParentFile.fileid=data.files[i].id;
 				}
-				// alert(renameDiv.fileid)
-				for (var i = 0; i < data.files.length; i++) {
-					if(data.files[i].id==renameDiv.fileid){
-						data.files[i].title=ipt.value;
-						renderChildFiles(thisParentFile)//内容区
-						fileTreeArea.innerHTML='';
-						renderTree(fileTreeArea)//树状导航
-					}
+			}
+			// alert(renameDiv.fileid)
+			for (var i = 0; i < data.files.length; i++) {
+				if(data.files[i].id==renameDiv.fileid){
+					data.files[i].title=ipt.value;
+					renderChildFiles(thisParentFile)//内容区
+					fileTreeArea.innerHTML='';
+					renderTree(fileTreeArea)//树状导航
 				}
+			}
+			ipt=null;
 		}
 
 	}else if(oneDiv==0){

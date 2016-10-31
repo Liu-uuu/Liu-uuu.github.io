@@ -1,3 +1,6 @@
+body{
+    background-image:url("../bg.jpg");
+}
 #yun{
     width: 800px;
     height: 500px;
@@ -14,12 +17,11 @@
 #header{
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid #ddd;
 }
 #blueArea{
     width: 100%;
     height: 30px;
-    background: #5D778C;
+    background: #2196F3;
     /*#278cde;*/
     text-align: right;
     position: relative;
@@ -57,7 +59,7 @@
     height: 50px;
     line-height: 50px;
     font-size: 12px;
-    background: #f5f6f9 url('../cr.png') no-repeat right ;
+    background: #f5f6f9 /*url('../cr.png') no-repeat right*/ ;
     /*padding-left: 210px;*/
     overflow: hidden;
 }
@@ -126,39 +128,38 @@
 }
 #mainLeft{
     float: left;
-    width: 200px;
+    width: 199px;
     background: #eaedf4;
-    overflow: auto;
-    background:#ddd url('http://img.taopic.com/uploads/allimg/111222/6350-11122212101534.jpg')center;
+    border-right:1px solid #ccc;
+    /*overflow: auto;*/
+    background:#ddd;
     /*width固定 height随窗口变化而变化，用js设置*/
 }
-#mainLeft #fileTree{
-    padding-top: 50px;
-}
+
 #mainLeft h2{
-    width: 165px;
-    padding:20px 0 16px 20px;
-    line-height: 16px;
+    padding:4px 0 3px 20px;
+    border-left:4px solid #2196F3;
+    border-bottom:1px solid #2196F3;
     font-size: 16px;
-    color: #002f6d;
-    position: absolute;
-    /*background:#eaedf4;*/
-    overflow: hidden; 
+    color: #444;
 }
 #fileTree{
-    padding-left:20px; 
+    height:90%;
+    padding-left:20px;
+    overflow:auto;
 }
 
 
 #fileTree h3{
     height:26px;
+    overflow:hidden;
+    margin: 6px 0;
+    padding-left: 26px;
+    background: url(../treeimg2.png) no-repeat 0 4px;
     font-size: 14px;
     line-height: 26px;
     cursor:pointer;
-    color: #323e48;
-    background: url(../treeimg2.png) no-repeat 0 4px;
-        margin: 6px 0; 
-    padding-left: 26px;
+    color: #323e48;   
 }
 #fileTree h3:hover{
     height:24px;
@@ -176,7 +177,8 @@
 }
 #path{
     height: 30px;
-    border-bottom: 1px solid #e6e9f0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     overflow: hidden;
 }
 #path a{
@@ -193,7 +195,7 @@
 
 #fileArea{
     padding: 8px;
-    background:#5c5a68 url('../1.png') no-repeat bottom right;
+    /*background:#5c5a68 url('../1.png') no-repeat bottom right;*/
 }
 #fileArea #nofile{
     width: 80%;
@@ -201,7 +203,7 @@
     text-align: center;
     line-height: 200px;
     vertical-align: bottom;
-    color: #ccc;
+    color: #666;
     position: absolute;
 }
 #fileArea div{
@@ -221,7 +223,7 @@
     left: 0px;
     width: 90px;
     height: 20px;
-    color: #f6f6f0;
+    color: #444;
     font-family: '微软雅黑';
     text-align: center;
 }
@@ -254,34 +256,5 @@
 
 
 
-
-
-
-
-
-
-
-
-
-/*以下附属右键菜单样式*/
-.contextmenu{
-    width: 100px;
-    border: 1px solid #ccc;
-    display: none;
-    position: absolute;
-}
-
-.contextmenu li{
-    line-height: 20px;
-    padding: 0 10px;
-    margin: 5px 0;
-    list-style: none;
-    font-family: "微软雅黑";
-}
-.contextmenu span{
-    position: absolute;
-    right: 10px;
-}
-/*附属右键菜单样式到此*/
 
 
