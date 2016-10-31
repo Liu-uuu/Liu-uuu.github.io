@@ -55,7 +55,7 @@
 			font-size:0.18rem; color:#0D5AA5;
 		}
 		#channelList ul{
-			margin:0 0.04rem; padding:0.04rem 0;
+			margin:0 0.04rem; padding:0.04rem 0 0.02rem  0;
 		}
 		#channelList li{
 			display:inline-block;width:50%;
@@ -219,7 +219,7 @@
 						("<li>"+
 							"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
 							"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"<span class='onoff' index="+i+">展开↓↓</span></div>"+
-							"<div class='newshtml' style='display:none;'>"+1+"<span class='onoff'>收起↑↑</span></div>"+
+							"<div class='newshtml' style='display:none;'>"+"网速有点慢哦！刷新再试！"+"<span class='onoff'>收起↑↑</span></div>"+
 						"</li>");
 					}
 					document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
