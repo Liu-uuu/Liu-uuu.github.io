@@ -169,7 +169,7 @@
 		document.getElementById("more").addEventListener("touchend",function(){
 			if (noData) {
 				// 频道列表数据
-				requestData("http://apis.baidu.com/showapi_open_bus/channel_news/channel_news",function(){
+				requestData("https://apis.baidu.com/showapi_open_bus/channel_news/channel_news",function(){
 					if (data.showapi_res_error) {
 						alert("请求错误："+data.showapi_res_error)
 					}else{
@@ -206,7 +206,7 @@
 		});
 		
 		//默认显示数据
-		requestData("http://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1",
+		requestData("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1",
 			function(){
 				if (data.showapi_res_error) {
 					alert("未获取到这个频道的数据！")
@@ -243,7 +243,7 @@
 				channelList.onoff=false;
 				document.getElementById("more").innerHTML="<span class='css3-icon'></span><span>更多</span>"
 
-				requestData("http://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+ev.target.getAttribute('channelId')+"&needHtml=1",
+				requestData("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+ev.target.getAttribute('channelId')+"&needHtml=1",
 					function(){
 						if (data.showapi_res_error) {
 							alert("未获取到这个频道的数据！")
