@@ -194,22 +194,21 @@ body{
 }
 
 #fileArea{
-    padding: 8px;
+    padding: 6px;
     /*background:#5c5a68 url('../1.png') no-repeat bottom right;*/
 }
-#fileArea #nofile{
-    width: 80%;
+/*#fileArea*/ #nofile{
+    width: 100%;
     font-size: 20px;
     text-align: center;
-    line-height: 200px;
-    vertical-align: bottom;
+    padding-top:100px;
     color: #666;
-    position: absolute;
 }
 #fileArea div{
     width: 90px;
     height: 90px;
     margin: 1px;
+    border:1px solid #fff;
     background:url(../img/file.png) no-repeat 12px 8px;
     float: left;
     position: relative;
