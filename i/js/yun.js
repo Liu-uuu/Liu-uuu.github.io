@@ -121,18 +121,20 @@ function divcss() {
 
 	/*----------以下限制高-----------*/
 	var minH=header.offsetHeight+leftDiv.offsetWidth;//定义模拟窗口最小高度
+	if (yun.style.display!="none") {
+		if (yun.offsetHeight<minH) {
+			
+			yun.style.height=minH+"px";	
+			mainDiv.style.height=leftDiv.style.height=rightDiv.style.height=leftDiv.offsetWidth+"px";
+			/*---设置左右DIV以及主DIV的最小高度与leftDiv的固定宽度相等---*/
 
-	if (yun.offsetHeight<minH) {
-		
-		yun.style.height=minH+"px";	
-		mainDiv.style.height=leftDiv.style.height=rightDiv.style.height=leftDiv.offsetWidth+"px";
-		/*---设置左右DIV以及主DIV的最小高度与leftDiv的固定宽度相等---*/
-
-	}else{
-		mainDiv.style.height=yun.offsetHeight-header.offsetHeight-2+'px';//2为mainDiv上下border
-		leftDiv.style.height=rightDiv.style.height=mainDiv.style.height;
+		}else{
+			mainDiv.style.height=yun.offsetHeight-header.offsetHeight-2+'px';//2为mainDiv上下border
+			leftDiv.style.height=rightDiv.style.height=mainDiv.style.height;
+		}
+		fileArea.style.height=rightDiv.offsetHeight-30+'px';
 	}
-	fileArea.style.height=rightDiv.offsetHeight-30+'px';
+
 	/*---END-------限制高-----------*/
 
 
@@ -752,7 +754,6 @@ toDelect.onclick=function(){
 //桌面图标
 var icon=document.getElementById('icon');
 icon.ondblclick=function(){
-	data=data2;
 	yun.style.display="block";
 	var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
 	var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
