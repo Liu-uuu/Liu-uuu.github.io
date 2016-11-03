@@ -4,7 +4,8 @@
 /*#banner{ width:100%; position:relative; overflow:hidden;}
 .imgbox{position:relative; width:1920px; min-height:200px; left:50%; margin-left:-960px;}*/
 .top{width:100%;overflow:hidden;}
-.imgbox{width:300%;font-size:0;/* position: relative;*/}
+.imgbox{position:relative;}
+#slider{width:300%;font-size:0;}
 .imgbox img{width:33.33%;}
 /*#slider{width:100%;} 
 #slider img {position:absolute;top:0px;left:0px;display:none;} 
@@ -17,8 +18,8 @@ a.nivo-prevNav {left:280px;} */
 
 
 /*搜索框*/
-.search_box{ width:100%; height:104px; background:url(../images/search_bg.png) repeat 0 0; position:absolute; left:0; bottom:136px; z-index:99;}
-.search_box .search{ width:824px; margin:26px auto;}
+.search_box{ width:100%; height:104px; background:url(../images/search_bg.png) repeat 0 0; position:absolute; left:0; bottom:0px; z-index:99;}
+.search_box .search{ width:824px; margin:0px auto; padding:26px 0;}
 .search_box .search input{-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px; border-radius:2px; line-height:52px; display:inline;}
 .search_box .search input.text{width:664px; height:50px; border:1px solid #bcbcbc; text-indent:20px; margin-right:5px;}
 .search_box .search input.pay{width:150px; height:52px; background-color:#019b63; border:none; color:#fff; font-size:18px;}

@@ -41,9 +41,6 @@ $(function(){
 });
 
 
-/*设置为首屏高度*/
-    //var height=document.documentElement.clientHeight;
-   // document.getElementById("banner").style.height=height+"px";
     
 /*滚动鼠标出现返回顶部*/
 if($(this).scrollTop()==0){
@@ -59,9 +56,8 @@ $(window).scroll(function(event) {
 	}
 });	
 $("#back_top").click(function(event) {
-		$("html,body").animate({scrollTop:"0px"},
-					666
-	)
+		$("html,body").animate({scrollTop:"0px"
+    },666)
 });
 
 
@@ -101,7 +97,7 @@ $("#back_top").click(function(event) {
     </div>
     <!--banner图-->
 	<div class="imgbox">
-            <div id="slider" class="nivoSlider"> 
+            <div id="slider"> 
                 <img src="qiye/images/banner_pic1.jpg" alt="" /> 
                 <img src="qiye/images/banner_pic2.jpg" alt="" style="display: none;"/>
                 <img src="qiye/images/banner_pic3.jpg" alt="" style="display: none;" /> 
@@ -113,19 +109,23 @@ $("#back_top").click(function(event) {
                  </div>
             </div>
 	</div> 
-    <!--订单流程图标-->
 
-	<div class="column_ico1">
-    	<hr/>
-    	<ul>
-        	<li><i class="tel_ico"></i>电话查询</li>
+    <!--订单流程图标-->
+    <div class="column_ico1">
+        <hr/>
+        <ul>
+            <li><i class="tel_ico"></i>电话查询</li>
             <li><i class="kefu_ico"></i>客服预定</li>
             <li><i class="order_ico"></i>订单查询</li>
             <li><i class="pay_ico"></i>在线支付</li>
             <li class="no_margin"><i class="ruzhu_ico"></i>开始入住</li>
         </ul>
     </div>
+
+
 </div>
+
+
 <!--内容-->
 <div id="content" class="clearfix clearboth">
     <!--美天如家-->
