@@ -1,0 +1,48 @@
+﻿@charset "utf-8";
+/* CSS公共样式 */
+/*去掉ie中点击按钮的焦点*/
+a:focus{outline:none;}
+a{blr:expression(this.onFocus=this.blur());}
+
+body {margin:0; padding:0; font:12px "\5FAE\8F6F\96C5\9ED1",san-serif;background:#fff; color:#333;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,textarea,p,span,table,tr,th,td,img{padding:0; margin:0;}   
+ul{list-style:none;}
+li{list-style-type:none;}
+img{border:0;}
+h1,h2,h3,h4,h5,h6 { font-weight:normal;}
+.left{float:left;}
+.right{float:right;}
+a{ color:#333; text-decoration:none;}
+a:visited {text-decoration:none;}
+
+
+.mt10{ margin-top:10px;}
+.mt15{ margin-top:15px;}
+.mt20{ margin-top:20px;}
+.mt30{ margin-top:30px;}
+.ml10{ margin-left:10px;}
+.ml15{ margin-left:15px;}
+.ml20{ margin-left:20px;}
+.mr10{ margin-right:10px;}
+.mr15{ margin-right:15px;}
+.pr10{ padding-right:10px;}
+.fB{ font-weight:700;}
+.f14px{ font-size:14px;}
+.f16px{ font-size:16px;}
+.f18px{ font-size:18px;}
+.f24px{ font-size:24px;}
+.tar{ text-align:right;}
+.tal{ text-align:left;}
+.tac{ text-align:center;}
+.clearFix:after{ clear:both; display:block; height:0; line-height:0; content:"";}
+.clearFix{zoom:1;}
+.errow{ display:none; color:#f00;}
+.errow span{ display:inline-block; width:14px; height:14px; background:url(../images/tipbg.png) no-repeat 0 -14px;margin: 4px 5px 0 0;}
+.cyan{ color:#009d63; margin-left:10px;}
+.yellow{ color:#fd8821;}
+.green{ color:#019c63;}
+.colorfff{ color:#fff;}
+.line_h24{ line-height:24px;}
+.line_h36{ line-height:36px;}
+input{ color:#666;}
+.blue{color:#166ba8;}

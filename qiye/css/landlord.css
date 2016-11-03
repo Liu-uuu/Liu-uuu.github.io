@@ -1,0 +1,91 @@
+@charset "utf-8";
+/* CSS Document */
+/*banner*/
+#banner{ width:1200px; height:147px; text-align:center; margin:0 auto 20px; position:relative;}
+#banner img{ width:100%; height:147px;}
+#banner .text_tit{ position:absolute; left:110px; top:40px; z-index:10;}
+#banner .text_tit p{color:#fff; line-height:26px;}
+/*效果样式*/
+.w_top_box .nav .tar{display: none;}
+.w_top_box .nav ul{margin-top:0px;}
+.w_top_box .w_logo{width:65px;height:30px;top:8px;}
+.w_top_box .logo a img{width:160px;height:40px;}
+.w_top_box .logo{margin-left: 30px;}
+/*内容*/
+#wrap{ width:100%; background-color:#eaf8f4; padding:105px 0 20px 0; }
+.main{ width:1160px; margin:0 auto;background-color:#fff; border:1px solid #dee9e5; height:700px; padding:20px;}
+.main .tit{height:36px; background:url(../images/bg_club.png) repeat-x 0 0; margin-bottom:20px; line-height:36px; padding-left:20px;}
+.main .current_address{ display:inline-block;}
+/*侧边导航*/
+.container .side_nav{ width:192px;}
+.side_nav ul{}
+.side_nav ul li{ width:190px; margin-bottom:10px; border:1px solid #999;}
+.side_nav ul li.currentA{ border:1px solid #019c63;}
+.side_nav ul li.currentA a{ color:#019c63;}
+.side_nav ul li.currentA a i{ background-position:0 0;}
+.side_nav ul li a{ display:block; width:180px;height:38px; line-height:40px;}
+.side_nav ul li a i{ display:inline-block; width:17px; height:17px; vertical-align:middle; margin:0 10px 0 50px;}
+.side_nav ul li a i.order{ background:url(../images/club_ico_order.png) no-repeat 0 -28px;}
+.side_nav ul li a i.fangyuan{ background:url(../images/club_ico_fangyuan.png) no-repeat 0 -28px;}
+.side_nav ul li a i.message{ background:url(../images/club_ico_message.png) no-repeat 0 -28px;}
+.side_nav ul li a i.account{ background:url(../images/club_ico_account.png) no-repeat 0 -28px;}
+.side_nav ul li a i.currentA_i{ background-position:0 0px;}
+
+/*右边内容*/
+.container .data{ width:928px;}
+.content_hidden{ width:928px;}
+.btns_nav ul{}
+/*头部按钮切换*/
+.btns_nav ul li{ float:left;border:1px solid #999; border-bottom:1px solid #57bb9f; margin-right:10px; text-align:center;}
+.btns_nav ul li.currentB{ border:1px solid #57bb9f; border-bottom:1px solid #fff; color:#57bb9f;}
+.btns_nav ul li a{display:block; width:98px; height:38px; line-height:40px; }
+.btns_nav ul li.currentB a{ color:#57bb9f;}
+/*全部订单*/
+.main_container{ border:1px solid #57bb9f; height:554px; margin-top:-1px;}
+.main_container table{ border-collapse:collapse;}
+.main_container tr{ width:100%; height:36px;}
+.main_container tr.bg_th{ background-color:#bff1df;}
+.main_container td,.main_container th{ border-bottom:1px solid #57bb9f;text-align:center; padding:8px 0;}
+.main_container td input,.message_detail input{ vertical-align:-2px;}
+.main_container td i{ display:inline-block; width:17px; height:17px; background:url(../images/more.png) no-repeat 0 0; vertical-align:middle; margin-right:5px; }
+/*消息内容*/
+.message_detail a{ color:#019c63; padding:0 5px; line-height:36px;}
+/*头像*/
+.main_container .pic{ padding:40px 40px 0 40px;}
+.main_container .pic img{}
+.main_container .pic a{ display:block; text-align:center; margin-top:15px;}
+/*我的资料详细内容*/
+.personal_data{ line-height:36px; letter-spacing:1px;}
+.personal_data div{overflow:hidden;}
+.personal_data div a{ color:#ff5a00; margin-left:20px;}
+.personal_data div p,.personal_data div input{ float:left}
+.personal_data div input{ border:1px solid #999; width:264px; height:28px;text-indent:5px; margin:4px; color:#333;}
+.personal_data div p{ width:80px; text-align:right;}
+.personal_data div p.sex,.personal_data div p.birth_date{ text-align:left}
+.personal_data div .save{ display:block; width:150px; height:38px; background:url(../images/btn_qg.png) no-repeat 0 0; text-align:center; line-height:38px; color:#fff; margin-top:10px;}
+/*密码设置内容*/
+.password_ctn{ padding:20px 0 0 0;}
+.password_ctn div{ margin:10px 0; height:36px; line-height:36px;}
+.password_ctn div input{ height:28px; text-indent:10px; vertical-align:middle; margin-right:10px;}
+.password_ctn div p{ display:inline-block; width:80px; text-align:right;}
+.password_ctn div .save{ display:block; width:150px; height:38px; background:url(../images/btn_qg.png) no-repeat 0 0; text-align:center; line-height:38px; color:#fff; margin:10px 0 0 20px;}
+
+/*订单管理搜索*/
+.search{ width:100%; background-color:#f5fafa; border:1px solid #d0d3d6; height:38px; margin-bottom:10px;}
+.search p{ float:left; line-height:38px; padding-left:20px;}
+.search p input{ width:138px; height:21px; border:1px solid #dfdfdf; margin:0 5px;}
+.search p a.search_btn{ display:inline-block; width:47px; height:23px; line-height:23px; background:url(../images/search_btn_03.png) no-repeat 0 0; text-align:center;}
+/*房源管理*/
+ .fangyuan_nav{ position:absolute; right:0; top:-36px;}
+ .fangyuan_nav ul{}
+ .fangyuan_nav ul li{ float:left; width:58px; height:28px; }
+ .fangyuan_nav ul li a{ display:inline-block;width:58px; height:28px; line-height:30px; text-align:center;}
+ .fangyuan_nav ul li.current_fangyuan_nav{border:1px solid #9fd8c9; background-color:#eff9f7;}
+/*日历管理*/
+.rili{ padding:20px 0 0 20px;}
+.rili input{ width:368px; height:36px; border:1px solid #a2a2a2; background:url(../images/tringle2_03.png) no-repeat 344px -1px;}
+/*收款账户*/
+.shoukuan{}
+.shoukuan table{}
+.shoukuan table thead{ background-color:#f2f2f2;}
+.shoukuan table th,.shoukuan table td{ height:40px;}

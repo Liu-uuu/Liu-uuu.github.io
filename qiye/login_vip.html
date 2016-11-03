@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/common.css" type="text/css" rel="stylesheet";>
+
+<title>无标题文档</title>
+</head>
+<style>
+#user_register_body{width:100%; height:1000px; background:rgba(0,0,0,0.1);padding-top:100px; position:absolute; left:0; top:0; z-index:1;}
+#user_register_wrap{  display:block;width:402px; margin:0 auto; background:#fff; box-shadow: 0 1px 13px #CCC;overflow: hidden;}
+.user_register_box{ display:block;width:320px; padding:40px;}
+.user_register_top{ border-bottom:2px solid #ff4e00; padding-bottom:10px; line-height:30px; position:relative;}
+.user_register_top p{ text-align:center; font-size:16px; color:#ff4e00; font-weight:700;}
+.user_register_top p span{ display:inline-block; width:24px; height:28px; background:url(images/login_tipicon.png) no-repeat 0 -58px; vertical-align:middle;}
+.user_register_top i{display: block;border-left: 10px solid transparent;border-right: 10px solid transparent; border-top: 10px solid #ff4e00;height: 0; line-height: 0; width: 0;position: absolute;bottom: -10px; left: 150px;}
+
+.data{ width:300px; margin:0 auto;margin-top:20px;}
+.data div{ width:100%;}
+.data input{color:#999;border: 1px solid #ccc;border-radius: 2px;height: 36px; text-indent:30px;}
+.data .phone_number{ width:100%; background:url(images/login_icon1.png) no-repeat 10px 11px;}
+
+.phone-icon{height: 15px;
+    left: 10px;
+    top: 11px;
+    width: 15px;display: block;
+    position: absolute;background-image:url(images/login_icon.png);
+    background-repeat: no-repeat; background-position: 1px -23px; z-index:9999;}
+.img_check,.phone_check,.phone_check,.get_check{width: 128px;}
+.data .img_check{ background:url(images/login_icon1.png) no-repeat 10px -26px;}
+.data .img_check_auth img{ float:right;}
+.data .phone_check{ margin-right:10px; background:url(images/login_icon1.png) no-repeat 10px -62px;}
+.data .get_check{color: #4d4d4d;height: 38px; width: 128px; text-align:center; text-indent:0; background:url(images/login_icon.png) no-repeat 0 -88px; line-height:12px;}
+.data .get_check:hover{background:url(images/login_icon.png) no-repeat 0 -129px;}
+.data .auth_login{ line-height:36px;}
+.data .auth_login input{ vertical-align:-14px;margin:12px 6px 12px 0px;}
+.login_tip{ width: 276px;color: #009d63;font-size: 14px;}
+.btn_login{ padding-top:20px;}
+.btn_login a{border-radius: 2px; color: #fff; display: block; font-size: 16px;  height: 38px; line-height: 38px; margin: 0 auto; text-align: center;background:url(images/submit_yellow.png) repeat-x 0 0; }
+.btn_login a:hover{ background-position:0 -42px;}
+
+
+.other_login{overflow: hidden;width:402px;}
+.other_login li{float: left;}
+.other_login li a{color: #b8bbc2;display: block;width:134px; height: 60px;line-height: 97px;text-align: center; background:#f0f1f5 url(images/loginfooter_icon.png) no-repeat;}
+.other_login li a:hover{ background-color:#e8e9ea; color:#88898f;}
+.other_login li .lg_tel{ background-position:-28px 9px;}
+
+.other_login li .lg_yjl{ background-position:58px -49px;}
+.other_login li .lg_yjl:hover{background-position:-22px -49px;}
+.other_login li .lg_QQ{ background-position:58px -101px;}
+.other_login li .lg_QQ:hover{background-position:-22px -101px;}
+.other_login li .current_lg{ background-color:#e1e2e6; color:#88898f;}
+
+</style>
+<body>
+<div id="user_register_body">
+	<div id="user_register_wrap">
+    	<div class="user_register_box">
+    		<div class="user_register_top">
+        	<p><span></span>手机号码登录</p>
+            <i></i>
+        </div>
+                
+            <div class="data">
+            <div><input class="phone_number" type="text" name="phone_number" value="手机号码" placeholder="手机号码"/><br /></div>
+            <div class="clearFix mt20"><input class="img_check left" type="text" name="img_check" value="图形验证码" placeholder="图形验证码"/><a class="img_check_auth right" href=""><img src="images/authimage.png"></a></div>
+            <div class="clearFix mt20"><input class="phone_check left" type="text" name="phone_check" value="手机验证码" placeholder="手机验证码"/><input class="get_check right" type="button" name="get_check" value="获取手机验证码"/></div>
+            <div class="auth_login clearFix"><label><input  type="checkbox" name="auth_login" />自动登录</label><div class="errow right">手机号或验证码不能为空</div></div>
+            <div class="login_tip">无需注册，您可用手机号和验证码直接登录!</div>
+            <div class="btn_login"><a href="">登录</a></div>
+        </div>
+        </div>
+         <div>
+                <ul class="other_login f14px clearFix mt15">
+                    <li><a class="lg_tel current_lg" href="">手机号码</a></li>
+                    <li><a class="lg_yjl" href="">易家旅账号</a></li>
+                    <li><a class="lg_QQ" href="">QQ号码</a></li>
+                </ul>
+             </div>
+
+        </div>
+            
+    </div>
+</div>
+</body>
+</html>

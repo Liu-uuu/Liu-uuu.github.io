@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+.area{ width:1200px; margin:0 auto;}
+
+/*效果样式*/
+.w_top_box .nav .tar{display: none;}
+.w_top_box .nav ul{margin-top:0px;}
+.w_top_box .w_logo{width:65px;height:30px;top:8px;}
+.w_top_box .logo a img{width:160px;height:40px;}
+.w_top_box .logo{margin-left: 30px;}
+/*banner*/
+.address{ margin:0 auto; padding-top:70px; line-height:40px;}
+.banner{ width100%；}
+.banner_content{padding-bottom:120px; background-size:cover; position:relative;}
+/*输入数据*/
+.hy_data{line-height:30px; padding:1% 0 5% 20%;}
+.hy_data div{ margin:10px 0;}
+.hy_data div p{ width:5em;text-align:right; float:left;}
+.hy_data div input{ width:20%; height:26px; border:1px solid #a6d8c6;}
+.hy_data div textarea{width:25%; height:100px; border:1px solid #a6d8c6; resize:none;}
+.hy_data div a{display:block; width:149px; height:38px; background:url(../images/btn_qg.png) no-repeat 0 0; text-align:center; font-size:14px; line-height:38px; color:#fff; margin:1% 0 0 30%;}
+/*底部*/
+#footer_wrap{ width:100%; height:260px; background-color:#ebebeb;}
+.footer{ width:1200px; margin:0 auto;}
+.footer_top{ width:100%; padding:30px 0;}
+.footer_top dl{ float:left; margin:30px 52px 20px;}
+.footer_top .ewm_no_pd1{margin:0 5px 0 60px;}
+.footer_top .ewm_no_pd2{margin:0 0 0 5px;}
+.footer_top .ewm_no_pd{ padding:20px 0;}
+.footer_top .ewm_no_pd img{ border:10px solid #fff;}
+.footer_top .ewm_no_pd dd{ text-align:center; line-height:14px;;}
+.footer_top dl dt{ font-size:14px; font-weight:700; line-height:30px;}
+.footer_top dl dd{ line-height:24px; line-height:24px;}
+.footer_top dl .tel_green{ font-size:18px; color:#009d63;}
+.footer_bottom p{ width:100%; text-align:center; color:#666;}
+

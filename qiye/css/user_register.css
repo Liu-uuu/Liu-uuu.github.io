@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+#user_register_body{width:100%; height:1000px; background:rgba(0,0,0,0.1);padding-top:100px; position:absolute; left:0; top:0; z-index:1;}
+#user_register_wrap{  display:block;width:402px; margin:0 auto; background:#fff; box-shadow: 0 1px 13px #CCC;overflow: hidden;}
+.user_register_box{ display:block;width:320px; padding:40px;}
+.user_register_top{ border-bottom:2px solid #ff4e00; padding-bottom:10px; line-height:30px; position:relative;}
+.user_register_top p{ text-align:center; font-size:16px; color:#ff4e00; font-weight:700;}
+.user_register_top p span{ display:inline-block; width:24px; height:28px; background:url(images/login_tipicon.png) no-repeat 0 -58px; vertical-align:middle;}
+.user_register_top i{display: block;border-left: 10px solid transparent;border-right: 10px solid transparent; border-top: 10px solid #ff4e00;height: 0; line-height: 0; width: 0;position: absolute;bottom: -10px; left: 150px;}
+
+.data{ width:300px; margin:0 auto;margin-top:20px;}
+.data div{ width:100%;}
+.data input{color:#999;border: 1px solid #ccc;border-radius: 2px;height: 36px; text-indent:30px;}
+.data .phone_number{ width:100%; background:url(images/login_icon1.png) no-repeat 10px 11px;}
+
+.phone-icon{height: 15px;
+    left: 10px;
+    top: 11px;
+    width: 15px;display: block;
+    position: absolute;background-image:url(images/login_icon.png);
+    background-repeat: no-repeat; background-position: 1px -23px; z-index:9999;}
+.img_check,.phone_check,.phone_check,.get_check{width: 128px;}
+.data .img_check{ background:url(images/login_icon1.png) no-repeat 10px -26px;}
+.data .img_check_auth img{ float:right;}
+.data .phone_check{ margin-right:10px; background:url(images/login_icon1.png) no-repeat 10px -62px;}
+.data .get_check{color: #4d4d4d;height: 38px; width: 128px; text-align:center; text-indent:0; background:url(images/login_icon.png) no-repeat 0 -88px; line-height:12px;}
+.data .get_check:hover{background:url(images/login_icon.png) no-repeat 0 -129px;}
+.data .auth_login{ line-height:36px;}
+.data .auth_login input{ vertical-align:-14px;margin:12px 6px 12px 0px;}
+.login_tip{ width: 276px;color: #009d63;font-size: 14px;}
+.btn_login{ padding-top:20px;}
+.btn_login a{border-radius: 2px; color: #fff; display: block; font-size: 16px;  height: 38px; line-height: 38px; margin: 0 auto; text-align: center;background:url(images/submit_yellow.png) repeat-x 0 0; }
+.btn_login a:hover{ background-position:0 -42px;}
+
+
+.other_login{overflow: hidden;width:402px;}
+.other_login li{float: left;}
+.other_login li a{color: #b8bbc2;display: block;width:134px; height: 60px;line-height: 97px;text-align: center; background:#f0f1f5 url(images/loginfooter_icon.png) no-repeat;}
+.other_login li a:hover{ background-color:#e8e9ea; color:#88898f;}
+.other_login li .lg_tel{ background-position:-28px 9px;}
+
+.other_login li .lg_yjl{ background-position:58px -49px;}
+.other_login li .lg_yjl:hover{background-position:-22px -49px;}
+.other_login li .lg_QQ{ background-position:58px -101px;}
+.other_login li .lg_QQ:hover{background-position:-22px -101px;}
+.other_login li .current_lg{ background-color:#e1e2e6; color:#88898f;}
+
+

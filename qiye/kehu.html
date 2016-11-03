@@ -1,0 +1,886 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/common.css" type="text/css" rel="stylesheet">
+<link href="css/order_center.css" type="text/css" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+ $(function(){
+	$(".main_nav ul li").click(function(){
+		$(this).addClass("current_nav").siblings().removeClass("current_nav");
+		var n=$(this).index();
+         $(".content_hidden .container").eq(n).show().siblings().hide();
+	});
+	
+	$(".sub_nav ul li").click(function(){
+		$(this).addClass("currentB").siblings().removeClass("currentB");
+		var n=$(this).index();
+		var classname=$(this).attr("name");
+
+         $("."+classname+" .content_hidden2").eq(n).show().siblings().hide();
+	});
+
+ })
+</script>
+<title>用户管理</title>
+</head>
+<style>
+
+</style>
+<body>
+
+<div id="content">
+	<!--top-->
+    <div id="top">
+    	<p>某某某&nbsp;&nbsp;&nbsp;&nbsp;欢迎您的光临！ <a class="blue" href="###">【系统消息】</a><a href="###">【退出系统】</a></p>
+    </div>
+    <!--内容-->
+    <div id="content">
+    	<!--导航-->
+    	<div class="nav_wrap">
+        	<div class="nav">
+            	<!--logo-->
+            	<div class="clearFix left"><a class="logo left" href=""><img src="images/logo_order.png" /></a><a  class="logo_text left f18px" href="">易家旅公寓预定系统</a></div>
+                <!--nav-->
+                <div class="main_nav right">
+                	<ul>
+                    	<li id="fangtai"><a href="###"><img src="images/main_nav1.png"/><span>首页</span></a></li>
+                        <li id="dingdan"><a href="###"><img src="images/main_nav2.png"/><span>订单中心</span></a></li>
+                        <li id="message"><a href="###"><img src="images/main_nav2.png"/><span>短信营销</span></a></li>
+                        <li id="shanghu"  class="current_nav"><a href="###"><img src="images/main_nav3.png"/><span>客户关系</span></a></li>
+                        <li id="shenhe"><a href="###"><img src="images/main_nav4.png"/><span>审核管理</span></a></li>
+                        <li id="baobiao"><a href="###"><img src="images/main_nav4.png"/><span>报表中心</span></a></li>
+                        <li id="caiwu"><a href="###"><img src="images/main_nav5.png"/><span>财务管理</span></a></li>
+                        <li id="xitong"><a href="###"><img src="images/main_nav6.png"/><span>系统管理</span></a></li>
+                        <li id="youxiang"><a href="###"><img src="images/main_nav7.png"/><span>企业邮箱</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content_hidden">
+        	<!--隐藏的首页中心内容-->
+            <div class="container" style="display:none">
+                <!--房态中心子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">房态中心</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--房态中心内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    方太中心
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的订单中心内容-->
+            <div class="container" style="display:none">
+                <!--订单中心子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul>
+                            <li><a class="f14px currentJS" href="">订单列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--订单中心内容-->
+                <div class="content_hidden2">
+                	<!--订单列表-->
+                    <div class="container2">
+                        <div class="quick_search">
+                <ul>
+                    <li>快速搜索：</li>
+                    <li><a class="current_search" href="">未派单</a></li>
+                    <li><a  href="">未确认</a></li>
+                    <li><a  href="">已确认</a></li>
+                    <li><a  href="">取消单</a></li>
+            	</ul>
+            </div>
+                        <div class="search_box">
+                            
+                                <p>订单号：</p><input type="text" name="ddh" value="" id="ddh"/>
+                <p>客户姓名：</p><input class="wt_90px" type="text" name="ddh" value="" id="name"/>
+                <p>手机号：</p><input class="wt_96px" type="text" name="ddh" value="" id="tel"/>
+                <p>订单状态：</p><input class="wt_96px" type="text" name="ddh" value="" id="state"/>
+                <p>来源渠道：</p><input type="text" name="ddh" value="" id="trench" />
+                <p>入住日期：</p><input class="no_margin" type="text" name="ddh" value="" id="time"/>	-	</label><input type="text" name="ddh" value="" id="ddh"/>
+                <a id="search_order" href="">搜索订单</a>
+                <a id="place_order" href="">下单</a>
+
+                
+                        </div>
+                        <div class="order_data">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="4%">序号</th>
+                                        <th width="8%">订单号</th>
+                                        <th width="5%">姓名</th>
+                                        <th width="6%">手机</th>
+                                        <th width="6%">开单时间</th>
+                                        <th width="5%">开单人</th>
+                                        <th width="14%">来源渠道</th>
+                                        <th width="5%">房间号</th>
+                                        <th width="6%">房型</th>
+                                        <th width="8%">入住日期</th>
+                                        <th width="4%">线上价</th>
+                                        <th width="4%">线下价</th>
+                                        <th width="4%">类型</th>
+                                        <th width="10%">派单商户</th>
+                                        <th width="5%">订单状态</th>
+                                        <th width="6%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>B150897654678</td>
+                                        <td>张某某</td>
+                                        <td>15236525256</td>
+                                        <td>2015-02-15</td>
+                                        <td>李某某</td>
+                                        <td>分店直销-客户代表</td>
+                                        <td>1345</td>
+                                        <td>舒适大床房</td>
+                                        <td>2015-03-12</td>
+                                        <td>399元</td>
+                                        <td>499元</td>
+                                        <td>短租</td>
+                                        <td>天天如家-西直门店</td>
+                                        <td>入住</td>
+                                        <td><a class="send_order" href="">派单</a></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="page_wrap">
+                            <div class="page">
+                                共<span>20</span>页<span>1000</span>条记录
+                                <a class="page_one" href="###"></a>	
+                                <a class="page_pre" href="###"></a>	
+                                <a class="page_after" href="###"></a>	
+                                <a class="page_last" href="###"></a>
+                                第 <input class="current_page" type="text" name="current_page" value="2"> 页<a class="go" href="###"/>GO</a>	
+                                （每页显示
+                                <select>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                </select>条）
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的短信营销内容-->
+            <div class="container" style="display:none">
+                <!--短信营销子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">短信营销</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--房态中心内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    短信营销
+                    </div>
+                </div>
+            </div>
+        	<!--隐藏的客户关系内容-->
+            <div class="container">
+            <!--客户关系子导航-->
+                <div class="sub_nav_wrap ">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li name="shanghu" class="currentB"><a class="f14px" href="###">用户管理</a></li>
+                            <li name="shanghu"><a class="f14px" href="###">角色预定</a></li>
+                            <li name="shanghu"><a class="f14px" href="###">权限预定</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <div class="shanghu">
+                <!--客户关系内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                        <!--搜索栏-->
+                        <div class="user_search_box">
+                                <p><input type="text" name="all" value="所有" id="all" /><a class="bg_drop" href="###"></a></p>
+                                <p>用户名：<input class="name" type="text" name="name" value=""/></p>
+                                <p>状态：<input class="state" type="text" name="state" value="请选择"/><a class="bg_drop" href="###"></a></p>
+                                <a class="search_user" href="###">查找</a>
+                                <a class="add_user" href="###">添加用户</a>
+                        </div>
+                        <!--数据表格-->
+                        <div class="data1">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="8%">编号</th>
+                                        <th width="12%">用户名</th>
+                                        <th width="12%">角色</th>
+                                        <th width="15%">申请时间</th>
+                                        <th width="15%">批准时间</th>
+                                        <th width="8%">状态</th>
+                                        <th width="6%">授权</th>
+                                        <th width="6%">管理</th>
+                                        <th width="6%">样图</th>
+                                        <th width="6%">编辑</th>
+                                        <th width="6%">删除</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>张某某</td>
+                                        <td><span class="send_order">商户用户</span></td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>2015-02-15 &nbsp;&nbsp;&nbsp;&nbsp;11:11:11</td>
+                                        <td>正申请</td>
+                                        <td><a class="shouquan" href=""></a></td>
+                                        <td><a class="guanli" href=""></a></td>
+                                        <td><a class="yangtu" href=""></a></td>
+                                        <td><a class="bianji" href=""></a></td>
+                                        <td><a class="shanchu" href=""></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--页码-->
+                        <div class="page">
+                                共<span>20</span>页<span>1000</span>条记录
+                                <a class="page_one" href="###"></a>	
+                                <a class="page_pre" href="###"></a>	
+                                <a class="page_after" href="###"></a>	
+                                <a class="page_last" href="###"></a>
+                                第 <input class="current_page" type="text" name="current_page" value="2"/> 页<a class="go" href="###">GO</a>	
+                                （每页显示
+                                <select>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                </select>条）
+                            </div>
+                    </div>
+                </div>
+                <!--角色预定内容-->
+                <div class="content_hidden2" style="display:none">
+                    <div class="container2">
+                        <!--搜索栏-->
+                        <div class="user_search_box">
+                                <a class="add_role" href="###">添加角色</a>
+                        </div>
+                        <!--数据表格-->
+                        <div class="data1">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">角色编号</th>
+                                        <th width="30%">角色名称</th>
+                                        <th width="30%">备注</th>
+                                        <th width="20%">编辑</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--页码-->
+                            <div class="page">
+                                共<span>20</span>页<span>1000</span>条记录
+                                <a class="page_one" href="###"></a>	
+                                <a class="page_pre" href="###"></a>	
+                                <a class="page_after" href="###"></a>	
+                                <a class="page_last" href="###"></a>
+                                第 <input class="current_page" type="text" name="current_page" value="2"/> 页<a class="go" href="###">GO</a>	
+                                （每页显示
+                                <select>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                </select>条）
+                            </div>
+                         </div>
+                </div>
+                <!--权限预定内容-->
+                <div class="content_hidden2" style="display:none">
+                    <div class="container2">
+                        <!--搜索栏-->
+                        <div class="user_search_box">
+                                <a class="add_role" href="###">添加权限</a>
+                        </div>
+                        <!--数据表格-->
+                        <div class="data1">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">权限编号</th>
+                                        <th width="30%">权限名称</th>
+                                        <th width="30%">备注</th>
+                                        <th width="20%">编辑</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>B1508976</td>
+                                        <td>中文下载用户（预付费用户）</td>
+                                        <td><span class="send_order">中文下载用户（预付费用户）</span></td>
+                                        <td><a class="bianji_1" href=""></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--页码-->
+                            <div class="page">
+                                共<span>20</span>页<span>1000</span>条记录
+                                <a class="page_one" href="###"></a>	
+                                <a class="page_pre" href="###"></a>	
+                                <a class="page_after" href="###"></a>	
+                                <a class="page_last" href="###"></a>
+                                第 <input class="current_page" type="text" name="current_page" value="2"/> 页<a class="go" href="###">GO</a>	
+                                （每页显示
+                                <select>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                </select>条）
+                            </div>
+                         </div>
+                </div>
+            </div>
+            </div>
+            <!--隐藏的审核管理内容-->
+            <div class="container" style="display:none">
+                <!--审核管理子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">审核管理</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--审核管理内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                  审核管理
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的报表中心内容-->
+            <div class="container" style="display:none">
+                <!--报表中心子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">报表中心</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--报表中心内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    报表中心
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的财务审核内容-->
+            <div class="container" style="display:none">
+                <!--财务审核子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">财务审核</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--房态中心内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    财务审核
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的财务管理内容-->
+            <div class="container" style="display:none">
+                <!--财务管理子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">财务管理</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--财务管理内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                  审核管理
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的系统管理内容-->
+            <div class="container" style="display:none">
+                <!--系统管理子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">系统管理</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--系统管理内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    系统管理
+                    </div>
+                </div>
+            </div>
+            <!--隐藏的企业邮箱内容-->
+            <div class="container" style="display:none">
+                <!--企业邮箱子导航-->
+                <div class="sub_nav_wrap">
+                    <div class="sub_nav">
+                        <ul class="clearFix">
+                            <li class="currentB"><a class="f14px" href="###">企业邮箱</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <!--企业邮箱内容-->
+                <div class="content_hidden2">
+                    <div class="container2">
+                    企业邮箱
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+    	<div id="footer">
+    	<div class="footer_bootom"><p>QQ客服：<a href="###"><img src="images/images_46.png"/></a><span>客服电话：4000-777-365</span></p></div>
+    </div>
+</div>
+</body>
+</html>

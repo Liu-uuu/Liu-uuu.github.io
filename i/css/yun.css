@@ -230,6 +230,7 @@ body{
 }
 
 #fileArea{
+    position:relative;
     padding: 6px;
     /*background:#5c5a68 url('../1.png') no-repeat bottom right;*/
 }
@@ -239,6 +240,7 @@ body{
     text-align: center;
     padding-top:100px;
     color: #666;
+    position:absolute;
 }
 #fileArea div{
     width: 90px;

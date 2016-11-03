@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+
+.content_hidden{}
+.content{}
+.content_hidden2{}
+.btns_nav{}
+.btns_nav ul{}
+/*头部按钮切换*/
+.btns_nav ul li{ float:left; width:98px; height:38px; line-height:40px; border:1px solid #999; border-bottom:0; margin-right:10px; text-align:center;}
+.btns_nav ul li.currentB{ border:1px solid #57bb9f; border-bottom:0; color:#57bb9f;}
+.btns_nav ul li a{}
+.btns_nav ul li.currentB a{ color:#57bb9f;}
+/*全部订单*/
+.main_container{ border:1px solid #999; height:600px;}
+.main_container tr{ width:100%; height:36px;}
+.main_container tr.bg_th{ background-color:#bff1df;}
+.main_container td{ text-align:center; padding:8px 0;}
+.main_container td input,.message_detail input{ vertical-align:-2px;}
+.main_container td i{ display:inline-block; width:17px; height:17px; background:url(../images/more.png) no-repeat 0 0; vertical-align:middle; margin-right:5px; }
+/*消息内容*/
+.message_detail a{ color:#019c63; padding:0 5px; line-height:36px;}
+/*头像*/
+.main_container .pic{ padding:40px 0 0 40px;}
+.main_container .pic img{}
+.main_container .pic a{ display:block; text-align:center; margin-top:15px;}
+/*我的资料详细内容*/
+.personal_data{ line-height:36px; letter-spacing:1px;}
+.personal_data div{ margin:10px 5px ; overflow:hidden;}
+.personal_data div a{ color:#ff5a00; margin-left:20px;}
+.personal_data div p,.personal_data div input{ float:left}
+.personal_data div input{ border:1px solid #999; width:264px; height:28px; vertical-align:middle; text-indent:5px; margin-top:5px;}
+.personal_data div input.sex{ width:20px;}
+.personal_data div input.birth_date{ width:50px; margin:0 5px;}
+.personal_data div p{ width:80px; text-align:right;}
+.personal_data div p.sex,.personal_data div p.birth_date{ text-align:left}
+.personal_data div .save{ display:block; width:150px; height:38px; background:url(../images/btn_qg.png) no-repeat 0 0; text-align:center; line-height:38px; color:#fff; margin-top:10px;}
+/*密码设置内容*/
+.password_ctn{ padding:40px 0 0 40px;}
+.password_ctn div{ margin:10px 0; height:36px; line-height:36px;}
+.password_ctn div input{ height:28px; text-indent:10px; vertical-align:middle; margin-right:10px;}
+.password_ctn div p{ display:inline-block; width:80px; text-align:right;}
+.password_ctn div .save{ display:block; width:150px; height:38px; background:url(../images/btn_qg.png) no-repeat 0 0; text-align:center; line-height:38px; color:#fff; margin:10px 0 0 20px;}
+
+

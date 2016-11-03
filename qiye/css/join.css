@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+#join_body{width:100%; height:1000px; background:rgba(0,0,0,0.2);padding-top:100px; position:absolute; left:0; top:0; z-index:1;}
+#join_wrap{ display:block; background-color:#fff;width:736px; margin:0 auto;box-shadow: 0 1px 13px #ccc;overflow: hidden;background-color: #fff;}
+.join_detail{ border:1px solid #c7c7c7; padding:0 50px 40px;}
+.join_detail_content h4,.join_message h4{ color:#ff4e00; line-height:40px; margin-top:40px; font-size:14px;}
+.join_detail_content h4{ text-indent:-12px;}
+.join_detail_content ul li{list-style-type:disc;line-height:24px;}
+.join_img{ padding:60px 0px 0 0;}
+
+.join_apply{padding:0 40px 40px; position:relative;}
+.join_message p{ padding:5px 0;}
+.join_message font{ color:#ff4e00;}
+.join_message label{ display:inline-block; width:90px; line-height:24px; text-align:right;}
+.join_message input{ width:220px;color:#999;border: 1px solid #ccc;border-radius: 2px;box-shadow: 1px 3px 4px #ededed inset;height:24px; text-indent:10px;}
+.join_message .join_address,.join_message textarea{ width:340px;}
+.join_message liuyan{ line-height:24px; vertical-align:top;}
+.join_message textarea{ resize:none; vertical-align:top;}
+.join_message .btn_join_submmit{text-align:center; padding-left:274px;}
+.join_message .btn_join_submmit a{display:block; width:149px; height:38px; line-height:38px; background:url(../images/submit_yellow.png) no-repeat 0 0; color:#fff;}
+.join_message .btn_join_submmit a:hover{ background-position:0 -42px;}
+
+.join_tel{ position:absolute; right:40px; top:40px;}
+.join_tel p{ text-align:left; font-weight:500;}
+.join_tel p span{ display:inline-block; width:100px; text-align:right;}
+
+

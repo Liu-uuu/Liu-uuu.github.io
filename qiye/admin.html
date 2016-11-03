@@ -1,0 +1,339 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/reset.css" type="text/css" rel="stylesheet">
+<link href="css/public.css" type="text/css" rel="stylesheet">
+<link href="css/landlord.css" type="text/css" rel="stylesheet">
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+ $(function(){
+	$(".side_nav ul li").click(function(){
+		$(this).addClass("currentA").siblings().removeClass("currentA");
+        $(".side_nav ul li i").removeClass("currentA_i");
+		$(this).find("i").addClass("currentA_i");
+		var n=$(this).index();
+         $(".content_hidden .content").eq(n).show().siblings().hide();
+		 $(".current_address").eq(n).show().siblings().hide();
+	});
+	
+	$(".btns_nav ul li").click(function(){
+		$(this).addClass("currentB").siblings().removeClass("currentB");
+		var n=$(this).index();
+		var classname=$(this).attr("name");
+         $("."+classname+" .content2").eq(n).show().siblings().hide();
+	});
+	
+	/*联系我们*/
+	/*滚动鼠标出现返回顶部*/
+if($(this).scrollTop()==0){
+	$("#contact").hide();
+}
+$(window).scroll(function(event) {
+
+	if($(this).scrollTop()==0){
+		$("#contact").slideUp(600);
+	}
+	if($(this).scrollTop()!=0){
+		$("#contact").slideDown(600);
+	}
+});	
+$("#back_top").click(function(event) {
+		$("html,body").animate({
+					scrollTop:"0px"},
+					666
+	)
+});
+
+ })
+</script>
+<title>管理员--管理中心</title>
+</head>
+<body>
+
+<!--顶部开始-->
+<div id="top">
+        <div class="top_box clearFix">
+            <div class="logo left">
+                <a href="###"><img src="images/logo.png"/></a>
+            </div>
+            <div class=" nav_box right">
+                <div class="nav left">
+                    <ul class="clearFix">
+                        <li class="nav_ico1"><a href="###">首页</a></li>
+                        <li class="nav_ico2"><a href="###">我要合作</a></li>
+                        <li class="nav_ico3"><a href="###">在线预订</a></li>
+                        <li class="nav_ico4"><a href="javascript:void(0)" id="loginshow" rel="nofollow" target="_self">登录注册</a></li>
+                    </ul>
+                </div>
+                <div class="tel left">
+                    <p>预定热线：7x24小时</p>
+                    <span class="f24px">400-777-365</span>
+                </div>
+            </div>
+        </div>
+</div>
+<!--主要内容-->
+<div id="wrap">
+	<!--banner-->
+	<div id="banner">
+        <img src="images/pic_03.gif" />
+        <div class="text_tit">
+            <p class="f24px">享受生活</p>
+            <p class="f14px">让自己赞美生活</p>
+            <p class="f18px mt10">自由／快乐／安心</p>
+       </div>
+	</div>
+    
+    <div class="main">
+    	<div class="tit white fB">当前位置>>
+        	<div class="current_address">订单管理</div>
+            <div style="display:none">房源管理</div>
+            <div style="display:none">结算管理</div>
+            <div style="display:none">消息通知</div>
+            <div style="display:none">账户管理</div>
+        </div>
+        <div class="container clearFix">
+        	<!--侧边导航-->
+        	<div class="side_nav left">
+            	<ul>
+                	<li id="order" class="currentA"><a href="###"><i class="order currentA_i"></i>订单管理</a></li>
+                    <li id="fangyuan"><a href="###"><i class="fangyuan"></i>房源管理</a></li>
+                    <li id="settle"><a href="###"><i class="account"></i>结算管理</a></li>
+                    <li id="message"><a href="###"><i class="message"></i>消息通知</a></li>
+                    <li id="account"><a href="###"><i class="account"></i>账户管理</a></li>
+                </ul>
+            </div>
+            <!--右边内容-->
+            <div class="data right">
+            	<div class="content_hidden">
+                	<!--隐藏的订单管理-->
+                	<div class="content">
+                    	<!--搜索-->
+                    	<div class="search">
+                            <p class="date">按入住日期<input type="text" name="date" value=""/> - <input type="text" name="date" value=""/></p>
+                            <p class="tel">按订单号或手机号<input type="text" name="date" value=""/><a class="search_btn" href="###">搜索</a></p>
+                        </div>
+                        <!--订单管理子导航-->
+                    	<div class="btns_nav">
+                        	<ul class="clearFix">
+                            	<li name="order"><a href="###">待确认订单</a></li>
+                                <li name="order"><a href="###">待入住订单</a></li>
+                                <li name="order" class="currentB"><a href="###">入住中订单</a></li>
+                                <li name="order"><a href="###">退款订单</a></li>
+								<li name="order"><a href="###">失效订单</a></li>
+                                <li name="order"><a href="###">全部订单</a></li>
+                            </ul>
+                        </div>
+                        <!--订单管理的所有隐藏内容-->
+                    	<div class="order content_hidden2">
+                            <!--隐藏的待确认订单-->
+                            <div class=" content2 main_container" style="display:none">待确认订单</div>
+                            <!--隐藏的待入住订单-->
+                            <div class=" content2 main_container" style="display:none">待入住订单</div>
+                            <!--隐藏的入住中订单-->
+                            <div class=" content2 main_container">入住中订单</div>
+                            <!--隐藏的待退款订单-->
+                            <div class=" content2 main_container" style="display:none">退款订单</div>
+                            <!--隐藏的失效订单-->
+                            <div class=" content2 main_container" style="display:none">失效订单</div>
+                            <!--隐藏的全部订单-->
+                            <div class=" content2 main_container" style="display:none">全部订单</div>
+                        </div>
+                    </div>       
+                    <!--隐藏的房源管理-->
+                	<div class="content" style="display:none;">
+                    	<!--房源管理子导航-->
+                    	<div class="btns_nav">
+                        	<ul class="clearFix">
+                            	<li name="fangyuan"><a href="###">房源管理</a></li>
+                                <li name="fangyuan" class="currentB"><a href="###">日历管理</a></li>
+                            </ul>
+                        </div>
+                        <!--房源管理的所有隐藏内容-->
+                    	<div class="fangyuan content_hidden2">
+                            <!--隐藏的房源管理-->
+                            <div class="content2 main_container" style=" position:relative;display:none">房源管理
+                            	<!--房源管理子导航-->
+                            	<div class="fangyuan_nav">
+                                	<ul>
+                                    	<li class="current_fangyuan_nav"><a href="#">已上线</a></li>
+                                        <li><a href="###">已下线</a></li>
+                                        <li><a href="###">审核中</a></li>
+                                        <li><a href="###">未通过</a></li>
+                                    </ul>    
+                                </div>
+                            </div>
+                            <!--隐藏的日历管理-->
+                            <div class="content2 main_container">
+                            	<div class="rili">房源：<input type="text" name="rili" value=""/></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--隐藏的结算管理-->
+                	<div class="content" style="display:none">
+                    	<!--搜索-->
+                    	<div class="search">
+                            <p class="date">按入住日期<input type="text" name="date" value=""/> - <input type="text" name="date" value=""/></p>
+                            <p class="tel">按房间查询<input type="text" name="date" value=""/><a class="search_btn" href="###">搜索</a></p>
+                        </div>
+                    </div>
+                    <!--隐藏的消息通知-->
+                	<div class="content" style="display:none">
+                    	<!--消息通知子导航-->
+                    	<div class="btns_nav">
+                        	<ul class="clearFix">
+                            	<li class="currentB"><a href="###">消息通知</a></li>
+                            </ul>
+                        </div>
+                        <div class="content_hidden2">
+                            <!--隐藏的消息通知内容-->
+                            <div class="content2 main_container">
+                            	<div class="message_detail">
+                                	<input type="checkbox" name="message"/>
+                                    <a href="###">全选</a>|
+                                    <a href="###">批量删除</a>|
+                                    <a href="###">批量标记为已读</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--隐藏的账户管理-->
+                	<div class="content" style="display:none">
+                        <!--账户管理子导航-->
+                    	<div class="btns_nav">
+                        	<ul class="clearFix">
+                                <li name="account" class="currentB"><a href="###">我的资料</a></li>
+                                <li name="account"><a href="###">收款账户</a></li>
+                                <li name="account"><a href="###">密码设置</a></li>
+                            </ul>
+                        </div>
+                        <!--隐藏的账户管理所有内容-->
+                        <div class="account content_hidden2">
+                            <!--隐藏的我的资料-->
+                            <div class="content2 main_container clearFix">
+                            	<div class="pic left">
+                                	<img src="images/pic.png"/>
+                                    <a class="green" href="###">【修改头像】</a>
+                                </div>
+                                <div class="personal_data left ml40">
+                                	<div><p>用户名：</p>某某某<a href="###">【修改】</a></div>
+                                    <div><p>昵&nbsp;&nbsp;&nbsp;称：</p>某某某<a href="###">【修改】</a></div>
+                                    <div><p>邮&nbsp;&nbsp;&nbsp;箱：</p>15126354568@163.com<a href="###">【修改】</a></div>
+                                    <div><p>手机号：</p>15126354568<a href="###">【修改】</a></div>
+                                    <div><p>真实姓名：</p><input type="text" name="name" value=""/></div>
+                                    <div><p>所在城市：</p><input type="text" name="city" value=""/></div>
+                                    <div><p>公司名称：</p><input type="text" name="mingcheng" value=""/></div>
+                                    <div><p>详细地址：</p><input class="address" type="text" name="address" value=""/></div>
+                                    <div><a class="save f14px" href="###">保存</a></div>
+                                </div>
+                            </div>
+                            <!--隐藏的收款账户-->
+                            <div class="content2 main_container password_ctn" style="display:none">
+                            		<div class="shoukuan">
+                                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                             <thead>
+                                                <tr>
+                                                    <th width="20%">收款方式</th>
+                                                    <th width="20%">账户号码</th>
+                                                    <th width="20%">账户姓名</th>
+                                                    <th width="20%">默认账户</th>
+                                                    <th width="20%">操作</th>
+                                                </tr>    
+                                            </thead>    
+                                         </table>
+                                    </div>
+                            </div>
+                            <!--隐藏的密码设置-->
+                            <div class="content2 main_container password_ctn" style="display:none">
+                            	<div><p class="">用户名：</p>某某某</div>
+                                <div><p>输入密码：</p><input type="text" name="password" value=""/><span>6-16个字符</span></div>
+                                <div><p>确认密码：</p><input type="text" name="password" value=""/><span>重新输入一次密码</span></div>
+                                <div><a class="save f14px" href="###">保存</a></div>
+                            </div>
+                            <!--隐藏的密码设置结束-->
+                        </div>
+                    </div>
+                    <!--隐藏的账户管理结束-->
+                </div>
+            </div>
+            <!--右边内容结束-->
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer_box">
+    <div class="foot_ico_box">
+    	<div class="foot_ico">
+        	<ul>
+            	<li>安全</li>
+                <li>承诺</li>
+                <li>服务</li>
+                <li>品质</li>
+                <li class="no_margin_r">便捷</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer_wrap">
+        <div class="footer">
+            <div class="footer_top clearFix">
+            	<div class="foot_nav left">
+                    <ul class="clearFix">
+                    	<li>
+                        	<p>友情链接</p>
+                            <a href="###">天天如家</a>
+                            <a href="###">美天如家</a>
+                            <a href="###">四季酒店</a>
+                        </li>
+                        <li>
+                        	<p>关于我们</p>
+                            <a href="###">关于易家旅</a>
+                            <a href="###">联系我们</a>
+                        </li>
+                        <li>
+                        	<p>加盟合作</p>
+                            <a href="###">商户加盟</a>
+                            <a href="###">加盟须知</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="foot_right left">
+                    <ul class="clearFix">
+                        <li>
+                        	<p>预订电话</p>
+                            <p class="tel">4000-777-365</p>
+                            <p>服务电话</p>
+                            <p class="tel">4000-777-365</p>
+                        </li>
+                        <li class="no_margin_r">
+                        	<div class="ewm"><img src="images/ewm_yjl.png"/><img src="images/ewm_pay.png"/></div>
+                            <div class="ewm_tit">
+                            	<span>扫一扫-关注易家旅</span>
+                                <span>扫一扫-支付宝</span>
+                            </div>
+                        </li>
+                	</ul>
+            	</div> 
+    	</div>
+        <div class="footer_bottom">
+                <P>©2009-2015易家旅（北京）网络技术有限公司版权所有 多数酒店为独立产权、独立经营分享我们</P>
+        </div>
+	</div>
+</div>
+</div>
+
+<!--固定的联系我们-->
+<div id="contact">
+	<ul>
+    	<li class="fixed_ico1">在线客服</li>
+        <li class="fixed_ico2">商户加盟</li>
+        <li class="fixed_ico3">二维码</li>
+        <li class="fixed_ico4">收藏</li>
+        <li id="back_top">
+        	<a href="javascript:;"></a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

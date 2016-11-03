@@ -25,33 +25,17 @@
 				var pages=[
 					{
 						name:"苹果",
-						path:"desktop.html"
-					},
-					{
-						name:"手机",
-						path:"m.html"
-					},
-					{
-						name:"天气",
-						path:"tq.html"
-					},
-					{
-						name:"新闻",
-						path:"news.html"
-					},
-					{
-						name:"游戏",
-						path:"2048.html"
+						path:"desktop.html",
 					},
 					{
 						name:"企业",
-						path:"qiye.html"
+						path:"qiye.html",
 					}
 				];
 
 				for (var i = 0; i < pages.length; i++) {
 					if (txt.value==pages[i].name) {
-						window.open(pages[i].path,"_self");
+						window.open(pages[i].path);
 						return 1;
 						break;
 					}
@@ -83,7 +67,7 @@
 				listBox.style.display='block';
 				listBox.innerHTML='<ul>'+
 					'<li style="text-align:center">欢迎您来到这里！<br/>恭候多时了</li>'+
-					'<li>可用以下密码登录:<p>手机&nbsp|&nbsp天气&nbsp|&nbsp新闻</p><p>苹果&nbsp|&nbsp企业&nbsp|&nbsp文件夹</p></li>'+
+					'<li>可用以下密码登录:<p>文件&nbsp|&nbsp企业&nbsp|&nbsp苹果</p></li>'+
 					'<li class="tips">如果登录的是手机页面，请将窗口调小后刷新即可</li>'+
 					'</ul>'
 				listBox.style.top=ev.clientY+'px';

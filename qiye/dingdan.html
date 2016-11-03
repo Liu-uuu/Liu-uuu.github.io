@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/common.css" type="text/css" rel="stylesheet">
+<link href="css/order_center.css" type="text/css" rel="stylesheet">
+<title>订单中心</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="container">
+    <div id="top">
+    	<p>某某某&nbsp;&nbsp;&nbsp;&nbsp;欢迎您的光临！ <a class="blue" href="###">【系统消息】</a><a href="###">【退出系统】</a></p>
+    </div>
+    <div id="content">
+    	<div class="nav_wrap">
+        	<div class="nav">
+            	<div class="clearFix left"><a class="logo left" href=""><img src="images/logo_order.png" /></a><a  class="logo_text left f18px" href="">易家旅公寓预定系统</a></div>
+                <div class="main_nav right">
+                	<ul>
+                    	<li><a href=""><img src="images/main_nav1.png"/><span>首页</span></a></li>
+                        <li><a class="current_nav" href=""><img src="images/main_nav2.png"/><span>订单中心</span></a></li>
+                        <li><a href=""><img src="images/main_nav2.png"/><span>短信营销</span></a></li>
+                        <li><a href=""><img src="images/main_nav3.png"/><span>客户关系</span></a></li>
+                        <li><a href=""><img src="images/main_nav3.png"/><span>审核管理</span></a></li>
+                        <li><a href=""><img src="images/main_nav4.png"/><span>报表中心</span></a></li>
+                        <li><a href=""><img src="images/main_nav5.png"/><span>财务管理</span></a></li>
+                        <li><a href=""><img src="images/main_nav6.png"/><span>系统管理</span></a></li>
+                        <li><a href=""><img src="images/main_nav7.png"/><span>企业邮箱</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sub_nav">
+        	<ul>
+            	<li><a class="f14px currentJS" href="">订单列表</a></li>
+            </ul>
+        </div>
+        <div class="quick_search">
+        	<ul>
+            	<li>快速搜索：</li>
+                <li><a class="current_search" href="">未派单</a></li>
+                <li><a  href="">未确认</a></li>
+                <li><a  href="">已确认</a></li>
+                <li><a  href="">取消单</a></li>
+            </ul>
+        </div>
+        <div class="search_box">
+        	
+            	<p>订单号：</p><input type="text" name="ddh" value="" id="ddh"/>
+                <p>客户姓名：</p><input class="wt_90px" type="text" name="ddh" value="" id="name"/>
+                <p>手机号：</p><input class="wt_96px" type="text" name="ddh" value="" id="tel"/>
+                <p>订单状态：</p><input class="wt_96px" type="text" name="ddh" value="" id="state"/>
+                <p>来源渠道：</p><input type="text" name="ddh" value="" id="trench" />
+                <p>入住日期：</p><input class="no_margin" type="text" name="ddh" value="" id="time"/>	-	</label><input type="text" name="ddh" value="" id="ddh"/>
+                <a id="search_order" href="">搜索订单</a>
+                <a id="place_order" href="">下单</a>
+
+        </div>
+    </div>
+    	<div class="data">
+        	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+            	<thead>
+                	<tr>
+                    	<th width="4%">序号</th>
+                        <th width="8%">订单号</th>
+                        <th width="5%">姓名</th>
+                        <th width="6%">手机</th>
+                        <th width="6%">开单时间</th>
+                        <th width="5%">开单人</th>
+                        <th width="14%">来源渠道</th>
+                        <th width="5%">房间号</th>
+                        <th width="6%">房型</th>
+                        <th width="8%">入住日期</th>
+                        <th width="4%">线上价</th>
+                        <th width="4%">线下价</th>
+                        <th width="4%">类型</th>
+                        <th width="10%">派单商户</th>
+                        <th width="5%">订单状态</th>
+                        <th width="6%">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+					<tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>B150897654678</td>
+                        <td>张某某</td>
+                        <td>15236525256</td>
+                        <td>2015-02-15</td>
+                        <td>李某某</td>
+                        <td>分店直销-客户代表</td>
+                        <td>1345</td>
+                        <td>舒适大床房</td>
+                        <td>2015-03-12</td>
+                        <td>399元</td>
+                        <td>499元</td>
+                        <td>短租</td>
+                        <td>天天如家-西直门店</td>
+                        <td>入住</td>
+                        <td><a class="send_order" href="">派单</a></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="page_wrap">
+            <div class="page">
+                共<span>20</span>页<span>1000</span>条记录
+                <a class="page_one" href=""></a>	
+                <a class="page_pre" href=""></a>	
+                <a class="page_after" href=""></a>	
+                <a class="page_last" href=""></a>
+                第 <input class="current_page" type="text" name="current_page" value="2"/> 页<a class="go" href="">GO</a>	
+                （每页显示
+                <select>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                </select>条）
+            </div>
+         </div>
+    <div id="footer">
+    	<div class="footer_bootom"><p>QQ客服：<a href=""><img src="images/images_46.png"/></a><span>客服电话：4000-777-365</span></p></div>
+    </div>
+</div>
+</body>
+</html>

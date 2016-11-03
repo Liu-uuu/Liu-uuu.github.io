@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="css/common.css" type="text/css" rel="stylesheet">
+<title>无标题文档</title>
+</head>
+<style>
+#content{ width:700px; margin:20px auto;border:1px solid #a1cdf0;}
+#top{ width:100%; height:32px; line-height:32px; font-size:14px; font-weight:700; background-color:#4095d7; color:#fff; text-indent:20px;}
+#top .close{ display:inline-block; width:10px; height:10px;background:url(images/close_cha.png) no-repeat 0 0; margin:10px 10px 0 0; z-index:3;}
+#top .close:hover{ background-position:0 -15px;}
+#container{ }
+#container table{}
+#container table tr.border_bottom th,#container table tr.border_bottom td{ border-bottom:1px solid #9bc5d5;}
+#container table th,#container table tr td{ height:40px;}
+#container table th{ text-align:right;font-weight:normal;}
+#container table th.tac{ text-align:center; font-weight:700;}
+#container table td.tac{ text-align:center;}
+#container table td{ text-align:left; padding-left:5px; position:relative;}
+#container table td label{ margin-right:8px;}
+input{ text-indent:5px; color:#999}
+input.text{ width:120px; height:22px; border:1px solid #9bc5d5;}
+input.indent{ vertical-align:-2px; margin:5px;}
+input.width200px{ width:90%;}
+input.width100px{ width:71%;}
+.date_pic{ display:block; width:16px; height:16px; position:absolute; right:3px; top:13px; background:url(images/kd_date.png) no-repeat 0 0; z-index:2;}
+.tringle_drop{ display:block; width:16px; height:16px; position:absolute; right:3px; top:13px; background:url(images/tringle.png) no-repeat 0 0; z-index:2;}
+.tringle_drop1{ display:block; width:16px; height:16px; position:absolute; right:35px; top:13px; background:url(images/tringle.png) no-repeat 0 0; z-index:2;}
+.tringle_drop2{ display:block; width:16px; height:16px; position:absolute; right:35px; top:13px; background:url(images/tringle.png) no-repeat 0 0; z-index:2;}
+.border_two{ border-bottom:1px solid #9bc5d5;
+ border-right:1px solid #9bc5d5;}
+ .border_two1{ border-bottom:1px solid #9bc5d5;
+ border-left:1px solid #9bc5d5;}
+#container table th.letting{ letter-spacing:3px;}
+.btn{ width:125px; margin:10px auto;}
+.btn a{ display:block; width:125px; height:34px;color:#fff; text-align:center; line-height:34px; background-color:#2c8ad3;-moz-border-radius:2px; -webkit-border-radius:2px; -o-border-radius:2px; border-radius:2px;}
+.btn a:hover{background-color:#409fe9;}
+</style>
+<body>
+<div id="content">
+    <div id="top"><div class="left">开单</div><div class="right"><a class="close" href="###"></a></div></div>
+    <div id="container">
+    	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+        	<tr>
+            	<th width="7%" class="border_two tac" rowspan="2">客<br/>户<br/>信<br/>息</th>
+                <th width="13%">客户姓名：</th>
+                <td width="18%"><input class="text" type="text" name="name" value=""></td>
+                <td width="13%"></td>
+				<td width="18%" class="border_two1"rowspan="2">客户信息：</td>
+                <td width="13%"></td>
+                <td width="18%"></td>
+            </tr>
+            <tr class="border_bottom">
+            	<th>联系方式：</th>
+                <td><input class="text" type="text" name="name" value=""></td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+            	<th class="border_two tac" rowspan="6">订<br/>单<br/>信<br/>息</th>
+                <th>开单类型：</th>
+                <td colspan="4"><label><input class="indent" type="checkbox" name="type" value="">预付</label>
+                <label><input class="indent" type="checkbox" name="type" value="">担保</label></td>
+            </tr>
+            <tr>
+            	<th>入住类型：</th>
+                <td colspan="5"><label><input class="indent" type="checkbox" name="type" value="">短租房</label>
+                <label><input class="indent" type="checkbox" name="type" value="">月租房</label>
+                <label><input class="indent" type="checkbox" name="type" value="">长租房</label></td>
+            </tr>
+            <tr>
+            	
+            	<th>入住日期：</th>
+                <td><input class="text" type="text" name="date" value="2015-5-22"><a class="date_pic" href="###"></a></td>
+                <td class="tac">至</td>
+                <td><input class="text" type="text" name="date" value="2015-5-22"><a class="date_pic" href="###"></a></td>
+                <th>入住人数：</th>
+                <td><input class="text width100px" type="text" name="affirm" value=""><a class="tringle_drop2" href="###"></a></td>
+            </tr>
+            <tr>
+            	
+            	<th class="letting">确认人：</th>
+                <td><input class="text" type="text" name="affirm" value=""><a class="tringle_drop" href="###"></a></td>
+                <th>协议客户：</th>
+                <td colspan="3"><input class="text" type="text" name="affirm" value=""></td>
+            </tr>
+            <tr>
+            	
+            	<th class="letting">销售人：</th>
+                <td><input class="text" type="text" name="affirm" value=""><a class="tringle_drop" href="###"></a></td>
+                <th>到达时间：</th>
+                <td><input class="text" type="text" name="affirm" value=""><a class="tringle_drop" href="###"></a></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr class="border_bottom">
+            	<th>客户分类：</th>
+                <td><input class="text" type="text" name="affirm" value=""><a class="tringle_drop" href="###"></a></td>
+                <th>来源渠道：</th>
+                <td colspan="3"><input class="text width200px" type="text" name="affirm" value=""><a class="tringle_drop1" href="###"></a></td>
+            </tr>
+            <tr>
+            	<th class="border_two tac" rowspan="2">备<br/>注</th>
+                <td colspan="6"></td>
+            </tr>
+            <tr class="border_bottom">
+                <td colspan="7"></td>
+            </tr>
+        </table>
+        <div class="btn">
+        	<a href="">提交订单</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
