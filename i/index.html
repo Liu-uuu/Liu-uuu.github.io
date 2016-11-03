@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon"  href="myicon.png">
-    <title>作品--模拟文件窗口操作</title>
-    <link rel="stylesheet" href="css/reset.css" />
+    <title>文件窗口--仿桌面应用</title>
     <link rel="stylesheet" href="css/yun.css" />
-    <style type="text/css"></style>
 </head>
 
 <body>
+  <div id="icon">
+    <ul>
+      <li class="icon1"></li>
+      <li class="icon2"></li>
+      <li class="icon3"></li>
+    </ul>
+  </div>
   <!-- 模拟窗口 -->
    <div id="yun">
         <!-- 以下头部结构 -->
        <div id="header">
             <div id="blueArea">
-                <strong title="最小化时点击还原窗口">我的文件</strong>
+                <strong title="最小化时点击还原窗口">模拟窗口</strong>
                 <span class="btnimg1"></span>
                 <span class="btnimg2"></span>
             </div>
@@ -51,12 +56,12 @@
        <!-- 以下主体结构 -->
        <div id="main">
            <div id="mainLeft">
-              <h2>我的文件</h2>
+              <h2>目录</h2>
               <div id="fileTree"></div> 
            </div>
            <div id="mainRight">
                <div id="path">
-                  <a href="">我的文件</a>
+                  <a href="">导航</a>
                </div>
                <div id="fileArea"></div>
            </div>

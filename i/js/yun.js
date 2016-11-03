@@ -747,3 +747,21 @@ toDelect.onclick=function(){
 // document.onkeydown=function(e){
 // 	alert(e.keyCode)
 // }
+
+
+//桌面图标
+var icon=document.getElementById('icon');
+icon.ondblclick=function(){
+	data=data2;
+	yun.style.display="block";
+	var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
+	var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
+	if (windowW<600) {windowW=600}
+	if (windowH<400) {windowH=400}
+	yun.style.width=windowW*0.7+'px';
+	yun.style.height=windowH*0.9+'px';		
+	yun.style.left=windowW*0.15+'px';
+	yun.style.top=windowH*0.05+'px';
+	divcss();
+	return false;
+}

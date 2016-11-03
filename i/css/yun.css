@@ -1,5 +1,41 @@
 body{
-    background-image:url("../bg.jpg");
+    margin:0;
+    font: 12px/1.5 Microsoft YaHei,Tahoma,SimSun,Verdana;
+    overflow: hidden;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+p,ul,input,h2,h3{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+strong{
+    font-weight: normal;
+}
+
+
+
+body{
+    background:url("../bg.jpg");
+}
+#icon{
+    width: 80px;
+}
+#icon li{
+    width:80px;
+    height: 90px;
+    background:url("../img/icon.jpg") no-repeat; 
+}
+#icon .icon2{
+    background-position:0 -100px;
+}
+#icon .icon3{
+    background-position:0 -200px;
 }
 #yun{
     width: 800px;

@@ -30,7 +30,7 @@
 				overflow: hidden;
 			}
 			body{
-				background: url('https://s4.sinaimg.cn/orignal/001JEE6izy74Dz9poR563&690') no-repeat top center;
+				background: url('./index.jpg') no-repeat top center;
 			}
 
 			#box{
@@ -80,11 +80,10 @@
 				 font-weight: normal;
 				}
 			#listbox{
-				width: 120px;
-				height: 200px;background: #fff;
-				border: 2px solid #266588;
-				padding: 20px;
-				background: #2196F3;
+				width: 126px;
+				background: #eee;
+				border: 1px solid #666;
+				padding:0 18px;
 				position: absolute;
 				display: none;
 			}
@@ -93,15 +92,17 @@
 			}
 			#listbox li{
 				border-bottom: 1px solid #ccc;
-				padding: 6px 0 10px 0;
+				padding:16px 0 10px 0;
 				font-family: '微软雅黑';
 				font-size:14px;
 				font-weight: bold;
-				color: #123456;
+				color: #444;
 			}
 			#listbox li p{
-				color: #fff;
-				font-size: 15px;
+				color: #666;
+			}
+			#listbox .tips{
+				color: red;
 			}
 
 		</style>
@@ -109,12 +110,12 @@
 
 
 	
-	<body title="请输入作品二字，或右击查看其他关键字列表">
+	<body title="右击查看其他关键字列表">
 		<div id="box">
 			<div id="tx" class="left"></div>
-			<div  class="right" title="请输入作品二字，点击鼠标右键查看可用密码列表">
+			<div  class="right" title="点击鼠标右键查看通往不同页面的密码">
 				<h3>Welcome Back</h3>
-				<input type="text" name="" id="txt" value="右击查看密码">
+				<input type="text" name="" id="txt" value="直接点击登录进入">
 				<input type="button" name="" value="登 录" id="btn">
 			</div>
 		</div>
