@@ -1,128 +1,132 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>主页--通关文牒</title>
-		<link rel="shortcut icon"  href="myicon.png">
-		<script type="text/javascript">
-			(function () {
-			    var sUserAgent = navigator.userAgent.toLowerCase(); 
-			    if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
-			        window.location.href = "https://liu-uuu.github.io/m";    
-			    }
-			})()
-		</script>
-
-		
-		<script type="text/javascript" src="index.js"></script>
-		<style type="text/css">
-
-			body,h3,ul,li,p,input{
-				margin: 0;
-				padding: 0;
-			}
-			ul{
-				list-style: none;
-			}
-			html,body{
-				height: 100%;
-				width: 100%;
-				overflow: hidden;
-			}
-			body{
-				background: url('./index.jpg') no-repeat top center;
-			}
-
-			#box{
-				width: 330px;
-				height:104px;
-				padding: 16px 5px;
-				position:absolute; 
-				/*position: fixed;left:40%;bottom: 40%;*/
-			}
-			#tx{
-				width: 100px;
-				height: 100px;
-				border: 2px solid #ccc;
-				background: url("tx.jpg");
-			}
-			.left{
-				width:110px; 
-				float: left;
-			}
-			.right{
-				width:200px;
-				float: right;
-				padding-top: 6px;
-				line-height: 46px;
-				vertical-align: center;
-			}
-
-			h3{
-				width:200px;
-				color: #fff;
-				font-family: "微软雅黑"
-			}		
-			input{
-				height: 24px;
-				 border: 1px solid #ddd;
-				 line-height: 24px;
-				 font-size: 14px;}
-			#txt{
-				width: 120px;
-				text-indent: 6px;
-			}
-			#btn{
-				width: 56px;
-				background: #3385FF;
-				 color: #fff;
-				 font-size: 14px;
-				 font-weight: normal;
-				}
-			#listbox{
-				width: 126px;
-				background: #eee;
-				border: 1px solid #666;
-				padding:0 18px;
-				position: absolute;
-				display: none;
-			}
-			#listbox ul{
-				border-top: 1px solid #ccc;
-			}
-			#listbox li{
-				border-bottom: 1px solid #ccc;
-				padding:16px 0 10px 0;
-				font-family: '微软雅黑';
-				font-size:14px;
-				font-weight: bold;
-				color: #444;
-			}
-			#listbox li p{
-				color: #666;
-			}
-			#listbox .tips{
-				color: red;
-			}
-
-		</style>
-	</head>
-
+<head>
+	<meta charset="UTF-8">
+	<title>主页--登录</title>
+	<link rel="shortcut icon"  href="myicon.png">
+	<script type="text/javascript">
+		(function () {
+		    var sUserAgent = navigator.userAgent.toLowerCase(); 
+		    if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
+		        window.location.href = "https://liu-uuu.github.io/m";    
+		    }
+		})()
+	</script>
 
 	
-	<body title="右击查看其他关键字列表">
-		<div id="box">
-			<div id="tx" class="left"></div>
-			<div  class="right" title="点击鼠标右键查看通往不同页面的密码">
-				<h3>Welcome Back</h3>
-				<input type="text" name="" id="txt" value="直接点击登录进入">
-				<input type="button" name="" value="登 录" id="btn">
-			</div>
+	
+	<style type="text/css">
+
+		body,h3,ul,li,p,input{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		html,body{
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+		}
+		body{
+			background: url('./index.jpg') no-repeat top center;
+		}
+
+		#box{
+			width: 330px;
+			height:104px;
+			padding: 16px 5px;
+			/*position:absolute; */
+			position:relative;
+			top:50%;
+			left:50%;
+			margin-top:-52px;
+			margin-left:-165px;
+			
+		}
+		#tx{
+			width: 100px;
+			height: 100px;
+			border: 2px solid #ccc;
+			background: url("tx.jpg");
+		}
+		.left{
+			width:110px; 
+			float: left;
+		}
+		.right{
+			width:200px;
+			float: right;
+			padding-top: 6px;
+			line-height: 46px;
+			vertical-align:middle;
+		}
+
+		h3{
+			width:200px;
+			color: #fff;
+			font-family: "微软雅黑"
+		}		
+		input{
+			height: 24px;
+			border: 1px solid #ddd;
+			line-height: 24px;
+			font-size: 14px;}
+		#txt{
+			width: 120px;
+			text-indent: 6px;
+		}
+		#btn{
+			width: 56px;
+			background: #3385FF;
+			 color: #fff;
+			 font-size: 14px;
+			 font-weight: normal;
+			}
+		#listbox{
+			width: 126px;
+			background: #eee;
+			border: 1px solid #666;
+			padding:0 18px;
+			position: absolute;
+			display: none;
+		}
+		#listbox ul{
+			border-top: 1px solid #ccc;
+		}
+		#listbox li{
+			border-bottom: 1px solid #ccc;
+			padding:16px 0 10px 0;
+			font-family: '微软雅黑';
+			font-size:14px;
+			font-weight: bold;
+			color: #444;
+		}
+		#listbox li p{
+			color: #666;
+		}
+		#listbox .tips{
+			color: red;
+		}
+
+	</style>
+</head>
+
+<body title="右击查看其他关键字列表">
+	<div id="box">
+		<div id="tx" class="left"></div>
+		<div  class="right" title="点击鼠标右键查看通往不同页面的密码">
+			<h3>Welcome Back</h3>
+			<input type="text" name="" id="txt" value="直接点击登录进入">
+			<input type="button" name="" value="登 录" id="btn">
 		</div>
-		<div id="listbox"></div>
-	</body>
+	</div>
+	<div id="listbox"></div>
 
+	<script type="text/javascript" src="index.js"></script>
 
+</body>
 </html>
 
 
