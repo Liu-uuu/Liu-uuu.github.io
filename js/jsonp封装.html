@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style>
+
+</style>
+</head>
+<body>
+<input type="text" name="text" id="text1" value="" />
+<!--<span id="span">0字</span>-->
+<ul id="ul"></ul>
+<script type="text/javascript">
+	/*
+		https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+text1.value+'&cb=fn3 
+	*/
+	
+	var oTxt = document.getElementById('text1');
+	var ul = document.getElementById('ul');
+	
+	oTxt.oninput = function(){
+		jsonp({
+			url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+			data:{
+				'wd':this.value,
+				'json':'1',
+				'p':'3'
+			},
+			cbName:'cb',
+			succ:function(data){
+				console.log(data.s);
+			},
+			fail:function(){
+				alert('赶紧干死SD');
+			}
+		});
+	}
+	
+//	jsonp(url,data,succ,cbName,callback)
+	function jsonp(json){
+		var settings = {
+			url:json.url || '',
+			data:json.data || {},
+			succ:json.succ || '',
+			cbName:json.cbName||'callback',
+			callback:json.callback || 'jQuery'+new Date().getTime(),
+			fail:json.fail || ''
+		}
+		
+		var head = document.getElementsByTagName('head')[0];
+		var oS = document.createElement('script');
+		oS.className = 'oScript';
+		var aScript;
+		var timer = null;
+		// script标签/url数据
+		settings.data[settings.cbName] = settings.callback;//唯一函数名
+		
+		var arr = [];
+		
+		for(var attr in settings.data){
+			arr.push(attr+'='+settings.data[attr]);
+		}
+		
+		settings.data = arr.join('&');
+		
+		oS.src = settings.url +'?'+ settings.data;
+
+		head.appendChild(oS);
+		//END script标签/url数据
+		
+		window[settings.callback] = function(data){
+			
+			aScript = head.getElementsByClassName('oScript');
+			for(var i=0,len=aScript.length;i<len;i++){
+				head.removeChild(aScript[0]);	
+			}
+			
+			if(settings.succ && typeof settings.succ === 'function'){
+				settings.succ(data);
+			}
+			
+		}
+		clearTimeout(timer);
+		timer = setTimeout(function(){
+			aScript = head.getElementsByClassName('oScript');
+			if(aScript.length){
+				if(settings.fail && typeof settings.fail === 'function'){
+					settings.fail();
+				}
+			}
+			
+		},15000);
+		
+		
+//		console.log(settings.data)
+//		//console.log(settings.data+'&'+settings.cbName+'='+settings.callback);
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	oTxt.oninput = function(){
+//		span.innerHTML = oTxt.value.length+'字';
+//	}
+	
+//	var timer = null;
+//	oTxt.onkeyup = function(){
+//		timer = setInterval(function(){
+//			span.innerHTML = oTxt.value.length+'字';
+//		},30)	
+//	}
+//	oTxt.onblur = function(){
+//		clearInterval(timer);
+//	}
+	
+</script>
+</body>
+</html>
