@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>web拾色器--1600多万种颜色</title>
+	<style type="text/css">
+		html,body{
+			height:100%;
+		}
+		body{
+			margin:0; background:#282828;
+			font:12px/1.5 "微软雅黑";
+		}
+		ul,li{
+			margin:0; padding:0; list-style:none;
+		}
+		#container{
+			width:546px; height:376px; background:#dcdcdc; border:2px solid #66aff8;
+			position:relative; left:50%; top:50%;
+			margin-left:-275px; margin-top:-190px;
+		}
+		/*头部*/
+		#top{
+			height:28px; background:#66aff8;
+			line-height:28px; text-indent:6px;
+		}
+		/*拾色区域*/
+		#s_warp{
+			position:relative;
+			width:256px; height:256px; border:2px solid #b3b3b3;
+			margin-top:30px; margin-left:10px; overflow:hidden;
+		}
+		#swatch div{
+			height:1px;
+		}
+		#circle{
+			position:absolute; top:0; left:0;
+			width:12px; height:12px;
+			border:2px solid #fff; border-radius:50%;
+		}
+		/*调色滑块*/
+		#slider{
+			width:41px;
+			background:url("./slide.png") no-repeat;
+			background-position:0 2px;
+			position:absolute; top:58px; left:274px;
+		}
+		#slider div{
+			width:18px; height:256px; border: 2px solid #b3b3b3; margin-left:10px;
+			background:linear-gradient(to top,rgb(0,0,0),rgb(255,0,0));
+		}
+		/*滑块右侧编辑区*/
+		#edit{
+			position:absolute; top:58px; left:320px;
+		}
+		/*选中颜色*/
+		#selected{
+			width:59px;margin:-8px 0px 0px 8px;
+			text-align:center;
+		}
+		#selected .border{
+			border:1px solid #b3b3b3;
+		}
+		#selected span{
+			display:block;height:33px;
+			border-left:1px solid #000;
+			border-right:1px solid #000;
+		}
+		#selected .new{
+			background:#000; border-top:1px solid #000;
+		}
+		#selected .old{
+			background:#fff; border-bottom:1px solid #000;
+		}
+		#selected i{
+			font-style:normal;
+		}
+		/*RGB调试区*/
+		#color_rgb{
+			padding-top:46px;
+			font-size:12px; text-align:left;
+		}
+		#color_rgb span{
+			display:block;
+			padding:2px 0px;
+		}
+		/*按钮*/
+		#btns{
+			position:absolute; top:0px; left:110px;
+		}
+		#btns button{
+			width:90px;padding:1px;
+		}
+		#btns span{
+			display:block;
+			padding: 0  0 4px 0px;
+		}
+		/*右侧色板颜色列表*/
+		#color_list{
+			position:absolute; top:90px; left:106px;
+			width:100px; border:1px solid #b3b3b3;
+			overflow:hidden;
+		}
+		#color_list ul{
+			width:102px; height:121px;border-bottom:1px solid #b3b3b3; background:#fff;
+		}
+		#color_list li{
+			float:left;
+			width:14.285%; height:15px;
+
+		}
+		#color_list li span{
+			display:block; height:14px;
+			border-bottom:1px solid #000;
+			border-right:1px solid #000;
+		}
+		#color_list div{padding:12px 0;text-align:center; background:#f4f4f4}
+	</style>
+
+
+	<script type="text/javascript">
+		window.onload=function(){
+		// ***所需全局变量******************************************
+			// 获取元素
+			var wrap=document.getElementById('wrap');
+			var box256=document.getElementById('swatch');//取色区容器
+			var color256=box256.getElementsByTagName('div');//取色区颜色
+			var cir=document.getElementById('circle');//取色小圆圈
+			var thisColor=document.getElementById('selected').getElementsByTagName('span');//选中后矩形块里的颜色
+			var sliderTop=document.getElementById('slider');
+			var sliderColor=sliderTop.getElementsByTagName('div')[0];
+
+			var iptsBox=document.getElementById('color_rgb');
+			var ipts=iptsBox.getElementsByTagName('input');//RGB输入框
+			// 数据
+			var datas={r:{selected:true,val:0},g:{selected:false,val:0},b:{selected:false,val:0}};
+			var thisRgb={type:"r",value:100}//记录锁定的RGB类型和值；
+			var xyRgb={x:100,y:100}//点的定位需要
+
+		// ***初始化******************************************
+			// 生成取色区域结构
+			box256.colorInner="";
+			for (var i = 0; i < 256; i++) {
+				box256.colorInner+="<div></div>";
+			}
+			box256.innerHTML=box256.colorInner;
+
+			// 填充取色区域颜色，默认R值为0；
+			randerSwatch(thisRgb.type,thisRgb.value);
+
+
+			// 待选颜色列表（色板）
+			var colerList=document.getElementById('color_list').getElementsByTagName("ul")[0];
+			//默认颜色数组
+			var colorArr=["#000000","#0000CD","#008000","#00BFFF","#00FF00","#00FFFF","#20B2AA","#2F4F4F","#40E0D0","#483D8B","#556B2F","#66CDAA","#6A5ACD","#778899","#7FFF00","#800080","#87CEEB","#8B0000","#8FBC8F","#9400D3","#9ACD32","#A9A9A9","#AFEEEE","#B22222","#BC8F8F","#C71585","#D2691E","#D8BFD8","#DB7093","#DDA0DD","#E6E6FA","#EEE8AA","#F0F8FF","#F4A460","#F5F5F5","#FA8072","#FAFAD2","#FF00FF","#FF4500","#FF7F50","#FFA500","#FFD700","#FFE4B5","#FFEBCD","#FFF5EE","#FFFAF0","#FFFFE0","#FFFFFF"];
+			renderColorList();//默认渲染颜色列表
+			cirPos();
+			sliderTopFn();
+			sliderColorFn();
+
+		// ***函数区域******************************************************************************************************************
+			// 渲染取色区函数
+			function randerSwatch (rgbType,value){
+				if (rgbType=="r"){
+					for (var i = 0; i < color256.length-1; i++) {	
+						color256[i].style.background="linear-gradient(to right,rgb("+value+","+(255-i)+",0),rgb("+value+","+(255-i)+",255))";
+					}
+				}else if (rgbType=="g"){
+					for (var i = 0; i < color256.length-1; i++) {	
+						color256[i].style.background="linear-gradient(to right,rgb("+(255-i)+","+value+",0),rgb("+(255-i)+","+value+",255))";
+					}
+				}else if (rgbType=="b"){
+					for (var i = 0; i < color256.length-1; i++) {	
+						color256[i].style.background="linear-gradient(to right,rgb(0,"+(255-i)+","+value+"),rgb(255,"+(255-i)+","+value+"))";
+					}
+				}
+			}
+			//小圆圈
+			function cirPos(){
+				cir.style.left=xyRgb.x-8+"px";
+				cir.style.top=247-xyRgb.y+"px";
+			}
+			// ***************************************************************************************
+			//滑块位置和背景
+			function sliderTopFn(){
+				if (thisRgb.type=="r") {
+					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+				}else if (thisRgb.type=="g") {
+					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+				}else if (thisRgb.type=="b") {
+					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+				}
+			}
+			function sliderColorFn(){
+				if (thisRgb.type=="r") {
+					sliderColor.style.background="linear-gradient(to top,rgb(0,"+ipts[3].value+","+ipts[5].value+"),rgb(255,"+ipts[3].value+","+ipts[5].value+"))";
+				}else if (thisRgb.type=="g") {
+					sliderColor.style.background="linear-gradient(to top,rgb("+ipts[1].value+",0,"+ipts[5].value+"),rgb("+ipts[1].value+",255,"+ipts[5].value+"))";
+				}else if (thisRgb.type=="b") {
+					sliderColor.style.background="linear-gradient(to top,rgb("+ipts[1].value+","+ipts[3].value+",0),rgb("+ipts[1].value+","+ipts[3].value+",255))";
+				}
+			}
+			// ***************************************************************************************
+			//渲染颜色列表函数
+			function renderColorList(){
+				var color1=0;
+				var listInner="";
+				if (colorArr.length>56) {
+					color1=colorArr.length-56;
+				}
+				for (var i = color1; i < colorArr.length; i++) {
+					listInner+="<li><span "+"title="+colorArr[i]+" style=background:"+colorArr[i]+"></span></li>"
+				}
+				colerList.innerHTML=listInner;
+			}
+			// ***************************************************************************************
+			//取色区取色交互
+			
+			wrap.onmousedown=function(ev){
+				var xy={x:getPos(box256).left,y:getPos(box256).top}//容器相对窗口位置
+				var ev=ev||event;
+				var x=ev.clientX-xy.x;//圆圈相对容器位置
+				var y=ev.clientY-xy.y;
+				
+				getColor();//计算选择的颜色
+				thisColor[1].style.background=thisColor[0].title;//填充上一个颜色
+				
+				function getColor(){
+					// 限制位置范围
+					if (x<0) {
+						x=0;
+					}else if (x>255) {
+						x=255;
+					}
+
+					if (y<0) {
+						y=0;
+					}else if (y>255) {
+						y=255;
+					}
+					// 小圆圈定位(此处跟随鼠标定位)
+					cir.style.left=x-8+"px";
+					cir.style.top=y-8+"px";
+
+					//设置右侧rgb的类型的值
+					if (thisRgb.type=="r") {
+						ipts[3].value=255-y;
+						ipts[5].value=x;
+						ipts[6].value=num16(thisRgb.value)+num16(255-y)+num16(x);
+						thisColor[0].style.background="#"+ipts[6].value;
+					}else if (thisRgb.type=="g") {						
+						ipts[1].value=255-y;
+						ipts[5].value=x;
+						ipts[6].value=num16(255-y)+num16(thisRgb.value)+num16(x);
+						thisColor[0].style.background="#"+ipts[6].value;
+					}else if (thisRgb.type=="b") {
+						ipts[1].value=x;
+						ipts[3].value=255-y;
+						ipts[6].value=num16(x)+num16(255-y)+num16(thisRgb.value);
+						thisColor[0].style.background="#"+ipts[6].value;
+					}
+					sliderColorFn();
+				}
+			
+
+				document.onmousemove=function(ev){
+					var ev=ev||event;
+					x=ev.clientX-xy.x;
+					y=ev.clientY-xy.y;
+					getColor();//非全局函数，在鼠标点下时定义。
+						
+				};
+					
+				document.onmouseup=function(){
+					thisColor[0].title=thisColor[0].style.backgroundColor;//鼠标抬起时设当前颜色的title，节省性能
+					document.onmouseup=document.onmousemove=null;
+				};
+				return false;
+			}
+
+
+			// ***************************************************************************************
+			//滑块区取色交互
+			sliderTop.onmousedown=function(ev){
+				var y=getPos(sliderTop).top//容器相对窗口上距
+				var ev=ev||event;
+				var thisTop=ev.clientY-y;//鼠标相对容器上距
+
+				thisColor[1].style.background=thisColor[0].title;//填充上一个颜色
+				run();
+				function run(){
+					if (thisTop<0) {
+						thisTop=0;
+					}else if (thisTop>255) {
+						thisTop=255;
+					}
+					thisRgb.value=255-thisTop;
+					
+					for (var i = 0; i < ipts.length-1; i++) {//改变的ipt输入框
+						if(ipts[i].name==thisRgb.type){
+							ipts[i].value=thisRgb.value;
+						}
+					}
+					thisColor[0].style.background="rgb("+ipts[1].value+","+ipts[3].value+","+ipts[5].value+")";//填充新颜色
+					ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value);//颜色框新value
+					sliderTopFn();//滑块高度
+					randerSwatch(thisRgb.type,thisRgb.value);
+				}
+			
+
+				document.onmousemove=function(ev){
+					var ev=ev||event;
+					thisTop=ev.clientY-y;
+					run();//非全局函数，在鼠标点下时定义。
+						
+				};
+					
+				document.onmouseup=function(){
+					thisColor[0].title=thisColor[0].style.backgroundColor;//鼠标抬起时设当前颜色的title，节省性能
+					document.onmouseup=document.onmousemove=null;
+				};
+				return false;
+			}
+
+			// ***************************************************************************************
+			// RGB值调试区交互
+			for (var i = 0; i < ipts.length-1; i++) {
+				
+				//鼠标点击固定rgb类
+				if (i%2==0) {
+					(function(i){
+						ipts[i].onclick=function(){
+							// 值改变时，圆圈位置
+							// if (i==0) {
+							// 	xyRgb={x:parseInt(ipts[5].value),y:parseInt(ipts[3].value)}
+							// }else if (i==2) {
+							// 	xyRgb={x:parseInt(ipts[5].value),y:parseInt(ipts[1].value)}
+							// }else if (i==4) {
+							// 	xyRgb={x:parseInt(ipts[1].value),y:parseInt(ipts[3].value)}
+							// }
+							// cir.style.left=xyRgb.x-8+"px";
+							// cir.style.top=247-xyRgb.y+"px";
+							// thisRgb.type=this.value;
+							// thisRgb.value=parseInt(ipts[i+1].value);
+
+							upDate();
+							randerSwatch(thisRgb.type,thisRgb.value);
+							cirPos();
+							sliderTopFn();
+							sliderColorFn()		
+						}
+					})(i)	
+				}
+				//键盘修改值
+				if (i%2==1) {
+					(function(i){		
+						ipts[i].onkeydown=function(ev){
+							var ev=ev||window.event;
+							ipts[i].downVal=ipts[i].value;//按下记录value值防错，回改。
+						// 上下键
+							if (ev.keyCode==38) {
+								this.value=parseInt(this.value)+1;//上键+1
+								if (parseInt(this.value)>255) {
+									this.value=255;
+								}
+
+								upDate();//更新数据
+								thisColor[0].title=thisColor[0].style.background="rgb("+ipts[1].value+","+ipts[3].value+","+ipts[5].value+")";//填充新颜色
+								ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value);//颜色框新value
+
+								if (this.name==thisRgb.type) {//锁定时修改拾色区和滑块高度
+									randerSwatch(thisRgb.type,thisRgb.value);
+									sliderTopFn();	
+								}else{//未锁定修改圆圈位置和滑块背景
+									cirPos();
+									sliderColorFn();
+								}								
+							}else if (ev.keyCode==40) {
+								this.value=parseInt(this.value)-1;//下键-1
+								if (parseInt(this.value)<0) {
+									this.value=0;
+								}
+								upDate();//更新数据
+								thisColor[0].title=thisColor[0].style.background="rgb("+ipts[1].value+","+ipts[3].value+","+ipts[5].value+")";//填充新颜色
+								ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value);//颜色框新value
+
+								if (this.name==thisRgb.type) {//锁定时修改拾色区和滑块高度
+									randerSwatch(thisRgb.type,thisRgb.value);
+									sliderTopFn();									
+								}else{//未锁定修改圆圈位置和滑块背景
+									cirPos();
+									sliderColorFn();
+								}	
+							}
+
+						};
+						// 数字键修改
+						ipts[i].onkeyup=function(ev){
+							var ev=ev||window.event;
+							if (ev.keyCode>47&&ev.keyCode<58) {
+								var numVal=parseInt(this.value);
+								if (numVal>255) {
+									alert("必须输入0-255之间的整数");
+									this.value=this.downVal;//输入错误，value回滚
+								}
+								
+								thisColor[0].title=thisColor[0].style.background="rgb("+ipts[1].value+","+ipts[3].value+","+ipts[5].value+")";//填充新颜色
+								ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value);//颜色框新value
+								if (thisRgb.type=="r") {
+									if (i==1) {
+										thisRgb.value=parseInt(ipts[1].value);//固定RGB参数的值
+										randerSwatch(thisRgb.type,thisRgb.value);//渲染取色区
+										sliderTopFn();//滑块高度
+									}else{
+										xyRgb={x:parseInt(ipts[5].value),y:parseInt(ipts[3].value)}//小圆圈位置
+										cir.style.left=xyRgb.x-8+"px";
+										cir.style.top=247-xyRgb.y+"px";
+										sliderColorFn();//滑块颜色
+									}	
+								}else if(thisRgb.type=="g"){
+									if (i==3) {
+										thisRgb.value=parseInt(ipts[3].value);//固定RGB参数的值
+										randerSwatch(thisRgb.type,thisRgb.value);//渲染取色区
+										sliderTopFn();//滑块高度
+									}else{
+										xyRgb={x:parseInt(ipts[5].value),y:parseInt(ipts[1].value)}//小圆圈位置
+										cir.style.left=xyRgb.x-8+"px";
+										cir.style.top=247-xyRgb.y+"px";
+										sliderColorFn();//滑块颜色
+									}	
+								}else if(thisRgb.type=="b"){
+									if (i==5) {
+										thisRgb.value=parseInt(ipts[5].value);//固定RGB参数的值
+										randerSwatch(thisRgb.type,thisRgb.value);//渲染取色区
+										sliderTopFn();//滑块高度
+									}else{
+										xyRgb={x:parseInt(ipts[1].value),y:parseInt(ipts[3].value)}//小圆圈位置
+										cir.style.left=xyRgb.x-8+"px";
+										cir.style.top=247-xyRgb.y+"px";
+										sliderColorFn();//滑块颜色
+									}	
+								}	 
+								
+							}else if (ev.keyCode>36&&ev.keyCode<41) {
+
+							}else{
+								if (this.value) {
+									this.value=parseInt(this.value);
+									if (this.value=="NaN") {
+										this.value=0;
+									}
+								}else{
+									this.value=0;
+								}
+							}
+						}
+					})(i)	
+				}
+			}
+			// 色值框手动输入
+			ipts[6].onfocus=function(){
+				this.trueValue=this.value;//按下记录value值防错，回改。
+			}
+			ipts[6].onkeypress=function(ev){
+				var ev=ev||window.event;
+				this.downColor=thisColor[0].style.backgroundColor;//初始颜色
+				thisColor[0].style.backgroundColor="#"+this.value;//替换颜色
+				thisColor[0].title=thisColor[0].style.backgroundColor;//title
+				if (thisColor[0].style.backgroundColor!=this.downColor) {//替换成功
+					
+					this.trueValue=this.value;//记录正确的value值
+					// 正则转化rgb，为3个rgb的ipt传值
+					var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+					ipts[1].value=getRgb[0];
+					ipts[3].value=getRgb[1];
+					ipts[5].value=getRgb[2];
+					
+					upDate();//更新thisRgb xyRgb
+					randerSwatch(thisRgb.type,thisRgb.value);
+					cirPos();
+				}
+			}
+			ipts[6].onblur=function(){
+				this.value=this.trueValue;//结束赋予输入框正确的值
+			}
+			//***其他交互*************************************************************************
+			thisColor[1].onclick=function(){
+				thisColor[0].title=thisColor[0].style.backgroundColor=this.style.backgroundColor;
+				var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+					ipts[1].value=getRgb[0];
+					ipts[3].value=getRgb[1];
+					ipts[5].value=getRgb[2];
+					ipts[6].value=num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+			}
+
+
+
+
+			// ***工具****************************************************************************
+
+
+			//更新datas thisRgb xyRgb
+			function upDate() {
+				
+				datas.r.selected=ipts[0].checked;
+				datas.g.selected=ipts[2].checked;
+				datas.b.selected=ipts[4].checked;
+
+				datas.r.val=parseInt(ipts[1].value);
+				datas.g.val=parseInt(ipts[3].value);
+				datas.b.val=parseInt(ipts[5].value);
+				
+				if (datas.r.selected) {
+					thisRgb={type:"r",value:datas.r.val};
+					xyRgb={x:datas.b.val,y:datas.g.val};
+				}else if (datas.g.selected) {
+					thisRgb={type:"g",value:datas.g.val};
+					xyRgb={x:datas.b.val,y:datas.r.val};
+				}else if (datas.b.selected) {
+					thisRgb={type:"b",value:datas.b.val};
+					xyRgb={x:datas.r.val,y:datas.g.val};
+				}
+			}
+
+
+			//元素相对窗口的位置
+			function getPos(obj) {	
+				var pos = {left:0, top:0,right:0,bottom:0};
+				var width0=obj.offsetWidth;
+				var height0=obj.offsetHeight;
+
+				while (obj) {
+					pos.left += obj.offsetLeft;
+					pos.top += obj.offsetTop;
+					obj = obj.offsetParent;
+				}
+					pos.right = pos.left+width0;
+					pos.bottom = pos.top+height0;
+				return pos;
+			}
+			// 16进制转化
+			function num16(val){
+				var num="";
+				if(parseInt(val)<16){
+					num=0+parseInt(val).toString(16);
+				}else{
+					num=parseInt(val).toString(16);
+				}
+				return num;
+			}
+		}
+	</script>
+</head>
+<body>
+	
+	<div id="container">
+	<!-- 头部 -->
+		<div id="top">拾色器</div>
+	<!-- 拾色区域 -->
+		<div id="s_warp">
+			<div id="wrap">
+				<div id="swatch"></div>
+				<div id="circle"></div>
+			</div>	
+		</div>
+		
+	<!-- 调色滑块 -->
+		<div id="slider">
+			<div></div>
+		</div>
+	<!-- 颜色编辑区 -->
+		<div id="edit">
+		<!-- 选中颜色 -->
+			<div id="selected">
+				<i>新的</i>
+				<div class="border">
+					<span class="new" title="rgb(0,0,0)" style="background:rgb(100,100,100)"></span>
+					<span class="old" title="点击<上一个>再次编辑" style="background:rgb(255,255,255)"></span>
+				</div>
+				<i>上一个</i>
+			</div>
+		<!-- RGB调试区 -->
+			<div id="color_rgb">
+				<span>
+					<input type="radio" name="rgb" value="r" checked="checked">R:&nbsp<input type="text" name="r" size="3" value="100">
+				</span>
+				<span>
+					<input type="radio" name="rgb" value="g">G:&nbsp<input type="text" name="g" size="3" value="100">
+				</span>
+				<span>
+					<input type="radio" name="rgb" value="b">B:&nbsp<input type="text" name="b" size="3" value="100">
+				</span>
+				<span style="padding-top:6px;">
+					#&nbsp<input type="text" name="b" size="7"  value="646464">
+				</span>
+			</div>
+		<!-- 按钮 -->
+			<div id="btns">
+				<span>
+					<button>确定</button>
+				</span>
+				<span>
+					<button>取消</button>
+				</span>
+				<span>
+					<button>添加到色板</button>
+				</span>
+			</div>
+		<!-- 右侧色板颜色列表 -->
+			<div id="color_list">
+				<ul>
+					<!-- <li><span></span></li>
+					<li><span></span></li> -->
+				</ul>
+				<div><input type="text" name="" value="#000" size="7"></div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
