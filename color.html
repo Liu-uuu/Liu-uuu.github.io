@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>模拟调色版</title>
+	<style type="text/css">
+		body{
+			margin:0;
+			background:#333;
+		}
+		#container{
+			position:absolute; top:0; bottom:0; left:0; right:0; margin:auto;
+			height:430px; width:880px; background:#eaeaff; padding:30px 40px;
+			border:4px solid #666;
+			border-radius:12px;
+		}
+
+		#left{
+			display:inline-block;
+			width:330px; padding:20px; background:#fff;
+			border-radius:30px;box-shadow:1px 1px 6px #ccc; text-align:center;
+		}
+		#title{
+			font-size:18px; line-height:1.5; font-family:"微软雅黑"; color:#000c29;
+		}
+		#color_box{
+			width:308px; height:308px; padding:10px; background:#aaa; border:1px solid #666;
+			font-size:0;border-radius:10px;
+		}
+		#color_box div{
+			display:inline-block;
+			width:11.11%;height:11.11%;
+		}
+		#color_box span{
+			display:block;
+			width:80%; height:80%; margin:10% auto;
+			border:2px solid #eee; border-radius:50%
+		}
+		#color_box span:hover{
+			border:2px solid #666;
+		}
+		#change{
+			margin:6px 0 0 0;
+		}
+		#change span{
+			display:inline-block;
+			width:100px; border:1px solid #888;
+			line-height:2;
+			cursor:pointer;
+		}
+
+
+		#right{
+			position:absolute; top:44px; left:460px;
+		}
+		#old_ipts{
+			position:absolute; top:0px; left:140px;
+			width:186px; padding:4px 0 2px 6px; border:1px solid #ccc;background:#fff;
+			font-size:14px; line-height:1.5;
+		}
+		#new_ipts{
+			position:absolute; top:100px; left:140px;
+			width:186px; padding:4px 0 2px 6px; border:1px solid #ccc;background:#fff;
+			font-size:14px; line-height:1.5;
+		}
+		input{
+			max-width:126px; margin:0; padding:0;  vertical-align:middle;
+		}
+
+		#this_color{
+			width:120px; border:1px solid #aaa;
+			text-align:center;
+		}
+		#old_color{
+			width:120px; height:80px;
+		}
+		#new_color{
+			width:120px; height:80px;
+		}
+		#btns{
+			position:absolute; top:6px; left:350px;
+			font-size:16px;line-height:1.5;
+		}
+		#btns button{
+			padding:0;
+		}
+		#btns .add{
+			margin:12px 0 0px 0;
+		}
+		#btns .mb10{
+			margin-bottom:18px;
+		}
+		/*待选颜色*/
+		#daixuan{
+			font-size:14px; line-height:1.8;
+		}
+		#daixuan ul{
+			margin:0; padding:0; list-style:none;
+			width:460px; height:60px; border-radius:2px;background:#fff; margin:0 0 6px 0;
+			font-size:0px; box-shadow:1px 1px 6px #ccc;
+			overflow-x:auto; overflow-y:hidden;
+		}
+		#daixuan li{
+			display:inline-block; list-style:none;
+			border:1px solid #ddd;
+			font-size:10px; line-height:1.5; text-align:center;
+		}
+		#daixuan span{
+			display:block; list-style:none;
+			width:60px; height:22px; background:red;
+		}
+
+		#tips{
+			width:430px; padding:8px 15px; border-radius:1px;background:#fff;
+			font-size:12px; box-shadow:1px 1px 6px #ccc;
+		}
+	/*	#tips h3{
+			margin:6px 0;
+			text-indent:10px;
+		}*/
+		#tips p{
+			margin:0;
+			line-height:1.5; color:#333;
+		}
+	
+	</style>
+</head>
+<body>
+<div id="container">
+	<div id="left">
+		<div id="title">取色板(随机颜色)</div>
+		<div id="color_box" style="border-radius: "></div>
+		<div id="change"><span>换一批</span></div>
+	</div>
+
+	<div id="right">
+
+		<div id="this_color">
+			<div>上一个</div>
+			<div id="old_color" style="background:#ff0000;"></div>
+			<div id="new_color" style="background:#000;"></div>
+			<div>新的</div>
+		</div>
+
+		<div id="old_ipts">
+			RGB(R):<input type="range" name="old" min="0" max="255" value="255"><br/>
+			RGB(G):<input type="range" name="old" min="0" max="255" value="0"><br/>
+			RGB(B):<input type="range" name="old" min="0" max="255" value="0"><br/>
+			颜色值:<input type="text" value="#ff0000" size="7">
+		</div>
+
+		<div id="new_ipts">
+			RGB(R):<input type="range" name="new" min="0" max="255" value="0"><br/>
+			RGB(G):<input type="range" name="new" min="0" max="255" value="0"><br/>
+			RGB(B):<input type="range" name="new" min="0" max="255" value="0"><br/>
+			颜色值:<input type="text" value="#000000" size="7">
+		</div>
+		<div id="btns">
+			<button>设置为段落背景</button><br/>
+			<button>设置为文本颜色</button><br/>
+			<button class="add mb10">添加至待选颜色</button><br/>
+			<button>设置为段落背景</button><br/>
+			<button>设置为文本颜色</button><br/>
+			<button class="add">添加至待选颜色</button>
+		</div>
+		
+		<div id="daixuan">
+			待选颜色:
+			<ul>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+				<li>#000000<span></span></li>
+			</ul>
+		</div>
+
+		<div id="tips">
+			<!-- <h3>说明</h3> -->
+			<p>
+				1、该功能用于前端调色、取色。没有photoshop时可救急，轻便快捷。<br/>
+				2、点击圆形色块，颜色值传到下矩形块；再次点击，下矩形块的颜色传到上矩形块；矩形块里的颜色值，可以用右侧的滑块进行调节。<br/>
+				3、设置段落背景，就是这段说明文字设置背景；文字颜色即这段文字的颜色。用于调试文本与背景的配色。<br/>
+				4、点击待选颜色，再次把该颜色添加到“新的”进行调试。
+			</p>
+		</div>
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+	var ipts=document.getElementsByTagName('input');
+	var colorBox=document.getElementById('color_box');
+	var newColor=document.getElementById('new_color');
+	var oldColor=document.getElementById('old_color');
+	var change=document.getElementById('change').getElementsByTagName('span')[0];
+	change.onclick=function(){
+		var boxInner="";
+		for (var i = 0; i < 81; i++) {
+			boxInner+="<div><span style=background:#"+num16(Math.ceil(Math.random()*256))+num16(Math.ceil(Math.random()*256))+num16(Math.ceil(Math.random()*256))+"></span></div>"
+		}
+		colorBox.innerHTML=boxInner;
+	}
+	var boxInner="";
+	for (var i = 0; i < 81; i++) {
+		boxInner+="<div><span style=background:#"+num16(Math.ceil(Math.random()*256))+num16(Math.ceil(Math.random()*256))+num16(Math.ceil(Math.random()*256))+"></span></div>"
+	}
+	colorBox.innerHTML=boxInner;
+	colorBox.onclick=function(ev){
+		if (ev.target.nodeName.toLowerCase()=="span") {
+			var oldRgb=newColor.style.backgroundColor.match(/\d+/g);
+			ipts[0].value=oldRgb[0];
+			ipts[1].value=oldRgb[1];
+			ipts[2].value=oldRgb[2];
+			ipts[3].value=objColor(newColor);
+			oldColor.style.background=objColor(newColor);
+
+			var getRgb=ev.target.style.backgroundColor.match(/\d+/g);
+			ipts[4].value=getRgb[0];
+			ipts[5].value=getRgb[1];
+			ipts[6].value=getRgb[2];
+			ipts[7].value=objColor(ev.target);
+			
+			newColor.style.background=objColor(ev.target);
+		}
+	}
+	document.onmousemove=function(ev){
+		var ev=ev||window.event;
+		if (ev.target.name=="new") {
+			changeColor(true);
+		}
+		else if (ev.target.name=="old") {
+			changeColor(false);
+		}
+	}
+//*******************************************************
+	function objColor(obj){
+		var colorArr=obj.style.backgroundColor.match(/\d+/g);
+		return "#"+num16(colorArr[0])+num16(colorArr[1])+num16(colorArr[2])
+	}
+	function num16(val){
+		var num=parseInt(val).toString(16);
+		if(parseInt(val)<16){
+			num=0+parseInt(val).toString(16);
+		}
+		return num;
+	}	
+
+	function changeColor(isNew){
+		if (isNew) {
+			newColor.style.background="#"+num16(ipts[4].value)+num16(ipts[5].value)+num16(ipts[6].value);;
+			ipts[7].value="#"+num16(ipts[4].value)+num16(ipts[5].value)+num16(ipts[6].value);;
+		}else{
+			oldColor.style.background="#"+num16(ipts[0].value)+num16(ipts[1].value)+num16(ipts[2].value);;
+			ipts[3].value="#"+num16(ipts[0].value)+num16(ipts[1].value)+num16(ipts[2].value);
+		}
+	
+	}
+
+</script>
+
+</body>
+</html>
