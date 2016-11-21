@@ -71,7 +71,7 @@ function addOneFile(obj,addName,addType){
 		}
 
 		if (sameName) {                                   //重名弹出提示。不将新数据加进总数据。
-			alert("重名啦！再给文件宝宝想个名字吧！")
+			alert("重名啦！再想个名字吧！")
 		}else{
 			var newDateJson={id:0,pid:0,title:"",type:""};//定义一条新数据
 			newDateJson.id=new Date().getTime()           //生成唯一ID	
@@ -103,14 +103,14 @@ function removeOneFile(obj){
 
 
 /*----------------------响应式调整主体内容区宽高---------------------*/
-var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
-var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
-if (windowW<1000) {windowW=1000}
-if (windowH<400) {windowH=400}
-yun.style.width=windowW*0.66+'px';
-yun.style.height=windowW*0.4+'px';		
-yun.style.left=windowW*0.17+'px';
-yun.style.top=windowH*0.05+'px';//模拟窗口大小根据打开时的浏览器窗口大小初始化
+// var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
+// var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
+// if (windowW<1000) {windowW=1000}
+// if (windowH<400) {windowH=400}
+// yun.style.width=windowW*0.66+'px';
+// yun.style.height=windowW*0.4+'px';		
+// yun.style.left=windowW*0.17+'px';
+// yun.style.top=windowH*0.05+'px';//模拟窗口大小根据打开时的浏览器窗口大小初始化
 
 
 
@@ -237,38 +237,56 @@ function divResize(obj,obj1){
 
 		}else if(isDown==1){
 
-			if(dir.indexOf('e')!=-1){	//往da拖
-				var w=ev.clientX-mes.x+mes.w;			
+			if(dir.indexOf('e')!=-1){	//往右拖
+				var w=ev.clientX-mes.x+mes.w;
+				if (w<0) {
+					w=0;
+				}			
 				obj.style.width=w+'px';
+				divcss();
 			}			
 			if(dir.indexOf('s')!=-1){	//往下拖
-				var h=ev.clientY-mes.y+mes.h;			
+				var h=ev.clientY-mes.y+mes.h;
+				if (h<0) {
+					h=0;
+				}				
 				obj.style.height=h+'px';
+				divcss();
 			}			
 			if(dir.indexOf('w')!=-1){	//往左拖
 				var w=mes.w+(mes.x-ev.clientX);
-				var l=mes.l-(mes.x-ev.clientX);				
+				var l=mes.l-(mes.x-ev.clientX);	
+				if (w<0) {
+					w=0;
+				}				
 				obj.style.width=w+'px';
 				obj.style.left=l+'px';
+				divcss();
 			}			
 			if(dir.indexOf('n')!=-1){	//往上拖
 				var h=mes.h+(mes.y-ev.clientY);
-				var t=mes.t-(mes.y-ev.clientY);				
+				var t=mes.t-(mes.y-ev.clientY);
+				if (h<0) {
+					h=0;
+				}					
 				obj.style.height=h+'px';
 				obj.style.top=t+'px';
-			}			
-			divcss();
+
+				divcss();
+			}
 
 		}else if(isDown==2){
 
 			var moveX= ev.clientX - disX;
 			var moveY= ev.clientY - disY;
+			var maxY=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
 			if (moveY<0) {
 				moveY=0;
-			}
+			}else if(moveY>maxY-70){
+				moveY=maxY-70;
+			};
 			obj.style.left = moveX + 'px';
 			obj.style.top = moveY + 'px';
-			divcss();
 		}		
 	};
 	
@@ -283,9 +301,8 @@ function divResize(obj,obj1){
 };
 /*-----------------------------改变窗口大小-----------------------------*/
 
-console.log('终于等到你了')
-console.log('来不及解释了')
-console.log('快联系我TEL:176-0080-0668')
+console.log('终于等到你')
+console.log('联系我TEL:176-0080-0668')
 
 
 /*----------------------------渲染文件树状导航-----------------------------*/
@@ -524,7 +541,7 @@ function renderPathNode(arr){
 
 	for (var i = 0; i < arr.length; i++) {
 
-		var pathA=document.createElement('a');
+		var pathA=document.createElement('span');
 		pathA.innerHTML= arr[i].title;      //给A添加innerHTML
 		pathA.fileid=arr[i].id;             //给A添加fileid。用于点击时渲染文件区。
 		pathA.title= arr[i].title; 
@@ -571,20 +588,6 @@ toMin.onclick=function(){
 	yun.style.left=0;
 	yun.style.top=(document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight)-30+'px';
 
-	//弹出窗口按钮
-	blue.getElementsByTagName('strong')[0].onclick=function(){
-		var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
-		var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
-		if (windowW<600) {windowW=600}
-		if (windowH<400) {windowH=400}
-		yun.style.width=windowW*0.7+'px';
-		yun.style.height=windowH*0.9+'px';		
-		yun.style.left=windowW*0.15+'px';
-		yun.style.top=windowH*0.05+'px';
-
-		divcss();
-		blue.getElementsByTagName('strong')[0].onclick=null;
-	}
 }
 blue.getElementsByTagName('strong')[0].style.cursor='pointer';
 //浏览器窗口调整大小时，最小化图标定位左下角
@@ -594,12 +597,17 @@ window.onresize=function(){
 		yun.style.width='160px';
 		yun.style.left=0;
 		yun.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
+		var footer=document.getElementById('footer');
+		footer.style.left=0;
+		footer.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
 	}
 }
 
 // var toCreate=document.getElementById('tocreate');
 // var toRename=document.getElementById('torename');
 // var toDelect=document.getElementById('todelect');
+
+
 
 //新建文件夹按钮
 toCreate.onclick=function(e){
@@ -633,26 +641,24 @@ toCreate.onclick=function(e){
 	newInput.onkeydown=function(e){
 		var e=e||window.event;
 		if (e.keyCode==13) {
-			newA.innerHTML=newInput.value;
-			newInput.style.display='none';
-			addOneFile(thisParentFile,newInput.value,'file');
-			renderChildFiles(thisParentFile)
-			fileTreeArea.innerHTML='';
-			renderTree(fileTreeArea)//树状导航
-			newInput=null;
+			if (newInput) {
+				newInput.blur();
+			}	
 		}
 	}
 	newInput.onblur=function(){
 		newA.innerHTML=newInput.value;
 		newInput.style.display='none';
 		addOneFile(thisParentFile,newInput.value,'file');
-		renderChildFiles(thisParentFile)
+		renderChildFiles(thisParentFile);
 		fileTreeArea.innerHTML='';
 		renderTree(fileTreeArea)//树状导航
+
 		newInput=null;
 	}
 	return false;
 }
+
 
 //重命名按钮
 toRename.onclick=function(e){
@@ -725,24 +731,51 @@ toRename.onclick=function(e){
 		}
 
 	}else if(oneDiv==0){
-		alert('逗我玩的吧 你并没有选中任何文件')
+		alert('你并没有选中任何文件')
 	}else{
-		alert('是在下输了 并不能同时重命名'+oneDiv+'个文件')
+		alert('重命名操作只能选择单个文件！！！您选中了'+oneDiv+'个文件')
 	}
 }
 
-//删除按钮
-toDelect.onclick=function(){
+//被选中文件的集合(ID)
+function selectedFiles(){
 	var areaDiv=fileArea.getElementsByTagName('div');
-	var delArr= []
-
+	var delArrId=[];
 	for (var i = 0; i < areaDiv.length; i++) {
 		if(areaDiv[i].selected){
-			delArr.push(areaDiv[i])
+			delArrId.push(areaDiv[i].fileid);
 		}
 	}
-	for (var i = 0; i < delArr.length; i++) {
-		delArr[i].parentNode.removeChild(delArr[i])
+	return delArrId;
+}
+//删除按钮
+toDelect.onclick=function(){
+	
+	var delArrId=selectedFiles();//选中文件的数组(id)
+	
+	if (delArrId[0]) {
+		delArrId=allChild(delArrId);//allChild()所有子集
+		for (var i = 0; i < data.files.length; i++) {
+			for(var j=0;j<delArrId.length;j++){		
+				if(data.files[i].id==delArrId[j]){
+					data.files[i]={};
+				}
+			}
+		}
+		var newArr=[];
+		for (var i = 0; i < data.files.length; i++) {
+			if(data.files[i].title){
+				newArr.push(data.files[i]);
+			}
+		}
+		data.files=newArr;
+		fileArea.fileid=fileArea.visitorId;
+		renderChildFiles(fileArea)//内容区
+		fileTreeArea.innerHTML='';
+		renderTree(fileTreeArea)//树状导航
+		console.log(data)
+	}else{
+		alert("请选择你要删除的文件夹")
 	}
 }
 
@@ -751,18 +784,37 @@ toDelect.onclick=function(){
 // }
 
 
-//桌面图标
-var icon=document.getElementById('icon');
-icon.ondblclick=function(){
-	yun.style.display="block";
-	var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
-	var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
-	if (windowW<600) {windowW=600}
-	if (windowH<400) {windowH=400}
-	yun.style.width=windowW*0.7+'px';
-	yun.style.height=windowH*0.9+'px';		
-	yun.style.left=windowW*0.15+'px';
-	yun.style.top=windowH*0.05+'px';
-	divcss();
-	return false;
+
+
+function allChild(idArr){
+	//需找第一层子数据
+	function findChild(idArr) {
+		var arr=[];
+		var m=0;
+		for (var i = 0; i < data.files.length; i++) {
+			for(var j=0;j<idArr.length;j++){
+				if(idArr[j]==data.files[i].pid){
+					arr[m]=data.files[i].id;
+					m++;
+				}
+			}
+		}
+		return arr;
+	}
+
+	//遍历所有子数据
+	var b=findChild(idArr);
+
+	while(b.length!=0){	
+		idArr=idArr.concat(b);
+		b=findChild(b);
+	}
+	return idArr;
 }
+
+// fileTreeArea.onclick=function(ev) {
+// 	// alert(ev.target.nodeName.toLowerCase())
+// 	if (ev.target.nodeName.toLowerCase()=="h3") {
+// 		alert(ev.target.fileid)
+// 	}
+// }

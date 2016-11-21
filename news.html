@@ -27,7 +27,7 @@
 		#top{
 			width:100%; background: #0D5AA5;
 			font-size: 0.18rem; line-height: 0.4rem; text-align: center; color: #fff;
-			position:fixed;
+			position:fixed; z-index:10;
 		}
 		/*更多*/
 		#more{
@@ -86,7 +86,9 @@
 		}
 
 		.onoff{
-			color:blue;
+			display:block; position:relative; top:-0.16rem;
+			height:0; padding:0.09rem 0;
+			color:blue; text-align:center; text-decoration: none;
 		}
 
 
@@ -206,25 +208,31 @@
 		});
 		
 		//默认显示数据
-		requestData("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1",
-			function(){
-				if (data.showapi_res_error) {
-					alert("未获取到这个频道的数据！")
-				}else{
-					var newsContent="";
-					document.getElementById('thisChannel').innerHTML="国内焦点";
-					for (var i = 0; i < data.showapi_res_body.pagebean.contentlist.length; i++) {
-						newsContent+=
-						("<li>"+
-							"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
-							"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"<span class='onoff' index="+i+">展开↓↓</span></div>"+
-							"<div class='newshtml' style='display:none;'>"+"网速有点慢哦！刷新再试！"+"<span class='onoff'>收起↑↑</span></div>"+
-						"</li>");
+		function rendNews(url,page){
+			requestData(url,
+				function(){
+					if (data.showapi_res_error) {
+						alert("未获取到这个频道的数据！")
+					}else{
+						var newsContent="";
+						document.getElementById('thisChannel').innerHTML=data.showapi_res_body.pagebean.contentlist[0].channelName;
+						page>data.showapi_res_body.pagebean.contentlist.length/5?page=1:page=page;
+						var page5=page*5;
+						if(page*5>data.showapi_res_body.pagebean.contentlist.length){page5=data.showapi_res_body.pagebean.contentlist.length}
+						for (var i = (page-1)*5; i < page*5; i++) {
+							newsContent+=
+							("<li>"+
+								"<h4><a name="+i+"></a>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
+								"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"</div>"+
+								"<a class='onoff' name="+i+">展开↓↓</a>"+
+							"</li>");
+						}
+						document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
 					}
-					document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
 				}
-			}
-		)
+			)
+		}
+		rendNews("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+"5572a108b3cdc86cf39001cd"+"&needHtml=1&needContent=1",1);
 
 		var ismoved=false;
 		document.addEventListener("touchstart",function(){
@@ -241,41 +249,21 @@
 
 				channelList.style.display="none";
 				channelList.onoff=false;
-				document.getElementById("more").innerHTML="<span class='css3-icon'></span><span>更多</span>"
-
-				requestData("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+ev.target.getAttribute('channelId')+"&needHtml=1",
-					function(){
-						if (data.showapi_res_error) {
-							alert("未获取到这个频道的数据！")
-						}else{
-							var newsContent="";
-							document.getElementById('thisChannel').innerHTML=ev.target.innerHTML;
-							for (var i = 0; i < data.showapi_res_body.pagebean.contentlist.length; i++) {
-								newsContent+=
-								("<li>"+
-									"<h4>"+data.showapi_res_body.pagebean.contentlist[i].title+"</h4>"+
-									"<div class='newsdesc'>"+data.showapi_res_body.pagebean.contentlist[i].desc+"<span class='onoff' index="+i+">展开↓↓</span></div>"+
-									"<div class='newshtml' style='display:none;'>"+"网速有点慢哦！刷新再试！"+"<span class='onoff'>收起↑↑</span></div>"+
-								"</li>");
-							}
-							document.getElementById('news').innerHTML="<ul>"+newsContent+"</ul>";							
-						}
-					}
-				)
+				document.getElementById("more").innerHTML="<span class='css3-icon'></span><span>更多</span>";
+				rendNews("https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+ev.target.getAttribute('channelId')+"&needHtml=1",1);
 			}
 			
 		})
 		//打开全文
+
+
 		document.getElementById('news').addEventListener("touchend",function(ev){
 			if (ev.target.innerHTML=="展开↓↓"&&ismoved==false) {
-				// alert("sc")
-				ev.target.parentNode.style.display="none";
-				ev.target.parentNode.nextSibling.style.display="block";
-				ev.target.parentNode.nextSibling.innerHTML=data.showapi_res_body.pagebean.contentlist[ev.target.getAttribute("index")].html+"<span class='onoff'>收起↑↑</span>"
+				ev.target.innerHTML="收起↑↑";
+				ev.target.parentNode.children[1].innerHTML=data.showapi_res_body.pagebean.contentlist[ev.target.name].html;
 			}else if (ev.target.innerHTML=="收起↑↑"&&ismoved==false) {
-				// alert("html")
-				ev.target.parentNode.style.display="none";
-				ev.target.parentNode.previousSibling.style.display="block";
+				ev.target.innerHTML="展开↓↓";
+				ev.target.parentNode.children[1].innerHTML=data.showapi_res_body.pagebean.contentlist[ev.target.name].desc;
 			}
 		})
 

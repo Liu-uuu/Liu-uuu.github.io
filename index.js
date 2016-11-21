@@ -28,8 +28,8 @@
 						path:"desktop.html",
 					},
 					{
-						name:"企业",
-						path:"qiye.html",
+						name:"color",
+						path:"color.html",
 					}
 				];
 
@@ -67,7 +67,7 @@
 				listBox.style.display='block';
 				listBox.innerHTML='<ul>'+
 					'<li style="text-align:center">欢迎您来到这里！<br/>恭候多时了</li>'+
-					'<li>可用以下密码登录:<p>文件&nbsp|&nbsp企业&nbsp|&nbsp苹果</p></li>'+
+					'<li>可用以下密码登录:<p>文件&nbsp|&nbspcolor&nbsp|&nbsp苹果</p></li>'+
 					'<li class="tips">如果登录的是手机页面，请将窗口调小后刷新即可</li>'+
 					'</ul>'
 				listBox.style.top=ev.clientY+'px';

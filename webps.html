@@ -185,7 +185,7 @@
 			function randerSwatch (rgbType,value){
 				if (rgbType=="r"){
 					for (var i = 0; i < color256.length-1; i++) {
-						color256[i].style.background="linear-gradient(to right,rgb("+value+","+(255-i)+",0),rgb("+value+","+(255-i)+",255))";
+						color256[i].style.background="linear-gradient(to right,rgb("+value+","+(255-i)+",0),rgb("+value+","+(255-i)+",255))"||"red";
 					}
 				}else if (rgbType=="g"){
 					for (var i = 0; i < color256.length-1; i++) {	

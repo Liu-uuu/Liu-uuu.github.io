@@ -1,3 +1,6 @@
+html,body{
+    height:100%;
+}
 body{
     margin:0;
     font: 12px/1.5 Microsoft YaHei,Tahoma,SimSun,Verdana;
@@ -21,21 +24,7 @@ strong{
 
 
 body{
-    background:url("../bg.jpg");
-}
-#icon{
-    width: 80px;
-}
-#icon li{
-    width:80px;
-    height: 90px;
-    background:url("../img/icon.jpg") no-repeat; 
-}
-#icon .icon2{
-    background-position:0 -100px;
-}
-#icon .icon3{
-    background-position:0 -200px;
+    background:#145b4f;
 }
 #yun{
     width: 800px;
@@ -159,12 +148,12 @@ body{
 
 #main{
     overflow: hidden;
-    background: #fff;
+    height:420px; background: #fff;
     /*width height随窗口变化而变化，用js设置*/
 }
 #mainLeft{
     float: left;
-    width: 199px;
+    width: 199px; height:420px;
     background: #eaedf4;
     border-right:1px solid #ccc;
     /*overflow: auto;*/
@@ -198,16 +187,17 @@ body{
     color: #323e48;   
 }
 #fileTree h3:hover{
-    height:24px;
-    line-height: 24px;
-    background:#e2e2fe  url(../treeimg2.png) no-repeat 0 6px;
-    border: 1px solid #bfdaf4;
-
+    /*height:24px;*/
+    /*line-height: 24px;*/
+    /*background:#e2e2fe  url(../treeimg2.png) no-repeat 0 6px;*/
+    /*border: 1px solid #bfdaf4;*/
+    background-color:#bfdaf4;
  }
 
 
 #mainRight{
-    float: left;
+    float:left;
+    width:600px;
     overflow: hidden;
     /*width height随窗口变化而变化，用js设置*/
 }
@@ -217,7 +207,7 @@ body{
     border-bottom: 1px solid #ccc;
     overflow: hidden;
 }
-#path a{
+#path span{
     cursor: pointer;
     float: left;
     /*display: inline-block;*/
@@ -231,7 +221,8 @@ body{
 
 #fileArea{
     position:relative;
-    padding: 6px;
+    overflow:auto;
+    /*padding: 6px;*/
     /*background:#5c5a68 url('../1.png') no-repeat bottom right;*/
 }
 /*#fileArea*/ #nofile{
@@ -251,9 +242,7 @@ body{
     float: left;
     position: relative;
 }
-#fileArea div:hover{
-    background-position: 12px 4px;
-}
+
 #fileArea a{  
     position: absolute;
     bottom:1px;
@@ -286,10 +275,6 @@ body{
 .path-nav .current-path {
     background-position: right -200px;
 }
-
-
-
-
 
 
 
