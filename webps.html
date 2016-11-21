@@ -40,13 +40,13 @@
 		}
 		/*调色滑块*/
 		#slider{
-			width:41px;
+			padding:2px 10px;
 			background:url("./slide.png") no-repeat;
 			background-position:0 2px;
-			position:absolute; top:58px; left:274px;
+			position:absolute; top:56px; left:274px;
 		}
 		#slider div{
-			width:18px; height:256px; border: 2px solid #b3b3b3; margin-left:10px;
+			width:18px; height:256px; border: 2px solid #b3b3b3;
 			background:linear-gradient(to top,rgb(0,0,0),rgb(255,0,0));
 		}
 		/*滑块右侧编辑区*/
@@ -115,6 +115,24 @@
 			border-right:1px solid #000;
 		}
 		#color_list div{padding:12px 0;text-align:center; background:#f4f4f4}
+		#others{
+			position:absolute; left:0; bottom:0; z-index:-1;
+			width:100%; padding:10px 0; background: #fff;
+			color:#392052;
+		}
+		#words *{
+			width:390px; background:#64c5ba;
+			text-indent:4px;
+		}
+		#words p{
+			position:absolute; top:0; right:0;
+			width:370px; padding:10px;
+			line-height:1.8;
+		}
+		#others p span{
+			font-size:16px;
+		}
+
 	</style>
 
 
@@ -162,7 +180,7 @@
 			// 渲染取色区函数
 			function randerSwatch (rgbType,value){
 				if (rgbType=="r"){
-					for (var i = 0; i < color256.length-1; i++) {	
+					for (var i = 0; i < color256.length-1; i++) {
 						color256[i].style.background="linear-gradient(to right,rgb("+value+","+(255-i)+",0),rgb("+value+","+(255-i)+",255))";
 					}
 				}else if (rgbType=="g"){
@@ -184,11 +202,11 @@
 			//滑块位置和背景
 			function sliderTopFn(){
 				if (thisRgb.type=="r") {
-					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+					sliderTop.style.backgroundPosition="0 "+(255-thisRgb.value)+"px";
 				}else if (thisRgb.type=="g") {
-					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+					sliderTop.style.backgroundPosition="0 "+(255-thisRgb.value)+"px";
 				}else if (thisRgb.type=="b") {
-					sliderTop.style.backgroundPosition="0 "+(253-thisRgb.value)+"px";
+					sliderTop.style.backgroundPosition="0 "+(255-thisRgb.value)+"px";
 				}
 			}
 			function sliderColorFn(){
@@ -492,7 +510,49 @@
 					ipts[5].value=getRgb[2];
 					ipts[6].value=num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
 			}
+			var btns=document.getElementById('btns').getElementsByTagName('button');
+			btns[0].onclick=function(){
+				var words=document.getElementById('words').getElementsByTagName('*');
+				var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+				for (var i = 0; i < words.length; i++) {
+					words[i].style.background="#"+num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+				}
+				// words.
+				
+			}
+			btns[1].onclick=function(){
+			var words=document.getElementById('words');
+				var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+				words.style.color="#"+num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+			}
+			btns[2].onclick=function(){
+				var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+				var lastColor="#"+num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+				var lastIpt=document.getElementById('color_list').getElementsByTagName('input')[0];
+				if (lastColor!=colorArr[colorArr.length-1]) {
+					colorArr[colorArr.length]=lastColor;
+					renderColorList();
+					lastIpt.value=lastColor;
+				}
+				
 
+			}
+			var colorList=document.getElementById("color_list");
+
+			colorList.onclick=function(ev){
+				var ev=ev||window.event;
+				if (ev.target.nodeName.toLowerCase()=="span") {
+					colorList.getElementsByTagName('input')[0].value=ev.target.title;
+					thisColor[0].style.background=ev.target.title;
+					thisColor[0].title=thisColor[0].style.background;
+					var getRgb=thisColor[0].style.backgroundColor.match(/\d+/g);
+						ipts[1].value=getRgb[0];
+						ipts[3].value=getRgb[1];
+						ipts[5].value=getRgb[2];
+						ipts[6].value=num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+				}
+
+			}
 
 
 
@@ -582,25 +642,25 @@
 		<!-- RGB调试区 -->
 			<div id="color_rgb">
 				<span>
-					<input type="radio" name="rgb" value="r" checked="checked">R:&nbsp<input type="text" name="r" size="3" value="100">
+					<input type="radio" name="rgb" value="r" checked="checked">R&#58;&nbsp;<input type="text" name="r" size="3" value="100">
 				</span>
 				<span>
-					<input type="radio" name="rgb" value="g">G:&nbsp<input type="text" name="g" size="3" value="100">
+					<input type="radio" name="rgb" value="g">G&#58;&nbsp;<input type="text" name="g" size="3" value="100">
 				</span>
 				<span>
-					<input type="radio" name="rgb" value="b">B:&nbsp<input type="text" name="b" size="3" value="100">
+					<input type="radio" name="rgb" value="b">B&#58;&nbsp;<input type="text" name="b" size="3" value="100">
 				</span>
 				<span style="padding-top:6px;">
-					#&nbsp<input type="text" name="b" size="7"  value="646464">
+						&#35;&nbsp;<input type="text" name="b" size="7"  value="646464">
 				</span>
 			</div>
 		<!-- 按钮 -->
 			<div id="btns">
 				<span>
-					<button>确定</button>
+					<button>示例背景</button>
 				</span>
 				<span>
-					<button>取消</button>
+					<button>示例文字</button>
 				</span>
 				<span>
 					<button>添加到色板</button>
@@ -617,6 +677,26 @@
 		</div>
 
 	</div>
+
+	<div id="others">
+		<div id="words">
+			<h1>h1&#58;&nbsp;配色利器&nbsp;1600万种颜色选择</h1>
+			<h2>这是h2标签&#58;&nbsp;我的电话号码&#58;&nbsp;17600800668</h2>
+			<h3>这是h3标签&#58;&nbsp;点击&#60;示例背景&#62;和&#60;示例颜色&#62;</h3>
+			<h4>这是h4标签&#58;&nbsp;即可为这些文字设置颜色和背景</h4>
+			<h5>这是h5标签&#58;&nbsp;堪比PS原生拾色器，可渲染出1600多万种颜色</h5>
+			<h6>这是h6标签&#58;&nbsp;最便捷的配色工具，最直观的视觉显示。做完美视觉搭配。</h6>
+			
+			<p>
+				<span>简介：</span><br/>
+				完成这个项目不仅需要Web前端技术，需要的是个人的综合知识。比如，如果不了解颜色混合模式，那就构建不出来数据模型。<br/>
+				1、首先布局，没有过多强调。用CSS的方式将框框水平垂直居中。<br/>
+				2、交互元素：方形区颜色变化、方形区点击取色、方形区圆圈定位、方形区圆圈拖动取色、竖条区颜色变化、竖条区点击取色、竖条区滑动取色、（R值显示、G值显示、B值显示，要判断三者哪个该变化）、R值G值B值的选中、R值G值B值改变等等。<br/>
+				3、以上所有交互，都按不同情况相关联变化，交织成网。关联性极高。如果逻辑思维能力不够强，或者没有全局观，那么在交互过程中，程序随时可能莫名的挂掉。
+			</p>
+		</div>
+	</div>
+
 
 </body>
 </html>
