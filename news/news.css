@@ -4,7 +4,7 @@ body{
 	font-size:0.16rem; font-family:"微软雅黑";
 }
 ul,li,h1{
-	padding:0; margin:0;
+	padding:0; margin:0; list-style:none;
 }
 a{
 	color:#000;
@@ -44,7 +44,7 @@ li{
 /*滚动图*/
 #banner{
 	position:relative;
-	height:1.9rem;
+	height:1.9rem; width:100%; overflow:hidden;
 }
 #banner ul{
 	width:200%;
@@ -117,8 +117,20 @@ li{
 }
 .pindao ul.col span{
 	display:block;
-	 width:1.56rem; height:0.36rem; padding:0.02rem 0.12rem; background:rgba(0,0,0,0.6);
+	width:1.56rem; height:0.36rem; padding:0.02rem 0.12rem; background:rgba(0,0,0,0.6);
 	position:absolute; left:0.01rem; bottom:0;
 	overflow:hidden;
 	color:#fff; font-size:0.14rem; line-height:0.18rem;
+}
+
+/*国内新闻*/
+#pic_group{
+	width:33.75rem;
+	margin-left:-0.1rem;
+	font-size:0;
+}
+#pic_group ul.float{
+	display:inline-block;
+	margin:0 0.1rem;
+	width:3.55rem;
 }

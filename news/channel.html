@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+	<title>新闻内页</title>
+	<script>
+		var thisHtml=document.getElementsByTagName('html');
+		var deviceW=document.documentElement.clientWidth;
+		thisHtml[0].style.fontSize=deviceW/3.75+"px";
+	</script>
+	<style type="text/css">
+		body{
+			font-size:0.16rem;
+		}
+		#error{
+			text-align:center;
+			font-size:0.3rem;
+		}
+		#error #tiaozhuan{
+			font-size:0.18rem;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function() {
+			var ser=window.location.search;
+			if (ser.split("?")[1]) {
+				// Ajax请求一组数据
+				requestNews(ser.split("?")[1],1,function(obj){
+					document.getElementById('container').innerHTML=JSON.stringify(obj)
+				})
+				function requestNews(id,page,fn){
+					var xhr=new XMLHttpRequest();
+					xhr.open('get',"https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+id+"&page="+page,true);
+					xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+					xhr.send();
+					xhr.onreadystatechange=function(){
+						if (xhr.readyState==4) {
+							if (xhr.status==200) {
+								if (JSON.parse(xhr.responseText).showapi_res_error||JSON.parse(xhr.responseText).showapi_res_body.pagebean.allNum==0) {
+									error();
+								}else{
+									var responseObj=JSON.parse(xhr.responseText).showapi_res_body.pagebean;
+									
+									var arrName="id"+id;//存储的频道
+
+									if(window.localStorage.getItem(arrName)){//如果频道已存储，继续加页码
+										var data=JSON.parse(window.localStorage.getItem(arrName));//存储转化成数组
+										data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
+										window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
+									}else{//如果频道未存储
+										var data=[];//直接定义数组并加数据
+										data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
+										window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
+									}
+									fn(responseObj);
+								}
+
+							}
+						}
+					}
+				}
+			}else{
+				error();
+			}
+
+
+
+			function error(){
+				var num=5;
+				document.getElementById('container').innerHTML=
+					"<div id=error>"+
+						"出错了!</br>"+
+						"<a href=./index.html>点击返回首页</a></br>"+
+						"<span id=tiaozhuan>"+num+"秒后自动跳转</span>"+
+					"</div>";
+				var timer=setInterval(function(){
+					num--;
+					document.getElementById('container').innerHTML=
+						"<div id=error>"+
+							"出错了!</br>"+
+							"<a href=./index.html>点击返回首页</a></br>"+
+							"<span id=tiaozhuan>"+num+"秒后自动跳转</span>"+
+						"</div>";
+					if (num==0) {
+						clearInterval(timer);
+						window.location.href="./index.html";
+					}
+				},1000)	
+			}	
+		}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id=error>
+			正在请求数据..</br>
+			<span>不要着急！</span>
+		</div>
+	</div>
+</body>
+</html>

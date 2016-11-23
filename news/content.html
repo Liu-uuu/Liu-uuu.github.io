@@ -38,7 +38,7 @@
 
 		/*正文*/
 		#container{
-			padding:0.4rem 0.1rem; margin:0 0.1rem; background:#fff;
+			padding:0.4rem 0.1rem; margin:0 0.1rem 0.6rem 0.1rem; background:#fff;
 		}
 		#container .title{
 			font-size:0.18rem;
@@ -55,6 +55,9 @@
 		.content img{
 			width:100%;
 		}
+		#end{
+			text-align:center;
+		}
 		#error{
 			text-align:center;
 			font-size:0.3rem;
@@ -67,28 +70,47 @@
 	<script type="text/javascript">
 		window.onload=function() {
 			var ser=window.location.search;
-			if (ser.split("?")[1]) {
-				var data=ser.split("?")[1].split("=");
-				if (JSON.parse(localStorage.data)[data[0]]) {
-					var inner=JSON.parse(localStorage.data)[data[0]].contentlist[data[1]];
-					console.log(inner)
-					document.getElementById('this').innerHTML=inner.channelName;
-					var content="";
-					for (var i = 0; i < inner.allList.length; i++) {
-						if(inner.allList[i].url){
-							content+="<img src="+inner.allList[i].url+">"
+			if (ser.split("?")[1]) {//如果参数部分存在
+				var num=ser.split("?")[1].split("=");//num[0]是ID，num[1]是页面和序号
+				if(num[0]&&num[1]){
+					var ye=num[1].split('-');
+					if (ye[0]&&ye[1]) {
+						var newsId=num[0],page=ye[0],index=ye[1];
+						var arr=JSON.parse(window.localStorage.getItem("id"+newsId));
+						if (arr[page]) {
+							if (arr[page].contentlist[index]) {
+								document.getElementById('this').innerHTML=arr[page].contentlist[index].channelName;
+								var content="";
+								for (var i = 0; i < arr[page].contentlist[index].allList.length; i++) {
+									if(arr[page].contentlist[index].allList[i].url){
+										content+="<img src="+arr[page].contentlist[index].allList[i].url.replace('http://','https://')+">"
+									}
+									else{
+										content+="<p>"+arr[page].contentlist[index].allList[i]+"</p>";
+									}
+								}
+								document.getElementById('container').innerHTML=
+									"<h1 class=title>"+arr[page].contentlist[index].title+"</h1>"+
+									"<time>"+arr[page].contentlist[index].pubDate+"</time><span>"+arr[page].contentlist[index].source+"</span>"+
+									"<div class=content>"+content+"<div id=end>———完———</div></div>";
+							}else{
+								error()
+							}
+						}else{
+							error();
 						}
-						else{
-							content+="<p>"+inner.allList[i]+"</p>";
-						}
+					}else{
+						error();
 					}
-					document.getElementById('container').innerHTML=
-						"<h1 class=title>"+inner.title+"</h1>"+
-						"<time>"+inner.pubDate+"</time><span>"+inner.source+"</span>"+
-						"<div class=content>"+content+"</div>";
 				}else{
 					error();
 				}
+				
+	
+		
+				
+				
+
 			}else{
 				error();
 			}
@@ -98,7 +120,7 @@
 					"<div id=error>"+
 						"出错了!</br>"+
 						"<a href=./index.html>点击返回首页</a></br>"+
-						"<span id=tiaozhuan>"+num+"秒后自动跳转</span"+
+						"<span id=tiaozhuan>"+num+"秒后自动跳转</span>"+
 					"</div>";
 				var timer=setInterval(function(){
 					num--;
@@ -106,7 +128,7 @@
 						"<div id=error>"+
 							"出错了!</br>"+
 							"<a href=./index.html>点击返回首页</a></br>"+
-							"<span id=tiaozhuan>"+num+"秒后自动跳转</span"+
+							"<span id=tiaozhuan>"+num+"秒后自动跳转</span>"+
 						"</div>";
 					if (num==0) {
 						clearInterval(timer);
