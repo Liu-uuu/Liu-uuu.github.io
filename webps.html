@@ -117,7 +117,7 @@
 		#color_list div{padding:12px 0;text-align:center; background:#f4f4f4}
 		#others{
 			position:absolute; left:0; bottom:0; z-index:-1;
-			width:100%; background: #fff; border-top:6px solid #121212;
+			width:100%; min-width:800px; background: #fff; border-top:6px solid #121212;
 			color:#392052;
 		}
 		#words{
@@ -554,6 +554,11 @@
 						ipts[3].value=getRgb[1];
 						ipts[5].value=getRgb[2];
 						ipts[6].value=num16(getRgb[0])+num16(getRgb[1])+num16(getRgb[2]);
+						upDate();
+						randerSwatch(thisRgb.type,thisRgb.value);
+						cirPos();
+						sliderTopFn();
+						sliderColorFn;
 				}
 
 			}

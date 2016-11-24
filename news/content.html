@@ -38,7 +38,7 @@
 
 		/*正文*/
 		#container{
-			padding:0.4rem 0.1rem; margin:0 0.1rem 0.6rem 0.1rem; background:#fff;
+			padding:0.4rem 0.1rem; margin:0 0.1rem 0 0.1rem; background:#fff;
 		}
 		#container .title{
 			font-size:0.18rem;
@@ -58,6 +58,10 @@
 		#end{
 			text-align:center;
 		}
+		#bottom{
+			padding:0.2rem 0;
+			color:#666; font-size:0.14rem; line-height:1.5; text-align:center;
+		}
 		#error{
 			text-align:center;
 			font-size:0.3rem;
@@ -76,45 +80,78 @@
 					var ye=num[1].split('-');
 					if (ye[0]&&ye[1]) {
 						var newsId=num[0],page=ye[0],index=ye[1];
-						var arr=JSON.parse(window.localStorage.getItem("id"+newsId));
-						if (arr[page]) {
-							if (arr[page].contentlist[index]) {
-								document.getElementById('this').innerHTML=arr[page].contentlist[index].channelName;
+						try{
+							var arr=JSON.parse(window.localStorage.getItem("id"+newsId));
+							if (arr[page]) {
+								if (arr[page].contentlist[index]) {
+									document.getElementById('this').innerHTML=arr[page].contentlist[index].channelName;
+									var content="";
+									for (var i = 0; i < arr[page].contentlist[index].allList.length; i++) {
+										if(arr[page].contentlist[index].allList[i].url){
+											content+="<img src="+arr[page].contentlist[index].allList[i].url.replace('http://','https://')+">"
+										}
+										else{
+											content+="<p>"+arr[page].contentlist[index].allList[i]+"</p>";
+										}
+									}
+									document.getElementById('container').innerHTML=
+										"<h1 class=title>"+arr[page].contentlist[index].title+"</h1>"+
+										"<time>"+arr[page].contentlist[index].pubDate+"</time><span>"+arr[page].contentlist[index].source+"</span>"+
+										"<div class=content>"+content+"<div id=end>———完———</div></div>";
+								}else{
+									errorFn()
+								}
+							}else{
+								errorFn();
+							}
+						}catch(error){
+							// alert(1)
+							requestNews(newsId,page,index)
+						}
+					}else{
+						errorFn();
+					}
+				}else{
+					errorFn();
+				}
+			}else{
+				errorFn();
+			}
+
+
+
+			function requestNews(id,page,index){
+				var xhr=new XMLHttpRequest();
+				xhr.open('get',"https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+id+"&page="+page,true);
+				xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+				xhr.send();
+				xhr.onreadystatechange=function(){
+					if (xhr.readyState==4) {
+						if (xhr.status==200) {
+							var theData=JSON.parse(xhr.responseText).showapi_res_body.pagebean;
+							if (theData.allNum) {
+								document.getElementById('this').innerHTML=theData.contentlist[index].channelName;
 								var content="";
-								for (var i = 0; i < arr[page].contentlist[index].allList.length; i++) {
-									if(arr[page].contentlist[index].allList[i].url){
-										content+="<img src="+arr[page].contentlist[index].allList[i].url.replace('http://','https://')+">"
+								for (var i = 0; i < theData.contentlist[index].allList.length; i++) {
+									if(theData.contentlist[index].allList[i].url){
+										content+="<img src="+theData.contentlist[index].allList[i].url.replace('http://','https://')+">"
 									}
 									else{
-										content+="<p>"+arr[page].contentlist[index].allList[i]+"</p>";
+										content+="<p>"+theData.contentlist[index].allList[i]+"</p>";
 									}
 								}
 								document.getElementById('container').innerHTML=
-									"<h1 class=title>"+arr[page].contentlist[index].title+"</h1>"+
-									"<time>"+arr[page].contentlist[index].pubDate+"</time><span>"+arr[page].contentlist[index].source+"</span>"+
-									"<div class=content>"+content+"<div id=end>———完———</div></div>";
-							}else{
-								error()
-							}
-						}else{
-							error();
+									"<h1 class=title>"+theData.contentlist[index].title+"</h1>"+
+									"<time>"+theData.contentlist[index].pubDate+"</time><span>"+theData.contentlist[index].source+"</span>"+
+									"<div class=content>"+content+"<div id=end>———完———</div></div>";	
+								}else{
+									errorFn()
+								}
 						}
-					}else{
-						error();
 					}
-				}else{
-					error();
 				}
-				
-	
-		
-				
-				
-
-			}else{
-				error();
-			}
-			function error(){
+			};
+			function errorFn(){
 				var num=5;
 				document.getElementById('container').innerHTML=
 					"<div id=error>"+
@@ -159,5 +196,6 @@
 			</p>
 		</div> -->
 	</div>
+	<div id="bottom">©2016&nbsp;JXXL&nbsp;all&nbsp;right&nbsp;reserved<br/>Tel:17600800668</div>
 </body>
 </html>

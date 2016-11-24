@@ -11,8 +11,87 @@
 	</script>
 	<style type="text/css">
 		body{
+			margin:0; background:#eee;
 			font-size:0.16rem;
+			font-family:"微软雅黑";
 		}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			margin:0; padding:0; list-style:none;
+		}
+		#container{
+			margin:0 0.16rem;
+		}
+		/*背景*/
+		ul{background:#fff;
+			padding-bottom:0.1rem;
+			margin-bottom:0.2rem;
+			border:2px solid #ddd;
+			border-radius:4px;
+		}
+
+		/*时间*/
+		.time{
+			font-size:0.12rem; line-height:1; color:#fff; text-align:center;
+			margin:0.1rem 0;
+		}
+		.time span{
+			display:inline-block;
+			padding:0.04rem;
+			background:#ccc;
+			border-radius:0.03rem;
+
+		}
+		/*大图*/
+		.big_pic{
+			position:relative;
+			margin:0.1rem;
+		}
+		.big_pic i{
+			display:block;
+			height:1.6rem;
+			overflow:hidden;
+		}
+		.big_pic img{
+			width:100%;
+		}
+		.big_pic span{
+			position:absolute; bottom:0rem; left:0rem;
+			width:96%; padding:2%; background:rgba(0,0,0,0.5);
+			color:#fff; font-size:0.18rem;
+		}
+		/*小图*/
+		.small_pic{
+			position:relative;
+			padding:0.1rem 0.62rem 0.1rem 0.1rem;
+			border-top:1px solid #f1f2f4;
+			line-height:0.2rem;
+		}
+		.small_pic i{
+			position:absolute; top:0.04rem; right:0.1rem;
+			width:0.5rem; height:0.5rem; overflow:hidden;
+		}
+		.small_pic img{
+			height:100%;
+		}
+		.small_pic span{
+			display:inline-block;
+			min-height:0.4rem; 
+			color:#000;
+		}
+		/*无图*/
+		.no_pic span{
+			display:block;
+			padding:0.1rem;
+			border-top:1px solid #f1f2f4;
+			line-height:0.2rem;
+			color:#000;
+		}
+
+
+
 		#error{
 			text-align:center;
 			font-size:0.3rem;
@@ -26,24 +105,77 @@
 			var ser=window.location.search;
 			if (ser.split("?")[1]) {
 				// Ajax请求一组数据
-				requestNews(ser.split("?")[1],1,function(obj){
-					document.getElementById('container').innerHTML=JSON.stringify(obj)
-				})
-				function requestNews(id,page,fn){
-					var xhr=new XMLHttpRequest();
-					xhr.open('get',"https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+id+"&page="+page,true);
-					xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
-					xhr.send();
-					xhr.onreadystatechange=function(){
-						if (xhr.readyState==4) {
-							if (xhr.status==200) {
-								if (JSON.parse(xhr.responseText).showapi_res_error||JSON.parse(xhr.responseText).showapi_res_body.pagebean.allNum==0) {
-									error();
-								}else{
-									var responseObj=JSON.parse(xhr.responseText).showapi_res_body.pagebean;
-									
-									var arrName="id"+id;//存储的频道
+				addGroup(ser.split("?")[1],1)
+			}else{
+				errorFn();
+			}
 
+			function addGroup(id,page){
+				requestNews(id,page,function(obj){
+					
+					var groups="";
+					var picList="";
+					var bigPic=false;
+					var num=0;
+					for (var i = 0; i < obj.contentlist.length; i++) {
+						if(obj.contentlist[i].havePic==true&&bigPic==false){
+							picList=
+								"<li class=big_pic>"+
+									"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
+										"<i><img src="+obj.contentlist[i].imageurls[0].url+"></i>"+
+										"<span>"+obj.contentlist[i].title+"</span>"+
+									"</a>"+
+								"</li>"+picList;
+							bigPic=true;
+						}
+						else{
+							if (obj.contentlist[i].havePic==true) {
+								picList+=
+									"<li class=small_pic>"+
+										"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
+											"<i><img src="+obj.contentlist[i].imageurls[0].url+"></i>"+
+											"<span>"+obj.contentlist[i].title+"</span>"+
+										"</a>"+
+									"</li>";
+							}else{
+								picList+=
+									"<li class=no_pic>"+
+										"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
+											"<span>"+obj.contentlist[i].title+"</span>"+
+										"</a>"+
+									"</li>";
+							}
+					
+						}
+						num++;
+						if (num/4==Math.floor(num/4)) {
+							groups+=
+								"<div class=group>"+
+									"<h1 class=time><span>"+obj.contentlist[i].pubDate+"</span></h1>"+
+									"<ul>"+picList+"</ul>"+
+								"</div>";
+							picList="";
+							bigPic=false;
+						}
+					}
+					document.getElementById('container').innerHTML=groups;
+				})
+			}
+			function requestNews(id,page,fn){
+				var xhr=new XMLHttpRequest();
+				xhr.open('get',"https://apis.baidu.com/showapi_open_bus/channel_news/search_news?channelId="+id+"&page="+page,true);
+				xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+				xhr.send();
+				xhr.onreadystatechange=function(){
+					if (xhr.readyState==4) {
+						if (xhr.status==200) {
+							if (JSON.parse(xhr.responseText).showapi_res_error||JSON.parse(xhr.responseText).showapi_res_body.pagebean.allNum==0) {
+								errorFn();
+							}else{
+								var responseObj=JSON.parse(xhr.responseText).showapi_res_body.pagebean;
+								
+								try{
+									var arrName="id"+id;//存储的频道
 									if(window.localStorage.getItem(arrName)){//如果频道已存储，继续加页码
 										var data=JSON.parse(window.localStorage.getItem(arrName));//存储转化成数组
 										data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
@@ -53,20 +185,17 @@
 										data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
 										window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
 									}
-									fn(responseObj);
+								}catch(error){
 								}
-
+					
+								fn(responseObj);
 							}
+
 						}
 					}
 				}
-			}else{
-				error();
 			}
-
-
-
-			function error(){
+			function errorFn(){
 				var num=5;
 				document.getElementById('container').innerHTML=
 					"<div id=error>"+
@@ -95,8 +224,31 @@
 	<div id="container">
 		<div id=error>
 			正在请求数据..</br>
-			<span>不要着急！</span>
+			<span>不要着急！</span></br>
+			如果长时间未加载，请检查是不是网速太慢！
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+		// window.onscroll = function() {
+		//     //得到滚动距离
+		//     var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+		//     //得到总的高度 含滚动长的距离
+		//     var aHeight = document.body.scrollHeight;
+		//     //得到页面的视口高度
+		//     var cHeight = document.documentElement.clientHeight || document.body.clientHeight;
+		//     console.log(sHeight, aHeight, cHeight);
+		//     //如果视口高度 + 滚动距离 超过了 总高度  则追加下X条
+		//     if (cHeight + sHeight > aHeight) {
+		//         console.log(">")
+		//     }
+		//     if (cHeight + sHeight == aHeight) {
+		//         console.log("=")
+		//     }
+		//     if (sHeight==0) {
+		//     	console.log(0)
+		//     }
+		// }
+	</script>
 </body>
 </html>

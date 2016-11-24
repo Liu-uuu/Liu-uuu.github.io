@@ -29,19 +29,20 @@
 			if (xhr.readyState==4) {
 				if (xhr.status==200) {
 					var responseObj=JSON.parse(xhr.responseText).showapi_res_body.pagebean;
-					
-					var arrName="id"+id;//存储的频道
-
-					if(window.localStorage.getItem(arrName)){//如果频道已存储，继续加页码
-						var data=JSON.parse(window.localStorage.getItem(arrName));//存储转化成数组
-						data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
-						window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
-					}else{//如果频道未存储
-						var data=[];//直接定义数组并加数据
-						data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
-						window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
-					}
-					fn(responseObj);
+					fn(responseObj);	
+					try{
+						var arrName="id"+id;//存储的频道
+						if(window.localStorage.getItem(arrName)){//如果频道已存储，继续加页码
+							var data=JSON.parse(window.localStorage.getItem(arrName));//存储转化成数组
+							data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
+							window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
+						}else{//如果频道未存储
+							var data=[];//直接定义数组并加数据
+							data[page]=JSON.parse(xhr.responseText).showapi_res_body.pagebean;//为数组添加新页信息
+							window.localStorage.setItem(arrName,JSON.stringify(data))//转化为字符串并存储
+						}
+					}catch(error){
+					}	
 				}
 			}
 		}
@@ -60,7 +61,7 @@
 						document.getElementById("banner_box").innerHTML=
 						"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
 							"<li>"+
-								"<img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+">"+
+								"<i><img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+"></i>"+
 								"<div>"+
 									"<span>"+obj.contentlist[i].title+"</span>"+
 								"</div>"+
@@ -74,7 +75,7 @@
 					liInner+=
 						"<li class=has_pic>"+
 							"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
-								"<img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+">"+
+								"<i><img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+"></i>"+
 								"<span>"+obj.contentlist[i].title+"</span>"+
 							"</a>"+
 						"</li>"
@@ -111,7 +112,7 @@
 							document.getElementById("banner_box").innerHTML=
 							"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
 								"<li>"+
-									"<img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+">"+
+									"<i><img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+"></i>"+
 									"<div>"+
 										"<span>"+obj.contentlist[i].title+"</span>"+
 									"</div>"+
@@ -122,16 +123,16 @@
 					}
 					num++;
 					picList+=
-						"<li class=has_pic>"+
+						"<li>"+
 							"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
-								"<img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+">"+
+								"<i><img src="+obj.contentlist[i].imageurls[0].url.replace('http://','https://')+"></i>"+
 								"<span>"+obj.contentlist[i].title+"</span>"+
 							"</a>"+
 						"</li>"
 				}
 				else{
 					noPicList+=
-						"<li class=no_pic>"+
+						"<li>"+
 							"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
 								"<span>"+obj.contentlist[i].title+"</span>"+
 							"</a>"+
