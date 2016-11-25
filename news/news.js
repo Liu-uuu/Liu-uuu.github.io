@@ -94,7 +94,7 @@
 		});
 	}
 	addPicNews("5572a108b3cdc86cf39001cd",1,"china")
-	addCol("5572a108b3cdc86cf39001cd",3,"int")
+	addCol("5572a108b3cdc86cf39001ce",3,"int")
 	// 渲染一组左右滚动的新闻
 	function addCol(id,page,parentId){
 		requestNews(id,page,function(obj){
@@ -132,9 +132,10 @@
 				}
 				else{
 					noPicList+=
-						"<li>"+
+						"<li class=no_pic>"+
 							"<a href=./content.html?"+id+"="+(page+"-"+i)+">"+
 								"<span>"+obj.contentlist[i].title+"</span>"+
+								"<span class=no_pic_icon>无图</span>"
 							"</a>"+
 						"</li>";
 				}

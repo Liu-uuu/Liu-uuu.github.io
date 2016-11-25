@@ -14,26 +14,50 @@ li{
 }
 #top{
 	position:relative;
-	height:0.4rem; background-color:#129bf0;
-	line-height:0.4rem; text-align:center;
+	height:0.4rem; background-color:#277de2;
+	line-height:0.4rem;
+}
+#top .title{
+	font-size:0.16rem;
+	color:#fff;
+	font-weight:bold;
+	text-indent:1em;
 }
 #top span{
 	display:inline-block;
-	
-}
-#top .title{
-	font-size:0.2rem;
+	font-size:0;
 }
 #top .right{
-	position:absolute; right:0; bottom:0rem;
+	position:absolute; right:0.15rem; top:0.1rem;
 }
-#top .right span{
-	width:20px; height:20px; margin:0 0.1rem -0.06rem 0; background:url("./msg.png") no-repeat;
-
+#me{
+	width:0.2rem; height:0.2rem; padding:0; margin:0 0.15rem 0 0; overflow:hidden;
+}
+#me .me1{
+	display:block;
+	position:relative; left:0.04rem;
+	width:0.08rem; height:0.08rem;
+	border:0.02rem solid #fff;
+	border-radius:50%;
+}
+#me .me2{
+	display:block;
+	position:relative; left:0.01rem; top:-0.01rem;
+	width:0.14rem; height:0.14rem; border:0.02rem solid #fff;
+	border-radius:50%;
+}
+#more{
+	width:0.2rem;
+	height:0.04rem;
+	background:#fff;
+	background-clip:content-box;
+	padding:0.04rem 0;
+	border-top:0.04rem solid #fff;
+	border-bottom:0.04rem solid #fff;
 }
 
 #nav{
-	padding:0.07rem; background:#fff;
+	padding:0.07rem; margin-bottom:0.06rem; background:#fff; border-bottom:1px solid #ccc;
 	font-size:0;
 }
 #nav li{
@@ -44,7 +68,7 @@ li{
 /*滚动图*/
 #banner{
 	position:relative;
-	height:1.9rem; width:100%; overflow:hidden;
+	height:1.9rem; width:100%; border-top:1px solid #e3e3e3; overflow:hidden;
 }
 #banner ul{
 	width:200%;
@@ -95,8 +119,15 @@ li{
 }
 /*无图*/
 .pindao li.no_pic{
-	padding:0.1rem 0.1rem 0.1rem 0.1rem;
+	position:relative;
+	padding:0.1rem 0.6rem 0.1rem 0.1rem;
 }
+.pindao .no_pic_icon{
+	display:inline-block;
+	height:0.13rem; padding:0.02rem; border:2px solid #f84c4b;
+	font-size:0.13rem; line-height:1; color:#f84c4b;
+	position:absolute; right:0.1rem; top:0.2rem;
+} 
 
 /*带图片的列表*/
 .pindao li.has_pic{

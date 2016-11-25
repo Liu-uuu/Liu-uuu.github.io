@@ -17,23 +17,34 @@
 	
 		/*顶部*/
 		#top{
-			position:fixed; top:0; left:0;
-			width:100%; height:0.4rem; background-color:#129bf0;
-			line-height:0.4rem; text-align:center;
+			position:fixed;
+			width:100%; height:0.4rem; background-color:#277de2;
+			border-bottom:1px solid #0969A7;
+			font-size:0.16rem; line-height:0.4rem; color:#fff; text-align:center;
+		}
+		#top a{
+			position:absolute; left:0.1rem; bottom:-0.02rem;
+			color: #fff; text-decoration:none;
 		}
 		#top span{
-			display:inline-block;
-			
-		}
-		#top .title{
 			font-size:0.2rem;
 		}
-		#top .right{
-			position:absolute; right:0; bottom:0rem;
+		#me{
+			position:absolute; right:0.18rem; bottom:0.1rem;
+			width:0.2rem; height:0.2rem; overflow:hidden;
 		}
-		#top .right span{
-			width:20px; height:20px; margin:0 0.1rem -0.06rem 0; background:url("./msg.png") no-repeat;
-
+		#me .me1{
+			display:block;
+			position:relative; left:0.04rem;
+			width:0.08rem; height:0.08rem;
+			border:0.02rem solid #fff;
+			border-radius:50%;
+		}
+		#me .me2{
+			display:block;
+			position:relative; left:0.01rem; top:-0.01rem;
+			width:0.14rem; height:0.14rem; border:0.02rem solid #fff;
+			border-radius:50%;
 		}
 
 		/*正文*/
@@ -41,7 +52,8 @@
 			padding:0.4rem 0.1rem; margin:0 0.1rem 0 0.1rem; background:#fff;
 		}
 		#container .title{
-			font-size:0.18rem;
+			margin-bottom:0.06rem;
+			font-size:0.22rem; line-height:1.3;	font-weight:normal;
 		}
 		#container time,#container span{
 			font-size:0.12rem; color:#999;
@@ -50,7 +62,7 @@
 			padding-left:1em;
 		}
 		.content{
-			line-height:1.5;
+			line-height:1.5; margin-top:0.1rem;
 		}
 		.content img{
 			width:100%;
@@ -59,8 +71,8 @@
 			text-align:center;
 		}
 		#bottom{
-			padding:0.2rem 0;
-			color:#666; font-size:0.14rem; line-height:1.5; text-align:center;
+			padding:0.2rem 0; margin-top:0.2rem; background-color:#505050;
+			color:#eee; font-size:0.14rem; line-height:1.5; text-align:center;
 		}
 		#error{
 			text-align:center;
@@ -88,7 +100,7 @@
 									var content="";
 									for (var i = 0; i < arr[page].contentlist[index].allList.length; i++) {
 										if(arr[page].contentlist[index].allList[i].url){
-											content+="<img src="+arr[page].contentlist[index].allList[i].url.replace('http://','https://')+">"
+											content+="<img src="+arr[page].contentlist[index].allList[i].url+">"
 										}
 										else{
 											content+="<p>"+arr[page].contentlist[index].allList[i]+"</p>";
@@ -134,7 +146,7 @@
 								var content="";
 								for (var i = 0; i < theData.contentlist[index].allList.length; i++) {
 									if(theData.contentlist[index].allList[i].url){
-										content+="<img src="+theData.contentlist[index].allList[i].url.replace('http://','https://')+">"
+										content+="<img src="+theData.contentlist[index].allList[i].url+">"
 									}
 									else{
 										content+="<p>"+theData.contentlist[index].allList[i]+"</p>";
@@ -177,14 +189,13 @@
 	</script>
 </head>
 <body>
+
 	<div id="top">
-		<span id="this">资讯首页</span>
-		<span class="right">
-			<span></span>
-			<span style="background-position:-35px 0px"></span>
-		</span>
-		
+		<a href="./index.html"><span class="back">&#60;</span>首页</a>
+		<span id="this">频道名称..</span>
+		<span id="me"><i class="me1"></i><i class="me2"></i></span>
 	</div>
+
 	<div id="container">
 		<!-- <h1 class="title">
 		毛泽东宣告中华人民共和国、中央人民政府成立了。
@@ -196,6 +207,6 @@
 			</p>
 		</div> -->
 	</div>
-	<div id="bottom">©2016&nbsp;JXXL&nbsp;all&nbsp;right&nbsp;reserved<br/>Tel:17600800668</div>
+	<div id="bottom">Tel:17600800668<br/>Copyright&nbsp;©2016&nbsp;JXXL.&nbsp;All&nbsp;Rights&nbsp;Reserved</div>
 </body>
 </html>
