@@ -1,22 +1,6 @@
-body {
-	margin: 0;
-}
-html,
-body {
-	height: 100%;
-	overflow: hidden;
-	position: relative;
-}
-#wrap {
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	overflow: hidden;
-}
 body{
-	background:#eee; margin:0;
+	position:relative;
+	background:#eee; margin:0; padding-bottom:0.2rem;
 	font-size:0.16rem; font-family:"微软雅黑";
 }
 ul,li,h1{
@@ -86,11 +70,13 @@ a{
 #banner ul{
 	position:absolute;
 	font-size:0;
+	/*transition:0.3s;*/
 }
 #banner li{
 	position:relative;
 	vertical-align:top;
 	display:inline-block;
+	
 }
 #banner li i{
 	display:inline-block;
@@ -109,6 +95,12 @@ a{
 	width:80%; overflow:hidden;
 	text-indent:1em;
 	white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;
+}
+#banner #index1{
+	position:absolute; right:0.1rem; bottom:0.06rem; color:#fff; font-weight:normal;
+}
+#banner #index1 b{
+	font-size:0.2rem; font-weight:normal;
 }
 /*频道*/
 .pindao{overflow: hidden;
@@ -168,11 +160,11 @@ a{
 }
 #china_wrap{
 	position:relative;
-	height:2.5rem; width:3.75rem; overflow:hidden;
+	height:2.5rem; width:3.75rem;
 	margin-left:-0.1rem;
 }
 #pic_group{
-	position:absolute;
+	/*position:absolute;*/
 	
 	font-size:0;
 }
@@ -182,7 +174,16 @@ a{
 	padding:0 0.1rem;
 	width:3.55rem;
 }
-
+#china h1{
+	position:relative;
+}
+#china #page1{
+	position:absolute; right:0.1rem; bottom:0.1rem;
+	font-size:0.16rem; font-weight:normal;
+}
+#china #page1 b{
+	font-size:0.2rem;  font-weight:normal;
+}
 
 /*国际新闻列表*上图下无图布局*/
 /*有图ul下的布局*/
@@ -216,12 +217,12 @@ a{
 }
 #bottom_tip{
 	position: absolute;
-	bottom: 0.1rem;
+	bottom: 0;
 	left: 0;
 	width: 100%;
 	font: 0.16rem/0.2rem "宋体";
 	text-align: center;
 	display:none;
-	opacity:0;
-	z-index:-1;
+	
+	/*z-index:-1;*/
 }

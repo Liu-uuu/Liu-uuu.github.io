@@ -11,24 +11,10 @@
 	</script>
 	<script type="text/javascript" src="m.touch.js"></script>
 	<style type="text/css">
-		html,
-		body {
-			height: 100%;
-			overflow: hidden;
-			position: relative;
-		}
-		#wrap{
-			position: absolute;
-			left: 0;
-			top: 0.4rem;
-			right: 0;
-			bottom: 0;
-			overflow: hidden;
-		}
 		body{
-			margin:0; background:#eee;
-			font-size:0.16rem;
-			font-family:"微软雅黑";
+			position:relative;
+			margin:0; padding-bottom:0.2rem; background:#eee;
+			font-size:0.16rem; font-family:"微软雅黑";
 		}
 		a{
 			text-decoration:none; -webkit-tap-highlight-color:rgba(255,255,255,0);
@@ -148,7 +134,7 @@
 			min-height:0.4rem; 
 			color:#000;
 		}
-/*		.no_pic span{
+		/*.no_pic span{
 			display:block;
 			padding:0.1rem;
 			border-top:1px solid #f1f2f4;
@@ -170,14 +156,14 @@
 		}
 		#bottom_tip{
 			position: absolute;
-			bottom: 0.1rem;
+			bottom: 0rem;
 			left: 0;
 			width: 100%;
 			font: 0.16rem/0.2rem "宋体";
 			text-align: center;
 			display:none;
-			opacity:0;
-			z-index:-1;
+			/*opacity:0;*/
+			/*z-index:-1;*/
 		}
 	</style>
 	<script type="text/javascript">
@@ -193,29 +179,30 @@
 			var wrap = document.querySelector("#wrap");
 			var footerTip=document.getElementById('bottom_tip')
 			var channelId=ser.split("?")[1], loadPage=2,loadNext=true;
-			var Scroll = new MScroll(
-				{
-					element: wrap,
-					showBar: true	
-				}
-			);
-			Scroll.onscroll = function() {
-				if(this.iScroll.y < this.minTranslate.y){
-					footerTip.style.display="block";
-					footerTip.style.opacity=1;
-				}else{
-					footerTip.style.display="none";
-					footerTip.style.opacity=0;
-				}
-			};
-			Scroll.onscrollend = function() {
-				if(this.iScroll.y < this.minTranslate.y && loadNext==true) {	
-					loadNext=false;
-					addGroup(channelId,loadPage);
-				}
-			};
 
-	
+			var bottomTip=document.getElementById('bottom_tip');
+			document.addEventListener("touchmove",function(){
+				var top=document.body.scrollTop;
+				var maxTop=document.body.clientHeight-document.documentElement.clientHeight;
+				if (top>=maxTop) {
+					bottomTip.style.display="block"
+				}
+				else{
+					bottomTip.style.display="none"
+				}
+			})
+			document.addEventListener("touchend",function(){
+				bottomTip.style.display="none"
+				var top=document.body.scrollTop;
+				var maxTop=document.body.clientHeight-document.documentElement.clientHeight;
+				if (top>=maxTop) {
+					if (loadNext) {
+						loadNext=false;
+						addGroup(channelId,loadPage);
+					}
+				}
+			})		
+		
 
 			function addGroup(id,page){
 				requestNews(id,page,function(obj){
@@ -268,12 +255,12 @@
 					}
 					document.getElementById('this').innerHTML=obj.contentlist[page].channelName;
 					document.getElementById('container').innerHTML+=groups;
-					Scroll.reSize();
-					if(obj.allPages>loadPage){
+					// Scroll.reSize();
+					if(obj.allPages-1>loadPage){
 						loadPage++;
 						loadNext=true;
 					}else{
-						footerTip.innerHTML="拉到底了哟~~"
+						bottomTip.innerHTML="拉到底了哟~~"
 					}
 					
 				})
@@ -344,16 +331,16 @@
 		<span id="this">频道名称..</span>
 		<span id="me"><i class="me1"></i><i class="me2"></i></span>
 	</div>
-	<div id="wrap">
-		<div id="container">
-			<!-- <div id=error>
-				正在请求数据..</br>
-				<span>不要着急！</span></br>
-				如果长时间未加载，请检查是不是网速太慢！
-			</div> -->
-		</div>
-		<div id="bottom_tip">上滑加载更多</div>
+
+	<div id="container">
+		<!-- <div id=error>
+			正在请求数据..</br>
+			<span>不要着急！</span></br>
+			如果长时间未加载，请检查是不是网速太慢！
+		</div> -->
 	</div>
+	<div id="bottom_tip">上滑加载更多</div>
+
 	<!-- <div id="bottom">
 		Tel:17600800668<br/>Copyright&nbsp;©2016&nbsp;JXXL.&nbsp;All&nbsp;Rights&nbsp;Reserved
 	</div> -->
