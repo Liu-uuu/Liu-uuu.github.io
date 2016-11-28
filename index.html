@@ -89,8 +89,7 @@
 			background: #eee;
 			border: 1px solid #666;
 			padding:0 18px;
-			position: absolute;
-			display: none;
+			position: absolute; top:20px; right:100px;
 		}
 		#listbox ul{
 			border-top: 1px solid #ccc;
@@ -114,16 +113,22 @@
 	</style>
 </head>
 
-<body title="右击查看其他关键字列表">
+<body title="你真美！">>
 	<div id="box">
 		<div id="tx" class="left"></div>
-		<div  class="right" title="点击鼠标右键查看通往不同页面的密码">
+		<div  class="right" title="你好帅！">
 			<h3>Welcome Back</h3>
-			<input type="text" name="" id="txt" value="直接点击登录进入">
+			<input type="text" name="" id="txt" value="ps">
 			<input type="button" name="" value="登 录" id="btn">
 		</div>
 	</div>
-	<div id="listbox"></div>
+	<div id="listbox">
+		<ul>
+			<li style="text-align:center">欢迎您来到这里！<br/>恭候多时了</li>
+			<li>可用以下密码登录:<p>文件&nbsp;|&nbsp;ps&nbsp;|&nbsp;</p></li>
+			<li class="tips">如果登录的是手机页面，请按F12并打开模拟器，实在不行就将窗口调小后刷新凑合一下</li>
+		</ul>
+	</div>
 
 	<script type="text/javascript" src="index.js"></script>
 
