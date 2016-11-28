@@ -1,3 +1,9 @@
+
+
+var week=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+var today=new Date();
+document.getElementById("top").getElementsByTagName("span")[0].innerHTML=today.getFullYear()+"年"+(today.getMonth()+1)+"月"+today.getDate()+"日 "+week[today.getDay()]
+
 var listData="",listX=2;
 // 5秒后，如果没点击加载频道列表，就加载频道列表
 try{
@@ -22,14 +28,6 @@ try{
 	},5000)
 }catch(error){}
 
-document.addEventListener(
-	"touchstart",
-	function(e){
-		// e.preventDefault();
-	}
-);
-var footerTip=document.getElementById("bottom_tip");
-var loadNext=true;
 
 // Scroll.onscrollstart = function() {
 // 	if(!listData){
@@ -66,30 +64,39 @@ var loadNext=true;
 // 		}
 // 	}
 // };
+// document.addEventListener("touchend",function(){ alert(1)})
+var footerTip=document.getElementById("bottom_tip");
+var loadNext=true;
 
-document.body.addEventListener("touchmove",function(){
+window.addEventListener("scroll",function(){
 	var top=document.body.scrollTop;
-	var maxTop=document.body.clientHeight-document.documentElement.clientHeight;
+	var maxTop=document.body.clientHeight-document.documentElement.clientHeight-20;
 	if (top>=maxTop) {
-		footerTip.style.display="block"
+		footerTip.style.display="block";
+		if (loadNext) {
+			if (listX<listData.length) {
+				loadNext=false;
+				moreNews(listData[listX].channelId,1,"ajax");
+			}
+		}
 	}
 	else{
 		footerTip.style.display="none"
 	}
 })
-document.body.addEventListener("touchend",function(){
-	footerTip.style.display="none"
-	var top=document.body.scrollTop;
-	var maxTop=document.body.clientHeight-document.documentElement.clientHeight;
-	if (top>=maxTop) {
-		if (loadNext) {
-			if (listX<listData.length) {
-				loadNext=false;
-				moreNews(listData[listX].channelId,1,"container");
-			}
-		}
-	}
-})
+// window.addEventListener("scroll",function(){
+// 	// footerTip.style.display="none"
+// 	var top=document.body.scrollTop;
+// 	var maxTop=document.body.clientHeight-document.documentElement.clientHeight-10;
+// 	if (top>=maxTop) {
+// 		if (loadNext) {
+// 			if (listX<listData.length) {
+// 				loadNext=false;
+// 				moreNews(listData[listX].channelId,1,"container");
+// 			}
+// 		}
+// 	}
+// })
 
 
 
@@ -148,51 +155,55 @@ document.body.addEventListener("touchend",function(){
 			}
 			// 生成到页面
 			document.getElementById("banner").innerHTML="<ul title="+num+" style=width:"+3.75*2*num+"rem >"+liInner+liInner+"</ul><strong id=index1><b>1</b>/"+num+"</strong>";
-			(function(){
-				var theWrap=document.getElementById("banner").getElementsByTagName("ul")[0];
-				var theStart=0;
-				var theStartY=0;
-				var theMoveFrom=0;
-				var theMoveTo=0;
-				var thePage=0;
-				var  step=document.documentElement.clientWidth;
-				theWrap.addEventListener("touchstart",function(e){
-					theStart=e.changedTouches[0].pageX;
-					theStartY=e.changedTouches[0].pageY;
-					if (thePage<=0) {
-						thePage=thePage+num;
-						theMoveTo=(-1)*thePage*step;
-						theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-					}
-					theMoveFrom=theMoveTo;
-				})
+			bannerScoll=true;
+			var bannerBox=document.getElementById("banner").getElementsByTagName("ul")[0];
+			var bannerIndex=document.getElementById('index1');
+			tab(bannerBox,bannerBox.title,bannerIndex)
+			// (function(){
+			// 	var theWrap=document.getElementById("banner").getElementsByTagName("ul")[0];
+			// 	var theStart=0;
+			// 	var theStartY=0;
+			// 	var theMoveFrom=0;
+			// 	var theMoveTo=0;
+			// 	var thePage=0;
+			// 	var  step=document.documentElement.clientWidth;
+			// 	theWrap.addEventListener("touchstart",function(e){
+			// 		theStart=e.changedTouches[0].pageX;
+			// 		theStartY=e.changedTouches[0].pageY;
+			// 		if (thePage<=0) {
+			// 			thePage=thePage+num;
+			// 			theMoveTo=(-1)*thePage*step;
+			// 			theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 		}
+			// 		theMoveFrom=theMoveTo;
+			// 	})
 
-				theWrap.addEventListener("touchmove",function(e){
-					var disX=Math.abs(e.changedTouches[0].pageX-theStart);
-					var disY=Math.abs(e.changedTouches[0].pageY-theStartY);
-					if (disY<2*disX) {
-						if (e.cancelable) {
-							e.preventDefault();
-						}
-					}
-					theMoveTo=e.changedTouches[0].pageX-theStart+theMoveFrom;
-					theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-				})
-				theWrap.addEventListener("touchend",function(e){
-					var dis=e.changedTouches[0].pageX-theStart;
-					if (Math.abs(dis)>step*0.1) {
-						thePage-=Math.round(dis/step);
-					}
-					// thePage=num;
-					if (thePage>=num) {
-						thePage=thePage-num;
-					}
-					theMoveTo=(-1)*thePage*step;
-					theMoveFrom=theMoveTo;
-					theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-					document.getElementById("index1").innerHTML="<b>"+(thePage+1)+"</b>/"+num;
-				})  
-			})()
+			// 	theWrap.addEventListener("touchmove",function(e){
+			// 		var disX=Math.abs(e.changedTouches[0].pageX-theStart);
+			// 		var disY=Math.abs(e.changedTouches[0].pageY-theStartY);
+			// 		if (disY<2*disX) {
+			// 			if (e.cancelable) {
+			// 				e.preventDefault();
+			// 			}
+			// 		}
+			// 		theMoveTo=e.changedTouches[0].pageX-theStart+theMoveFrom;
+			// 		theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 	})
+			// 	theWrap.addEventListener("touchend",function(e){
+			// 		var dis=e.changedTouches[0].pageX-theStart;
+			// 		if (Math.abs(dis)>30) {
+			// 			thePage-=Math.round(dis/step);
+			// 		}
+			// 		// thePage=num;
+			// 		if (thePage>=num) {
+			// 			thePage=thePage-num;
+			// 		}
+			// 		theMoveTo=(-1)*thePage*step;
+			// 		theMoveFrom=theMoveTo;
+			// 		theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 		document.getElementById("index1").innerHTML="<b>"+(thePage+1)+"</b>/"+num;
+			// 	})  
+			// })()
 			
 		});
 	}
@@ -229,52 +240,56 @@ document.body.addEventListener("touchend",function(){
 				"<div id=china_wrap><div id=pic_group title="+(num-num%3)/3*2+" style=width:"+(num-num%3)/3*2*3.75+"rem>"+uls+uls+"</div></div>"+
 				"<div class=enter><a href=./channel.html?"+id+">进入频道</a></div>";
 			document.getElementById(parentId).innerHTML=inner;
-			(function(){
-				var theWrap=document.getElementById("pic_group");
-				var theStart=0;
-				var theStartY=0;
-				var theMoveFrom=0;
-				var theMoveTo=0;
-				var thePage=0;
-				var  step=document.documentElement.clientWidth;
-				num=(num-num%3)/3;
-				theWrap.addEventListener("touchstart",function(e){
-					theStart=e.changedTouches[0].pageX;
-					theStartY=e.changedTouches[0].pageY;
-					if (thePage<=0) {
-						thePage=thePage+num;
-						theMoveTo=(-1)*thePage*step;
-						theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-					}
-					theMoveFrom=theMoveTo;
-				})
+			var theWrap=document.getElementById("pic_group");
+			num=(num-num%3)/3;
+			var pageNum=document.getElementById('page1');
+			tab(theWrap,num,pageNum)
+			// (function(){
+			// 	var theWrap=document.getElementById("pic_group");
+			// 	var theStart=0;
+			// 	var theStartY=0;
+			// 	var theMoveFrom=0;
+			// 	var theMoveTo=0;
+			// 	var thePage=0;
+			// 	var  step=document.documentElement.clientWidth;
+			// 	num=(num-num%3)/3;
+			// 	theWrap.addEventListener("touchstart",function(e){
+			// 		theStart=e.changedTouches[0].pageX;
+			// 		theStartY=e.changedTouches[0].pageY;
+			// 		if (thePage<=0) {
+			// 			thePage=thePage+num;
+			// 			theMoveTo=(-1)*thePage*step;
+			// 			theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 		}
+			// 		theMoveFrom=theMoveTo;
+			// 	})
 
-				theWrap.addEventListener("touchmove",function(e){
-					var disX=Math.abs(e.changedTouches[0].pageX-theStart);
-					var disY=Math.abs(e.changedTouches[0].pageY-theStartY);
-					if (disY<2*disX) {
-						if (e.cancelable) {
-							e.preventDefault();
-						}
-					}
-					theMoveTo=e.changedTouches[0].pageX-theStart+theMoveFrom;
-					theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-				})
-				theWrap.addEventListener("touchend",function(e){
-					var dis=e.changedTouches[0].pageX-theStart;
-					if (Math.abs(dis)>step*0.1) {
-						thePage-=Math.round(dis/step);
-					}
-					// thePage=num;
-					if (thePage>=num) {
-						thePage=thePage-num;
-					}
-					theMoveTo=(-1)*thePage*step;
-					theMoveFrom=theMoveTo;
-					theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
-					document.getElementById("page1").innerHTML="<b>"+(thePage+1)+"</b>/"+num;
-				})  
-			})()
+			// 	theWrap.addEventListener("touchmove",function(e){
+			// 		var disX=Math.abs(e.changedTouches[0].pageX-theStart);
+			// 		var disY=Math.abs(e.changedTouches[0].pageY-theStartY);
+			// 		if (disY<2*disX) {
+			// 			if (e.cancelable) {
+			// 				e.preventDefault();
+			// 			}
+			// 		}
+			// 		theMoveTo=e.changedTouches[0].pageX-theStart+theMoveFrom;
+			// 		theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 	})
+			// 	theWrap.addEventListener("touchend",function(e){
+			// 		var dis=e.changedTouches[0].pageX-theStart;
+			// 		if (Math.abs(dis)>step*30) {
+			// 			thePage-=Math.round(dis/step);
+			// 		}
+			// 		// thePage=num;
+			// 		if (thePage>=num) {
+			// 			thePage=thePage-num;
+			// 		}
+			// 		theMoveTo=(-1)*thePage*step;
+			// 		theMoveFrom=theMoveTo;
+			// 		theWrap.style.WebkitTransform=theWrap.style.transform="translateX("+theMoveTo+"px)";
+			// 		document.getElementById("page1").innerHTML="<b>"+(thePage+1)+"</b>/"+num;
+			// 	})  
+			// })()
 		});	
 	}
 	addPicNews("5572a108b3cdc86cf39001cd",1,"china")
@@ -339,7 +354,8 @@ document.body.addEventListener("touchend",function(){
 						}
 					}
 					_thisMoveTo=e.changedTouches[0].pageX-_thisStart+_thisMoveFrom;
-					_this.style.WebkitTransform=_this.style.transform="translateX("+_thisMoveTo+"px)";
+					css(_this, "translateX", _thisMoveTo);
+					// _this.style.WebkitTransform=_this.style.transform="translateX("+_thisMoveTo+"px)";
 				})
 				_this.addEventListener("touchend",function(e){
 					_thisMoveTo=e.changedTouches[0].pageX-_thisStart+_thisMoveFrom;
@@ -387,11 +403,11 @@ document.body.addEventListener("touchend",function(){
 				"<div class=enter><a href=./channel.html?"+id+">进入频道</a></div>"+
 			"</div>";
 			document.getElementById(parentId).innerHTML+=inner;
-			if (listX<listData.length) {
+			if (listX<listData.length-1) {
 				listX++;
 				loadNext=true;
 			}else{
-				footerTip.innerHTML="拉到底了哟~~"
+				footerTip.innerHTML="拉到底了哟~~";
 			}
 			
 		});
@@ -409,3 +425,67 @@ document.body.addEventListener("touchend",function(){
 	// }
 
 
+	function tab(obj,n,obj2){
+		var iScroll=0;
+		var iStartX=0;
+		var iStartPageX=0;
+		var iNow=0;
+		var oTimer=0;
+		obj.innerHTML+=obj.innerHTML;
+		obj.style.width=obj.clientWidth*2+"px";
+
+		function autoPlay(){
+			oTimer=setInterval(function(){
+				iNow++;	
+				next();
+			},2000);
+		}
+		autoPlay();
+
+		obj.addEventListener("touchstart",fnStart,false);
+		function fnStart(ev){
+			clearInterval(oTimer);
+			clearInterval(obj.timer);
+			if(iNow<=0)
+			{
+				iNow+=n;
+				iScroll=-iNow*window.screen.width;
+				css(obj, "translateX", iScroll);
+			}
+			iStartPageX=ev.changedTouches[0].pageX;
+			iStartX=iScroll;
+		};
+
+		obj.addEventListener("touchmove",fnMove,false);
+		function fnMove(ev){
+			var iDis=ev.changedTouches[0].pageX-iStartPageX;
+			iScroll=iStartX+iDis;
+			css(obj, "translateX", iScroll);
+		};
+		obj.addEventListener("touchend",fnEnd,false);
+		function fnEnd(ev){
+			var iDis=ev.changedTouches[0].pageX-iStartPageX;
+			var iNub=Math.round(iDis/window.screen.width);
+			iNow-=iNub;
+			next();
+			autoPlay();
+		};
+		function next(){
+			iScroll=-iNow*window.screen.width;
+			var thisNum=iNow+1;
+			if (thisNum>n) {
+				thisNum=1
+			}
+			obj2.innerHTML="<b>"+(thisNum)+"</b>/"+n;
+			if(iNow>=n){
+				tweenMove(obj,{translateX:iScroll},300,"easeOut",function(){
+					iNow=iNow%n;
+					iScroll=-iNow*window.screen.width;
+					css(obj, "translateX", iScroll);
+				});
+			}else{
+				tweenMove(obj,{translateX:iScroll},300,"easeOut");
+			}
+			
+		}
+	}

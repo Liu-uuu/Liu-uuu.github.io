@@ -112,7 +112,7 @@
 		}
 		#footer span{
 			display:inline-block;
-			width:25%;
+			width:100%;
 			text-align:center;
 		}
 		#footer a{
@@ -148,7 +148,7 @@
 </div>
 
 <div id="footer">
-	<span><a href="./m.html">首页</a></span><span><a href="./tq.html">天气</a></span><span><a href="./news.html">新闻</a></span><span><a href="./2048.html">小游戏</a></span>
+	<span><a href="./h5/index.html">点击访问-新闻资讯</a></span>
 </div>
 
 
@@ -216,15 +216,16 @@
 			img:"https://tva4.sinaimg.cn/crop.0.0.499.499.180/622fca3djw1exmhbgqksyj20dw0dwjsa.jpg"
 		},
 		{
-			title:"搜文库",
-			url:function(val) {return "http://wenku.baidu.com/search?word="+val},
-			img:"https://ss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/wisegame/pic/item/fb22720e0cf3d7ca40639692fa1fbe096a63a9b9.jpg"
-		},
-		{
 			title:"搜百科",
 			url:function(val) {return "https://baike.baidu.com/item/"+val},
 			img:"https://tva1.sinaimg.cn/crop.285.285.930.930.180/622f00edjw1e8m8ns3b37j215o15o49u.jpg"
-		}	
+		},
+		{
+			title:"搜京东",
+			url:function(val) {return "http://so.m.jd.com/ware/search.action?keyword="+val},
+			img:"https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/1d68b8f42a077e5fc13dd53282b884ad_121_121.jpg"
+		}
+			
 	];
 
 	//搜索

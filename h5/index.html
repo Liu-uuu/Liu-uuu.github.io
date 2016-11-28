@@ -10,16 +10,13 @@
 		thisHtml[0].style.fontSize=deviceW/3.75+"px";
 	</script>
 	<link rel="stylesheet" type="text/css" href="news.css">
-	<script type="text/javascript" src="m.touch.js"></script>
+	<script type="text/javascript" src="tween.js"></script>
 </head>
 <body>
 	<div id="container">
 		<div id="top">
-			<span class="title">2016年11月25日 星期五</span>
-			<span class="right">
-				<span id="me"><i class="me1"></i><i class="me2"></i></span>
-				<span id="more"></span>
-			</span>		
+			<span class="title">0000年00月00日 星期0</span>
+			<span id="me"><a href="./msg.html"><i class="me1"></i><i class="me2"></i><a/></span>
 		</div>
 
 		<div id="nav">
@@ -56,7 +53,7 @@
 				</li>
 			</ul> -->
 		</div>
-	
+		
 		<div class="pindao" id="china">
 			<h1>国内新闻</h1>
 			<ul>
@@ -76,8 +73,9 @@
 				</li>
 			</ul>
 		</div>
+		<div id="ajax"></div>
 	</div>
-	<div id="bottom_tip">上滑加载更多</div>
+	<div id="bottom_tip">正在加载..</div>
 	
 	<script type="text/javascript" src="./news.js"></script>
 </body>

@@ -1,6 +1,6 @@
 body{
 	position:relative;
-	background:#eee; margin:0; padding-bottom:0.2rem;
+	background:#eee; margin:0; padding-bottom:0.16rem;
 	font-size:0.16rem; font-family:"微软雅黑";
 }
 ul,li,h1{
@@ -24,11 +24,9 @@ a{
 	display:inline-block;
 	font-size:0;
 }
-#top .right{
-	position:absolute; right:0.15rem; top:0.1rem;
-}
 #me{
-	width:0.2rem; height:0.2rem; padding:0; margin:0 0.15rem 0 0; overflow:hidden;
+	position:absolute; right:0.15rem; top:0.1rem;
+	width:0.2rem; height:0.2rem; padding:0; margin:0; overflow:hidden;
 }
 #me .me1{
 	display:block;

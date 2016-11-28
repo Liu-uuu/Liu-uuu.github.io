@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>msg</title>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<script>
+document.getElementsByTagName("html")[0].style.fontSize=window.screen.width/3.75+"px";
+</script>
+<style>
+body{margin:0;font-size:0.16rem;background:#fff;}
+ul,li{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+ul li{
+	background:#fff;
+}
+ul .msg_top{
+	height:1.26rem;
+	padding-top:0.6rem;
+	background:#0080d1;
+	text-align:center;
+	
+}
+
+ul .msg_top .tx{
+	display:block;
+	width: 0.8rem;
+	height:0.8rem;
+	background:#fff;
+	border-radius:50%;
+	text-align:center;
+	line-height:0.8rem;
+	font-size:0.4rem;
+	font-weight:bold;
+	margin:0 auto;
+}
+ul .msg_top .name{
+	display:block;
+	padding-top:0.1rem;
+	font-size:0.2rem;
+	color:#fff;
+}
+ul .msg{
+	padding:0 0.12rem;
+	border-bottom:1px solid #ccc;
+	line-height:0.4rem;
+	font-size:0.18rem;
+}
+ul .val{
+	float:right;
+	text-align:left;
+
+}
+
+ul .quit{
+	padding:0.1rem 0;
+	text-align:center;
+}
+ul .quit span{
+	display:inline-block;
+	padding:0.06rem 0.1rem; margin:0 0.02rem;
+	border:1px solid #ccc;
+}
+
+
+</style>
+<script type="text/javascript">
+window.onload=function() {
+	
+	var thisMsg={
+		name:"刘建龙",
+		tel:"17600800668",
+		mail:"17600800668@qq.com",
+		job:"前端开发工程师",
+		addr:"北京"
+	}
+	try{
+		
+		if(window.localStorage.getItem("user")){
+			thisMsg=JOSN.parse(window.localStorage.getItem("user"));
+		}else{
+			// alert("用户不存在,显示系统默认用户")
+		}
+
+	}catch(error){
+		alert("你的浏览器不支持或禁止了H5本地存储，显示系统默认用户")
+	}
+
+// window.localStorage.setItem("a",1)
+// alert(window.localStorage.getItem("a"))
+// window.localStorage.removeItem("a")
+// alert(window.localStorage.getItem("a"))
+
+	document.body.innerHTML=
+	"<ul>"+
+		"<li class=msg_top><span class=tx>"+thisMsg.name.charAt(0)+"</span><span class=name>"+thisMsg.name+"</span></li>"+
+		"<li class=msg><span>手机号</span><span class=val>"+thisMsg.tel+"</span></li>"+
+		"<li class=msg><span>E-Mail</span><span class=val>"+thisMsg.mail+"</span></li>"+
+		"<li class=msg><span>职业</span><span class=val>"+thisMsg.job+"</span></li>"+
+		"<li class=msg><span>目前居住地</span><span class=val>"+thisMsg.addr+"</span></li>"+
+		"<li class=quit><span id=quit>返回</span></li>"
+	"</ul>";
+	document.getElementById("quit").addEventListener("touchend",function(){
+		try{
+			if(window.localStorage.getItem("user")){
+				window.localStorage.removeItem("user")
+			}
+
+		}catch(error){
+		}
+		history.back()
+	})
+	// document.getElementById("back").addEventListener("touchend",function(){
+	// 	history.back()
+	// })
+}
+	
+</script>
+</head>
+<body>
+<!-- <ul>
+	<li class="msg_top"><span class="tx">刘</span><span class="name">刘建龙</span></li>
+	<li class="msg"><span>手机号</span><span class="val">17600800668</span></li>
+	<li class="msg"><span>E-Mail</span><span class="val">17600800668@qq.com</span></li>
+	<li class="msg"><span>职业</span><span class="val">前端开发工程师</span></li>
+	<li class="msg"><span>目前居住地</span><span class="val">北京</span></li>
+</ul> -->
+
+</body>
+</html>
