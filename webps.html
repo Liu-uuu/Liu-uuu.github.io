@@ -15,13 +15,13 @@
 			margin:0; padding:0; list-style:none;
 		}
 		#container{
-			width:546px; height:376px; background:#dcdcdc; border:2px solid #66aff8;
-			position:relative; left:50%; top:50%;
-			margin-left:-275px; margin-top:-190px;
+			width:546px; height:376px; background:#dcdcdc; border:2px solid #2088ca;
+			position:relative; left:15%; top:50%;
+			margin-top:-190px;
 		}
 		/*头部*/
 		#top{
-			height:28px; background:#66aff8;
+			height:28px; background:#2088ca;
 			line-height:28px; text-indent:6px;
 		}
 		/*拾色区域*/
@@ -116,21 +116,19 @@
 		}
 		#color_list div{padding:12px 0;text-align:center; background:#f4f4f4}
 		#others{
-			position:absolute; left:0; bottom:0; z-index:-1;
-			width:100%; min-width:800px; background: #fff; border-top:6px solid #121212;
+			position:absolute; top:20px; right:20px; z-index:-1;
+			width:27%;
+			background: #fff;
 			color:#392052;
 		}
 		#words{
-			height:276px; padding:0 10px;
-			overflow:hidden;
+			padding:0 10px;
 		}
 		#words *{
-			width:380px; background:#64c5ba;
+			 background:#64c5ba;
 			text-indent:4px;
 		}
 		#words p{
-			position:absolute; top:0; right:10px;
-			width:360px; padding:10px;
 			line-height:1.8;
 		}
 		#others p span{
@@ -483,7 +481,7 @@
 			ipts[6].onfocus=function(){
 				this.trueValue=this.value;//按下记录value值防错，回改。
 			}
-			ipts[6].onkeypress=function(ev){
+			ipts[6].onkeyup=function(ev){
 				var ev=ev||window.event;
 				this.downColor=thisColor[0].style.backgroundColor;//初始颜色
 				thisColor[0].style.backgroundColor="#"+this.value;//替换颜色
@@ -505,6 +503,8 @@
 			ipts[6].onblur=function(){
 				this.value=this.trueValue;//结束赋予输入框正确的值
 			}
+
+
 			//***其他交互*************************************************************************
 			thisColor[1].onclick=function(){
 				thisColor[0].title=thisColor[0].style.backgroundColor=this.style.backgroundColor;
@@ -699,7 +699,7 @@
 			<p>
 				<span>简介：</span><br/>
 				完成这个项目不仅需要Web前端技术，需要的是个人的综合知识。比如，如果不了解颜色混合模式，那就构建不出来数据模型。<br/>
-				1、首先布局，没有过多强调。用CSS的方式将框框水平垂直居中。<br/>
+				1、首先布局，没有过多强调。用CSS的方式将框框垂直居中。<br/>
 				2、交互元素：方形区颜色变化、方形区点击取色、方形区圆圈定位、方形区圆圈拖动取色、竖条区颜色变化、竖条区点击取色、竖条区滑动取色、（R值显示、G值显示、B值显示，要判断三者哪个该变化）、R值G值B值的选中、R值G值B值改变等等。<br/>
 				3、以上所有交互，都按不同情况相关联变化，交织成网。关联性极高。如果逻辑思维能力不够强，或者没有全局观，那么在交互过程中，程序随时可能莫名的挂掉。
 			</p>
