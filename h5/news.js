@@ -5,7 +5,7 @@ var today=new Date();
 document.getElementById("top").getElementsByTagName("span")[0].innerHTML=today.getFullYear()+"年"+(today.getMonth()+1)+"月"+today.getDate()+"日 "+week[today.getDay()]
 
 var listData="",listX=2;
-// 5秒后，如果没点击加载频道列表，就加载频道列表
+// 1秒后，如果没点击加载频道列表，就加载频道列表
 try{
 	if (window.localStorage.getItem("listData")) {
 		listData=JSON.parse(window.localStorage.getItem("listData"))
@@ -25,7 +25,7 @@ try{
 				}
 			}
 		}
-	},5000)
+	},1000)
 }catch(error){}
 
 
@@ -64,7 +64,8 @@ try{
 // 		}
 // 	}
 // };
-// document.addEventListener("touchend",function(){ alert(1)})
+
+
 var footerTip=document.getElementById("bottom_tip");
 var loadNext=true;
 
@@ -82,6 +83,12 @@ window.addEventListener("scroll",function(){
 	}
 	else{
 		footerTip.style.display="none"
+	}
+})
+
+document.addEventListener("touchend",function(){
+	if (footerTip.style.display=="block") {
+		footerTip.style.display="none";
 	}
 })
 // window.addEventListener("scroll",function(){
@@ -429,6 +436,7 @@ window.addEventListener("scroll",function(){
 		var iScroll=0;
 		var iStartX=0;
 		var iStartPageX=0;
+		var iStartPageY=0;
 		var iNow=0;
 		var oTimer=0;
 		obj.innerHTML+=obj.innerHTML;
@@ -438,7 +446,7 @@ window.addEventListener("scroll",function(){
 			oTimer=setInterval(function(){
 				iNow++;	
 				next();
-			},2000);
+			},3000);
 		}
 		autoPlay();
 
@@ -453,12 +461,19 @@ window.addEventListener("scroll",function(){
 				css(obj, "translateX", iScroll);
 			}
 			iStartPageX=ev.changedTouches[0].pageX;
+			iStartPageY=ev.changedTouches[0].pageY;
 			iStartX=iScroll;
 		};
 
 		obj.addEventListener("touchmove",fnMove,false);
 		function fnMove(ev){
 			var iDis=ev.changedTouches[0].pageX-iStartPageX;
+			var iDisY=ev.changedTouches[0].pageY-iStartPageY;
+			if (Math.abs(iDisY)<2*Math.abs(iDis)) {
+				if (ev.cancelable) {
+					ev.preventDefault();
+				}
+			}
 			iScroll=iStartX+iDis;
 			css(obj, "translateX", iScroll);
 		};
