@@ -487,11 +487,7 @@ document.addEventListener("touchend",function(){
 		};
 		function next(){
 			iScroll=-iNow*window.screen.width;
-			var thisNum=iNow+1;
-			if (thisNum>n) {
-				thisNum=1
-			}
-			obj2.innerHTML="<b>"+(thisNum)+"</b>/"+n;
+
 			if(iNow>=n){
 				tweenMove(obj,{translateX:iScroll},300,"easeOut",function(){
 					iNow=iNow%n;
@@ -501,6 +497,11 @@ document.addEventListener("touchend",function(){
 			}else{
 				tweenMove(obj,{translateX:iScroll},300,"easeOut");
 			}
-			
+
+			var thisNum=iNow+1;
+			if (thisNum>n) {
+				thisNum=thisNum%n;
+			}
+			obj2.innerHTML="<b>"+(thisNum)+"</b>/"+n;
 		}
 	}
