@@ -585,23 +585,38 @@ toMin.onclick=function(){
 
 	yun.style.height='30px';
 	yun.style.width='160px';
+	// yun.style.left=0;
+	// yun.style.top=(document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight)-30+'px';
+	yun.style.top=0;
 	yun.style.left=0;
-	yun.style.top=(document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight)-30+'px';
+	blue.getElementsByTagName('strong')[0].onclick=function(){
+		var windowW=document.documentElement.clientWidth||document.body.clientWidth||window.innerWidth;
+		var windowH=document.documentElement.clientHeight||document.body.clientHeight||window.innerHeight;
+		if (windowW<600) {windowW=600}
+		if (windowH<400) {windowH=400}
+		yun.style.width=windowW*0.7+'px';
+		yun.style.height=windowH*0.9+'px';		
+		yun.style.left=windowW*0.15+'px';
+		yun.style.top=windowH*0.05+'px';
 
-}
-blue.getElementsByTagName('strong')[0].style.cursor='pointer';
-//浏览器窗口调整大小时，最小化图标定位左下角
-window.onresize=function(){
-	if (yun.style.height=='30px') {
-		yun.style.height='30px';
-		yun.style.width='160px';
-		yun.style.left=0;
-		yun.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
-		var footer=document.getElementById('footer');
-		footer.style.left=0;
-		footer.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
+		divcss();
+		blue.getElementsByTagName('strong')[0].onclick=null;
 	}
 }
+blue.getElementsByTagName('strong')[0].style.cursor='pointer';
+
+//浏览器窗口调整大小时，最小化图标定位左下角
+// window.onresize=function(){
+// 	if (yun.style.height=='30px') {
+// 		yun.style.height='30px';
+// 		yun.style.width='160px';
+// 		yun.style.left=0;
+// 		yun.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
+// 		var footer=document.getElementById('footer');
+// 		footer.style.left=0;
+// 		footer.style.top=(document.documentElement.clientHeight||document.body.clientHeidth||window.innerHeight)-30+'px';
+// 	}
+// }
 
 // var toCreate=document.getElementById('tocreate');
 // var toRename=document.getElementById('torename');
