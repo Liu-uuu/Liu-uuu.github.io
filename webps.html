@@ -462,7 +462,13 @@
 								}	 
 								
 							}else if (ev.keyCode>36&&ev.keyCode<41) {
-
+								upDate();
+								randerSwatch(thisRgb.type,thisRgb.value);
+								cirPos();
+								sliderTopFn();
+								sliderColorFn();
+								ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value);
+								thisColor[0].style.background="#"+ipts[6].value;
 							}else{
 								if (this.value) {
 									this.value=parseInt(this.value);
@@ -472,6 +478,13 @@
 								}else{
 									this.value=0;
 								}
+								upDate();
+								randerSwatch(thisRgb.type,thisRgb.value);
+								cirPos();
+								sliderTopFn();
+								sliderColorFn();
+								ipts[6].value=num16(ipts[1].value)+num16(ipts[3].value)+num16(ipts[5].value)
+								thisColor[0].style.background="#"+ipts[6].value;
 							}
 						}
 					})(i)	
@@ -558,7 +571,7 @@
 						randerSwatch(thisRgb.type,thisRgb.value);
 						cirPos();
 						sliderTopFn();
-						sliderColorFn;
+						sliderColorFn();
 				}
 
 			}
