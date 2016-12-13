@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>搜索音乐--H5音乐</title>
+	<style type="text/css">
+		body{
+			margin:0;
+		}
+		#wrap{
+			width:1000px; margin:0 auto; background:#eee;
+		}
+		#ser_box{
+			width:600px;
+			padding-top:300px;
+			margin:0 auto; background:#ccc;
+		}
+		#ser_box input{
+			width:500px;
+			border:none; outline:medium;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function() {
+			
+			// 获取排行榜信息
+			// billboard(2)
+			function billboard(bType){
+				jsonp({
+					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
+					data:{
+						method:"baidu.ting.billboard.billList",
+						type:bType,
+						size:100,
+						offset:0
+					},
+					succ:function(json){
+						console.log(json)
+					}
+				})
+			};
+			// 搜索歌曲
+			// serSong("最长的电影");
+			function serSong(name){
+				jsonp({
+					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
+					data:{
+						method:"baidu.ting.search.catalogSug",
+						query:name
+					},
+					succ:function(json){
+						console.log(json);
+					}
+				});
+			};
+			//获取单首歌曲信息 
+			// getInfo(354877);
+			function getInfo(id){
+				jsonp({
+					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
+					data:{
+						method:"baidu.ting.song.play",
+						songid:id
+					},
+					succ:function(json){
+						if (json.bitrate&&json.songinfo) {
+					
+						}
+					}
+				});
+			}
+			// 获取一组歌曲信息
+			function getSongs(idArr){
+				for (var i = 0; i < idArr.length; i++) {
+					getInfo(idArr[i]);
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+			// *******************************************************************
+			// jsonp封装
+			function jsonp(json){
+				var sd;
+				var settings = {
+					url:json.url || '',
+					data:json.data || {},
+					succ:json.succ || '',
+					cbName:json.cbName || 'callback',
+					callback:json.callback || 'jQuery'+new Date().getTime(),
+					fail:json.fail || ''
+				}
+				var timer = null;
+				var head = document.getElementsByTagName('head')[0];
+				var oS = document.createElement('script');
+				oS.className = 'saodong';
+				settings.data[settings.cbName] = settings.callback;	
+				var arr = [];
+				for(var attr in settings.data){
+					arr.push(attr+'='+settings.data[attr]);
+				}
+				settings.data = arr.join('&');
+				oS.src = settings.url + '?' + settings.data;
+				head.appendChild(oS);	
+				window[settings.callback] = function(json){
+					clearTimeout(timer);
+					sd = head.getElementsByClassName('saodong');			
+					for(var i=0,len=sd.length;i<len;i++){
+						head.removeChild(sd[0]);
+					}			
+					if(settings.succ && typeof settings.succ === 'function'){
+						settings.succ(json);
+					}
+					// if(sd.length&&sd[0].src){
+					// 	head.removeChild(sd);
+					// }
+				}	
+				// clearTimeout(timer);
+				// timer = setTimeout(function(){
+				// 	sd = head.getElementsByClassName('saodong');
+				// 	if(sd.length){
+				// 		if(settings.fail && typeof settings.fail === 'function'){
+				// 			settings.fail();
+				// 		}
+				// 	}
+				// },3000);	
+			}
+
+		}
+	</script>
+</head>
+<body>
+<div id="wrap">
+	<div id="ser_box">
+		<input type="text"><span>搜索</span>
+	</div>
+	1111
+</div>
+</body>
+</html>
