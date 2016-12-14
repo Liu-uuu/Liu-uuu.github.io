@@ -352,7 +352,7 @@ function innitUi(){
 //获取歌词
 function getLrc(id){
 	jsonp({
-		url:"https://tingapi.ting.baidu.com/v1/restserver/ting",
+		url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
 		data:{
 			method:"baidu.ting.song.lry",
 			songid:id
