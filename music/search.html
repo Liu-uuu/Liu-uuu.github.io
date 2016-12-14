@@ -6,18 +6,79 @@
 	<style type="text/css">
 		body{
 			margin:0;
+			font-size:16px;
+			font-family:"微软雅黑";
+		}
+		ul,li{
+			padding:0; margin:0; list-style:none;
 		}
 		#wrap{
-			width:1000px; margin:0 auto; background:#eee;
+			background:#31c27c;
 		}
 		#ser_box{
-			width:600px;
-			padding-top:300px;
-			margin:0 auto; background:#ccc;
+			width:600px; height:180px; margin:0 auto;
+			line-height:180px;
 		}
 		#ser_box input{
-			width:500px;
+			width:468px; padding:0 16px; margin:0;
 			border:none; outline:medium;
+			line-height:40px; vertical-align:middle;
+		}
+		#ser_box span{
+			display:inline-block;
+			width:90px; border:1px solid #fff;
+			background-color:#31c27c;
+			text-align:center; line-height:38px; vertical-align:middle;
+			color:#fff;
+			cursor:pointer;
+		}
+		#ser_list{
+			width:900px; margin:0 auto; /*background-color:#222;*/
+		}
+		#ser_list div{
+			font-size:16px;padding-top:10px; font-weight:bold; color:#333;
+		}
+		#ser_list li{
+			height:60px; line-height:60px;
+			border-bottom:1px solid #e1e1e1;
+			padding:0 20px;
+			font-size:0;
+		}
+		#ser_list .img{
+			width:50px; height:50px; margin-right:50px; vertical-align:middle;
+		}
+		#ser_list .img img{
+			width:100%;
+		}
+		#ser_list span{
+			display:inline-block;
+			height:60px;
+			font-size:16px; vertical-align:middle;
+			overflow:hidden;
+		}
+		#ser_list .song{
+			width:300px;
+		}
+		#ser_list .singer{
+			width:200px;
+		}
+		#ser_list .time{
+			width:200px;
+		}
+		#ser_list .add{
+			width:36px; height:36px;
+			background-image:url("./img/icon_list_menu.png");
+			background-position:0 -80px;
+			cursor:pointer;
+		}
+		#ser_list .add:hover{
+			background-position:-40px -80px;
+		}
+		#ser_list .error{
+			padding:50px 0;
+			border:none;
+			text-align:center;
+			font-size:20px;
 		}
 	</style>
 	<script type="text/javascript">
@@ -27,25 +88,37 @@
 			}catch(error){
 				alert("不支持H5本地存储的浏览器，不能完成跨窗口添加歌曲！")
 			}
-			// 获取排行榜信息
-			// billboard(2)
-			function billboard(bType){
-				jsonp({
-					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
-					data:{
-						method:"baidu.ting.billboard.billList",
-						type:bType,
-						size:100,
-						offset:0
-					},
-					succ:function(json){
-						console.log(json)
-					}
-				})
-			};
+			var theUl=document.getElementById('ser_list').getElementsByTagName("ul")[0];
+			var serVal=document.getElementById('val');
+			var serBtn=document.getElementById('ser_btn');
+			var dList={};
+			serBtn.onclick=function(){
+				if (serVal.value) {
+					serSong(serVal.value);
+				}
+			}
+			theUl.onclick=function(ev){
+				var newList={
+					stoId:"sto"+new Date().getTime(),
+					type:"newList",
+					songs:[]
+				};
+				if (ev.target.className=="add") {
+					newList.songs[newList.songs.length]=dList["a"+ev.target.id];
+					window.localStorage.setItem(newList.stoId,JSON.stringify(newList));
+				}
+			}
+			var wSer=window.location.search.split("?");
+			if (wSer[1]) {
+				serVal.value=wSer[1];
+				serSong(wSer[1]);
+			}
+
 			// 搜索歌曲
-			// serSong("最长的电影");
+			// serSong("演员");
+			
 			function serSong(name){
+				dList={};
 				jsonp({
 					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
 					data:{
@@ -53,13 +126,42 @@
 						query:name
 					},
 					succ:function(json){
-						console.log(json);
+						if(json.song){
+							document.getElementById('ser_list').getElementsByTagName("div")[0].innerHTML="共找到"+json.song.length+"首相关歌曲";
+							theUl.innerHTML="<li><span class=img></span><span class=song>歌曲名</span><span class=singer>歌手</span><span class=time>时长</span></li>";
+							for (var i = 0; i < json.song.length; i++) {
+								jsonp({
+									url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
+									data:{
+										method:"baidu.ting.song.play",
+										songid:json.song[i].songid
+									},
+									succ:function(json){
+										if (json.bitrate&&json.songinfo) {
+											json.songinfo.pic_small=json.songinfo.pic_small||json.songinfo.pic_radio||json.songinfo.pic_big||json.songinfo.pic_huge;
+											theUl.innerHTML+=
+											"<li>"+
+												"<span class=img><img src="+json.songinfo.pic_small+"></span>"+
+												"<span class=song>"+json.songinfo.title+"</span>"+
+												"<span class=singer>"+json.songinfo.author+"</span>"+
+												"<span class=time>"+formNum(Math.round(json.bitrate.file_duration/60))+":"+formNum(Math.round(json.bitrate.file_duration%60))+"</span>"+
+												"<span class=add id="+json.songinfo.song_id+"></span>"+
+											"</li>";
+											dList["a"+json.songinfo.song_id]=json;
+										}
+									}
+								});
+							}
+						}else{
+							document.getElementById('ser_list').getElementsByTagName("div")[0].innerHTML="";
+							theUl.innerHTML="<li class=error>抱歉，没有找到相关歌曲。<br/>不过，咱换首歌听听嘛！</li>"
+						}
 					}
 				});
 			};
 
 			// window.localStorage.clear();
-			getSongs([242078437,267473025])
+			// getSongs([242078437,267473025,266322598,354877,73987460]);
 			// 获取一组歌曲信息
 			function getSongs(idArr){
 				var newList={
@@ -87,19 +189,6 @@
 					getInfo(idArr[i]);
 				};	
 			}
-			
-			// console.log(JSON.parse(window.localStorage));
-			for(var attr in window.localStorage){
-				console.log(JSON.parse(window.localStorage[attr]));
-			}
-
-
-
-
-
-
-
-
 
 			// *******************************************************************
 			// jsonp封装
@@ -138,26 +227,32 @@
 					// 	head.removeChild(sd);
 					// }
 				}	
-				// clearTimeout(timer);
-				// timer = setTimeout(function(){
-				// 	sd = head.getElementsByClassName('saodong');
-				// 	if(sd.length){
-				// 		if(settings.fail && typeof settings.fail === 'function'){
-				// 			settings.fail();
-				// 		}
-				// 	}
-				// },3000);	
 			}
-
+			// 格式化时间数字
+			function formNum(num){
+				if (num<10) {
+					num=0+""+num;
+				}
+				return num;
+			}
 		}
 	</script>
 </head>
 <body>
 <div id="wrap">
 	<div id="ser_box">
-		<input type="text"><span>搜索</span>
+		<input type="text" id="val"><span id="ser_btn">搜索</span>
 	</div>
-	1111
+</div>	
+<div id="ser_list">
+	<div><!-- 共找到X首相关歌曲 --></div>
+	<ul>
+		<!-- <li><span class="img"></span><span class="song">歌曲名</span><span id="a"></span><span class="singer">歌手</span><span class="time">时长</span></li>
+		<li><span class="img"><img src="https://y.gtimg.cn/music/photo_new/T002R90x90M000002rGXEg1Hfvbm.jpg?max_age=2592000"></span><span class="song">最长的电影</span><span class="singer">周杰伦</span><span class="time">00:00</span><span class="add"></span></li>-->
+		<!-- <li class="error">抱歉，没有找到相关歌曲。<br/>不过，咱换首歌听听嘛！</li> -->
+	</ul>
 </div>
+
+<div id="bg"></div>
 </body>
 </html>
