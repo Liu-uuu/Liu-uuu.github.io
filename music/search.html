@@ -22,7 +22,11 @@
 	</style>
 	<script type="text/javascript">
 		window.onload=function() {
-			
+			try{
+				window.localStorage.getItem("a");
+			}catch(error){
+				alert("不支持H5本地存储的浏览器，不能完成跨窗口添加歌曲！")
+			}
 			// 获取排行榜信息
 			// billboard(2)
 			function billboard(bType){
@@ -53,31 +57,41 @@
 					}
 				});
 			};
-			//获取单首歌曲信息 
-			// getInfo(354877);
-			function getInfo(id){
-				jsonp({
-					url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
-					data:{
-						method:"baidu.ting.song.play",
-						songid:id
-					},
-					succ:function(json){
-						if (json.bitrate&&json.songinfo) {
-					
-						}
-					}
-				});
-			}
+
+			// window.localStorage.clear();
+			getSongs([242078437,267473025])
 			// 获取一组歌曲信息
 			function getSongs(idArr){
+				var newList={
+					stoId:"sto"+new Date().getTime(),
+					type:"newList",
+					songs:[]
+				};
+				//获取单首歌曲信息 // getInfo(354877);
+				function getInfo(id){
+					jsonp({
+						url:"http://tingapi.ting.baidu.com/v1/restserver/ting",
+						data:{
+							method:"baidu.ting.song.play",
+							songid:id
+						},
+						succ:function(json){
+							if (json.bitrate&&json.songinfo) {
+								newList.songs[newList.songs.length]=json;
+								window.localStorage.setItem(newList.stoId,JSON.stringify(newList));
+							}
+						}
+					});
+				}
 				for (var i = 0; i < idArr.length; i++) {
 					getInfo(idArr[i]);
-				}
+				};	
 			}
-
-
-
+			
+			// console.log(JSON.parse(window.localStorage));
+			for(var attr in window.localStorage){
+				console.log(JSON.parse(window.localStorage[attr]));
+			}
 
 
 

@@ -14,9 +14,6 @@ var theAudioTimer="";//定时器
 // 默认数据
 var datas={
 	loopType:2,
-	preUrl:"./最初的梦想.mp3",
-	thisUrl:"./我相信.mp3",
-	nextUrl:"./我相信.mp3",
 	thisLrc:[],
 	list:[
 		{
@@ -50,7 +47,7 @@ var datas={
 	],
 	thisOne:"111"
 };
-datas.thisOne=datas.list[0];
+datas.thisOne=datas.list[1];
 
 
 
@@ -344,7 +341,7 @@ function innitPlay(){
 }
 //设置新播放的视图
 function innitUi(){
-	theAudio.src=datas.thisOne.bitrate.file_link;
+	theAudio.src=datas.thisOne.bitrate.show_link;
 	theAudio.autoplay=true;
 	document.title=datas.thisOne.songinfo.title+" - "+datas.thisOne.songinfo.author;
 	document.getElementById('pic').style.backgroundImage="url("+datas.thisOne.songinfo.pic_radio+")";
@@ -428,20 +425,48 @@ playBtn.onclick=function(){			// 播放/暂停
 	}
 }
 preBtn.onclick=function(){			//上一首
-	// if (theAudio.duration) {
-		datas.thisOne=datas.list[4];
-		innitPlay();
-		wave(datas.thisOne.songinfo.song_id);
-		playBtn.className="paused";
-	// }
+	if (datas.list.length>1) {
+		for (var i = 0; i < datas.list.length; i++) {
+			if(datas.list[i].songinfo.song_id==datas.thisOne.songinfo.song_id){
+				if (datas.loopType==1) {
+					var indexI=Math.floor(Math.random()*datas.list.length);
+					datas.thisOne=datas.list[indexI];
+				}else{
+					if (datas.list[i-1]) {
+						datas.thisOne=datas.list[i-1];
+					}else{
+						datas.thisOne=datas.list[datas.list.length-1];
+					}
+				}
+				innitPlay();
+				wave(datas.thisOne.songinfo.song_id);
+				playBtn.className="paused";
+				break;
+			}
+		}
+	}
 }
 nextBtn.onclick=function(){			//下一首
-	// if (theAudio.duration) {
-		datas.thisOne=datas.list[datas.list.length-1];
-		innitPlay();
-		wave(datas.thisOne.songinfo.song_id);
-		playBtn.className="paused";
-	// }
+	if (datas.list.length>1) {
+		for (var i = 0; i < datas.list.length; i++) {
+			if(datas.list[i].songinfo.song_id==datas.thisOne.songinfo.song_id){
+				if (datas.loopType==1) {
+					var indexI=Math.floor(Math.random()*datas.list.length);
+					datas.thisOne=datas.list[indexI];
+				}else{
+					if (datas.list[i+1]) {
+						datas.thisOne=datas.list[i+1];
+					}else{
+						datas.thisOne=datas.list[0];
+					}
+				}
+				innitPlay();
+				wave(datas.thisOne.songinfo.song_id);
+				playBtn.className="paused";
+				break;
+			}
+		}
+	}
 };
 									//进度条
 var progressWrap=document.getElementById('progress_wrap');
@@ -491,7 +516,7 @@ function playShow(){
 	var theProgress=document.getElementById('the_progress');//播放进度条
 	var timeBox=document.getElementById('play_time');		//时间显示
 	var s=0;												//格式化的总时长
-	var lastLrc=0;
+
 	function runningShow(){
 		//进度条显示
 		theProgress.style.width=theAudio.currentTime/theAudio.duration*500+"px";
@@ -505,8 +530,11 @@ function playShow(){
 				if(datas.thisLrc[i+1]&&theAudio.currentTime<datas.thisLrc[i+1].s){
 					theLrc.style.transform="translateY("+(50-25*i)+"px)";//滚动
 						if (!lrcLis[i].className) {
-							lrcLis[lastLrc].className="";
 							lrcLis[i].className="green";
+							if (lrcLis[i-1]) {
+								lrcLis[i-1].className="";
+							}
+							
 							lastLrc=i;
 						}
 					break;
@@ -546,10 +574,50 @@ function playShow(){
 				runningShow();
 				//播放完清除定时器
 				if (theAudio.currentTime==theAudio.duration) {
-					clearInterval(theAudioTimer);
-					playBtn.className="play";
-					listUl.style.transform="translateY(0deg)";
-					picPause();
+					for (var i = 0; i < datas.list.length; i++) {
+						if(datas.list[i].songinfo.song_id==datas.thisOne.songinfo.song_id){
+							if (datas.loopType==1) {
+								var indexI=Math.floor(Math.random()*datas.list.length);
+								datas.thisOne=datas.list[indexI];
+								innitPlay();
+								wave(datas.thisOne.songinfo.song_id);
+								playBtn.className="paused";
+							}else if (datas.loopType==2) {
+								if (datas.list[i+1]) {
+									datas.thisOne=datas.list[i+1];
+								}else{
+									datas.thisOne=datas.list[0];
+								}
+								innitPlay();
+								wave(datas.thisOne.songinfo.song_id);
+								playBtn.className="paused";
+							}else if(datas.loopType==3){
+								innitPlay();
+								wave(datas.thisOne.songinfo.song_id);
+								playBtn.className="paused";
+							}else if (datas.loopType==4) {
+								if (datas.list[i+1]) {
+									datas.thisOne=datas.list[i+1];
+									innitPlay();
+									wave(datas.thisOne.songinfo.song_id);
+									playBtn.className="paused";
+								}else{
+									clearInterval(theAudioTimer);
+									playBtn.className="play";
+									listUl.style.transform="translateY(0deg)";
+									picPause();
+								}
+							}
+							break;
+						}
+					}
+			
+					// else{
+					// 	clearInterval(theAudioTimer);
+					// 	playBtn.className="play";
+					// 	listUl.style.transform="translateY(0deg)";
+					// 	picPause();
+					// }
 				}
 			},800);
 			picRun();//旋转图片
@@ -570,7 +638,7 @@ function progressEvent(obj,obj2,type){
 			obj2.style.width=w+"px";
 			theAudio.pause();
 			clearInterval(theAudioTimer);
-			theLrc.innerHTML=theLrc.innerHTML.replace(/green/,"")
+			theLrc.innerHTML=theLrc.innerHTML.replace(/green/,"");
 			theAudio.currentTime=theAudio.duration*w/obj.offsetWidth;
 		}else if (type=="volume") {
 			obj2.style.width=w+"px";
@@ -585,6 +653,7 @@ function progressEvent(obj,obj2,type){
 			}
 			w=Math.abs(w);
 			if (type=="currentTime"&&theAudio.duration) {
+				theLrc.innerHTML=theLrc.innerHTML.replace(/green/,"");
 				obj2.style.width=w+"px";
 				theAudio.currentTime=w/obj.offsetWidth*theAudio.duration;
 			}else if (type=="volume") {
@@ -690,7 +759,25 @@ function mScroll(obj,callBackUp,callBackDown){
 // *******************************************************************
 // ------信息获取------
 // 监听本地存储获取新增歌曲信息
-window.addEventListener("storage",function(){})
+window.addEventListener("storage",function(){
+	for(var attr in window.localStorage){
+		var theJson=JSON.parse(window.localStorage[attr]);
+		if(theJson.type=="newList"){
+			for (var i = 0; i < theJson.songs.length; i++){
+				// for (var i = 0; i < datas.list.length; i++) bb: {
+				// 	if(datas.list[i].songinfo.song_id==theJson.songs[i].songinfo.song_id){
+				// 		// continue aa;
+				// 		break bb;
+				// 	}
+				// }
+				datas.list[datas.list.length]=theJson.songs[i];
+				renderNewSong(theJson.songs[i]);
+			}
+			// window.localStorage.removeItem(theJson.stoId)
+		};
+	}
+	renderListScroll();
+});
 // 渲染新增歌曲列表
 function renderNewSong(json){
 	if (json.bitrate&&json.songinfo) {
@@ -716,7 +803,6 @@ function renderNewSong(json){
 					"<span class=singer>"+obj.songinfo.author+"</span>"+
 					"<span class=time>"+formNum(Math.round(obj.bitrate.file_duration/60))+":"+formNum(Math.round(obj.bitrate.file_duration%60))+"</span>";
 				listUl.appendChild(addLi);
-				renderListScroll();
 				break;
 			}
 		}
