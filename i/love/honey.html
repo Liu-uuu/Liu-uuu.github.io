@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>霞宝</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+	<script>
+		var xiaHtml=document.getElementsByTagName('html')[0];
+		var htmlW=document.documentElement.clientWidth;
+		xiaHtml.style.fontSize=htmlW/3.75+"px";
+	</script>
+	<style type="text/css">
+		body{
+			margin:0;
+			font-size:0.16rem;
+			line-height:1.3;
+			font-family:"微软雅黑";
+			/*overflow:hidden;*/
+		}
+		html,body{
+			height:100%;
+		}
+		#xiabaosloveletters{
+			width:100%; height:100%; background-color:#dcf5f8;
+			display:none;
+		}
+		@keyframes lovemusic
+		{
+			from{transform:rotateZ(0);}
+			to{transform:rotateZ(360deg);}
+		}
+		@-webkit-keyframes lovemusic
+		{
+			from{-webkit-transform: rotateZ(0);}
+			to{-webkit-transform:rotateZ(360deg);}
+		}
+		@-moz-keyframes lovemusic
+		{
+			from{transform: rotateZ(0);}
+			to{transform:rotateZ(360deg);}
+		}
+		@-o-keyframes lovemusic
+		{
+			from{transform: rotateZ(0);}
+			to{transform:rotateZ(360deg);}
+		}
+		#music{
+			position:absolute; right:0.16rem; top:0.16rem;
+			width:0.36rem;
+			height: 0.36rem;
+			background-color:#ff347d;
+			border-radius:50%;
+			font-size:0;
+			text-align:center;
+			animation:lovemusic 9s;
+			animation-timing-function:linear;
+			animation-iteration-count:infinite;
+			-webkit-animation:lovemusic 9s;
+			-webkit-animation-timing-function:linear;
+			-webkit-animation-iteration-count:infinite;
+		}
+		#music img{
+			width:90%;
+			vertical-align:middle;
+		}
+		.love100{
+			width:100%;
+		}
+
+		.top{
+			padding-top:0.428rem;
+		}
+		.bottom{
+			position:absolute; bottom:0; left:0;
+		}
+
+
+		#letter{
+			background-color:rgba(255,255,255,0.3);
+			padding:0.1rem; margin:0 0.1rem;
+			color:#22676F;
+		}
+		#to,#from{
+			font-size:0;
+		}
+		#to .img,#from .img{
+			display:inline-block;
+			width:50px; height:20px;
+			background-image:url("./honey/letter.png");
+			background-repeat:no-repeat;
+		}
+		#to .img,#to span,#from img,#from span{
+			font-size:16px;
+			vertical-align:middle;
+		}
+		#letter_content{
+			text-indent:2em;
+			line-height:1.5;
+		}
+		#letter_content p{
+			margin:0.02rem;
+		}
+		#letter_content .first{
+			padding-top:0.06rem;
+		}
+		#from{
+			text-align:right;
+		}
+		#from .img{
+			width:70px;
+			background-position:0 -40px;
+		}
+		#time{
+			padding:0 0.06rem;
+			text-align:right;
+		}
+	</style>
+	<style type="text/css">
+		ul,li{
+			padding:0;
+			margin:0;
+			list-style:none;
+		}
+		input{
+			-webkit-appearance:none;
+			border:none;
+			outline:medium;
+		}
+		#mes{
+			background-color:#e1e1e1;
+		}
+		#mes ul{
+			margin-bottom:0.6rem;
+		}
+		/*对话列表通用样式*/
+		#mes li{
+			position:relative;
+			min-height:0.4rem;
+		}
+		#mes .time{
+			min-height:1px; margin:0.12rem 0; text-align:center;
+		}
+		#mes .time span{
+			display:inline-block;
+			padding:0.02rem 0.06rem;
+			background-color:rgba(0,0,0,0.28);
+			color:#fff;
+			font-size:0.12rem;
+		}
+		#mes li img{
+			width:0.4rem;
+			height:0.4rem;
+			border:1px solid #d8d8d8;
+			position:absolute;
+		}
+		#mes li span{
+			display: inline-block;
+			min-height:0.2rem;
+			padding:0.096rem 0.1rem;
+			border-radius:0.03rem;
+			vertical-align:middle;
+		}
+		#mes li i{
+			position:absolute;
+			top:0.15rem;
+			width:0.0707rem; height:0.0707rem;
+			transform:rotate(45deg);
+			-webkit-transform:rotate(45deg);
+		}
+		/*左右对话样式*/
+		.me{
+			margin:0 0.7rem 0.2rem 0.6rem;
+		}
+		.me img{
+			top:0; left:-0.5rem;
+		}
+		.me span{
+			background-color:#fff;
+			border:1px solid #ccc;
+		}
+		.me i{
+			left:-0.036rem;
+			background-color:#fff;
+			border-left:1px solid #ccc;
+			border-bottom:1px solid #ccc;
+		}
+		.you{
+			margin:0 0.6rem 0.2rem 0.7rem;
+			text-align:right;
+		}
+		.you img{
+			top:0; right:-0.5rem;
+		}
+		.you span{
+			background-color:#a0e75a;
+			border:1px solid #6fb44e;
+			text-align:left;
+		}
+		.you i{
+			right:-0.036rem;
+			background-color:#a0e75a;
+			border-top:1px solid #6fb44e;
+			border-right:1px solid #6fb44e;
+		}
+		#send{
+			position:fixed;
+			bottom:0;
+			left:0;
+			height:0.38rem;
+			width:100%;
+			padding:0.06rem 0;
+			background-color:#f4f5f5;
+			border-top:1px solid #cfd7ca;
+			font-size:0;
+			text-align:justify;
+		}
+		#send input{
+			height:0.36rem; padding:0 0.1rem; margin:0 0 0 0.2rem;
+			border:1px solid #ddd;
+			background:#fff;
+			font-size:0.16rem;
+		}
+	</style>
+</head>
+<div id="mes">
+	<ul>
+		<li class="time"><span>2016-12-17</span></li>
+		<li class="me"><span>亲爱的，有什么可以为你效劳的？</span><i></i><img src="./honey/itx.jpg"></li>
+		<li class="you"><span>帮我捶捶腿吧！</span><i></i><img src="./honey/tx.jpg"></li>
+	</ul>
+	<div id="send"><input type="text" name="val" style="width:60.7%;"><input type="button"  value="发送" ></div>
+</div>
+
+
+<div id="xiabaosloveletters">
+	<div id="music"><img src="./honey/music.png"></div>
+	<audio loop>
+		<source src="http://dl.stream.qqmusic.qq.com/C400000xdZuV2LcQ19.m4a?vkey=48C4B42890B58C8A4680F0D33DF98D5ACA2BF38768F25C349FA9C21513D17EE5DADE65DA78B7E81C91045E250BAF752695461FB4D5357F65&guid=3810148505&fromtag=30" />
+		<source src="http://ip.h5.ra03.sycdn.kuwo.cn/b11401ee309561c2f52dc6c661bdfafd/5855123c/resource/a3/7/34/586624080.aac"/>
+		<source src="http://219.238.2.179/m10.music.126.net/20161217184937/56d90da296fdc76f3339308f6219e75a/ymusic/a120/66a6/09c4/4a0124f064ff25f06e5b4b3ea465295e.mp3?wshc_tag=1&wsts_tag=58551265&wsid_tag=e835892&wsiphost=ipdbm"/>
+	</audio>
+
+	<img src="./honey/bg_top.png" class="top love100">
+	<div id="letter">
+		<div id="to"><span class="img"></span><span class="dear">霞宝</span></div>
+		<div id="letter_content">
+			<p class="first">亲爱的，一周年纪念快乐！</p>
+			<p>
+				这是我为你准备的相识一周年纪念礼物！爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你爱你！
+			</p>
+			<p class="wish">I love you !</p>
+		</div>
+		<div id="from"><span class="img"></span><span class="dear">龙龙</span></div>
+		<div id="time">2016-12-15</div>
+	</div>
+	<img src="./honey/bg_bottom.png" class="bottom love100">
+</div>
+<script src="./letter.js"></script>
+<script>
+	document.body.style.background="#e1e1e1";
+	var msgUl=document.getElementById("mes").getElementsByTagName("ul")[0];
+	var iForm=document.getElementById("send").getElementsByTagName("input");
+	document.body.scrollTop=msgUl.clientHeight;
+	var datas={
+		thisCity:"",
+		cityList:[]
+	};
+
+	requestData(function(data){
+		if (datas.cityList[0]) {
+			for (var i = 0; i < datas.length; i++) {
+				if(datas.cityList[i].basic.id==data.basic.id){
+					break;
+				}
+				if (i==datas.cityList.length-1) {
+					datas.push(data);
+				}
+			}
+		}else{
+			datas.cityList[0]=data;
+			datas.thisCity=data;
+		}
+		var nowDate=new Date();
+		msgUl.innerHTML=
+			"<li class=time><span>"+nowDate.getHours()+":"+nowDate.getMinutes()+"</span></li>"+
+			"<li class=me><span>亲爱的，每天我都将守候在你身边。为你提供最新的天气资讯。</span><i></i><img src=./honey/itx.jpg></li>"+
+			"<li class=me><span>"+nowWea(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg></li>"+
+			"<li class=me><span>"+dailyWea(datas.thisCity,1)+"</span><i></i><img src=./honey/itx.jpg></li>"
+			;
+	},"北京");
+	// addCity("界首");
+	iForm[1].onclick=function(){
+		var youWord=document.createElement("li");
+		youWord.className="you";
+		youWord.innerHTML="<span>"+iForm[0].value+"</span><i></i><img src=./honey/tx.jpg>";
+		msgUl.appendChild(youWord);
+		switch (iForm[0].value)
+		{
+		case "今天":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,0)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "明天":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,1)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "后天":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,2)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "近期":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,7)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "有雨吗":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+rainPop(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "详情":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+hourlyWea(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "么么哒":
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+"么么哒，我爱你！"+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		case "看情书":
+			readLetter();
+			break;
+		default:
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+"么么哒！还没有这个关键词哦！如果要我添加，就给我一个么么哒吧！"+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			break;
+		}
+
+
+
+
+
+
+		document.body.scrollTop=msgUl.clientHeight;
+	}
+
+	function addCity(city){
+		requestData(function(data){
+			if (datas.cityList[0]) {
+				for (var i = 0; i < datas.length; i++) {
+					if(datas.cityList[i].basic.id==data.basic.id){
+						break;
+					}
+					if (i==datas.cityList.length-1) {
+						datas.push(data);
+					}
+				}
+			}else{
+				datas.cityList[0]=data;
+				datas.thisCity=data;
+			}
+		},city);
+	}
+
+
+	function requestData(fn,city){
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','https://apis.baidu.com/heweather/weather/free?city='+city,true);
+		xhr.setRequestHeader('apikey','770651441b1a9c317ead81b8a9137436');
+		xhr.send();
+		xhr.onreadystatechange=function(){
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					var data=JSON.parse(xhr.responseText)["HeWeather data service 3.0"][0];
+					fn(data);
+				}
+			}
+		}
+	}
+
+	// 实况天气
+	function nowWea(data){
+		var info="";
+		if (data.now) {
+			info="此刻"+data.basic.city+"户外天气："+data.now.cond.txt+"，气温"+data.now.tmp+"℃，"+data.now.wind.sc+"级"+data.now.wind.dir+"。"
+		}else{
+			info="暂时查不到您想要了解的信息。";
+		}
+		return info;
+	}
+
+	// 生活指数
+	function suggestion(data,type){
+		var info="";
+		if (data.suggestion&&data.suggestion[type]) {
+			info=data.suggestion[type].brf+"。"+data.suggestion[type].txt+"。";
+		}else{
+			info="暂时查不到您想要了解的信息。";
+		}
+		return info;
+	}
+	// 3小时天气
+	function hourlyWea(data){
+		var info="";
+		if (data.hourly_forecast[0]) {
+			for (var i = 0; i < data.hourly_forecast.length; i++) {
+				info+="<br>"+data.hourly_forecast[i].date.split(" ")[1]+" 气温"+data.hourly_forecast[i].tmp+"℃，"+data.hourly_forecast[i].wind.sc+"级"+data.hourly_forecast[i].wind.dir;
+			}
+			info="今天各个时段的天气信息都在这里了。"+info;
+		}else{
+			info+="过了晚上十点，今天的每三小时天气就结束了。等待明天吧！晚安！"
+		}
+		return info;
+	}
+
+	// 今天有雨的时段
+	function rainPop(data){
+		var box="";
+		if (data.hourly_forecast[0]){
+			for (var i = 0; i < data.hourly_forecast.length; i++) {
+				if(data.hourly_forecast[i].pop*1){
+					box+="<br>"+data.hourly_forecast[i].date.split(" ")[1]+"：降水的概率为"+data.hourly_forecast[i].pop+"%;";
+				}
+			}
+			if(!box){
+				box="理论上今天没有降水了!"
+			}
+			box="我仔细的查看了一下今天各个时段的天气，"+box;
+		}else{
+			box+="过了晚上十点，今天的每三小时天气就结束了。等待明天吧！晚安！"
+		}
+		return box;
+	}
+	// 7天天气
+	function dailyWea(data,num){
+		var weekDay=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+		var todayWeek=new Date().getDay();
+		var info="";
+		if (data.daily_forecast&&data.daily_forecast[0]) {
+			if(num>data.daily_forecast.length-1){
+				for (var i = 0; i < data.daily_forecast.length; i++) {
+					var dayName="";
+					var j=(todayWeek+i)%6;
+					if (i==0) {
+						dayName="今天";
+					}else if (i==1) {
+						dayName="明天";
+					}else if (i==2) {
+						dayName="后天";
+					}else{
+						dayName=weekDay[j];
+					}
+
+					info+="<br>"+dayName+"概况：<br>"+data.daily_forecast[i].cond.txt_d+"/"+data.daily_forecast[i].cond.txt_n+"，"+data.daily_forecast[i].tmp.min+"℃-"+data.daily_forecast[i].tmp.max+"℃，"+data.daily_forecast[i].wind.sc+"级"+data.daily_forecast[i].wind.dir+"。";
+				}
+				info="下面为您呈上今后几天的天气。"+info;
+			}else if (num==0) {
+				info+="今天概况：<br>"+data.daily_forecast[0].cond.txt_d+"/"+data.daily_forecast[0].cond.txt_n+"，"+data.daily_forecast[0].tmp.min+"℃-"+data.daily_forecast[0].tmp.max+"℃，"+data.daily_forecast[0].wind.sc+"级"+data.daily_forecast[0].wind.dir+"。";
+			}else if (num==1) {
+				info+="明天概况：<br>"+data.daily_forecast[1].cond.txt_d+"/"+data.daily_forecast[1].cond.txt_n+"，"+data.daily_forecast[1].tmp.min+"℃-"+data.daily_forecast[1].tmp.max+"℃，"+data.daily_forecast[1].wind.sc+"级"+data.daily_forecast[1].wind.dir+"。";
+			}else if (num==2) {
+				info+="后天概况：<br>"+data.daily_forecast[2].cond.txt_d+"/"+data.daily_forecast[2].cond.txt_n+"，"+data.daily_forecast[2].tmp.min+"℃-"+data.daily_forecast[2].tmp.max+"℃，"+data.daily_forecast[2].wind.sc+"级"+data.daily_forecast[2].wind.dir+"。";
+			}
+		}else{
+			info="暂时查不到您想要了解的信息。";
+		}
+
+		return info;
+	}
+
+
+
+	function readLetter(){
+		document.getElementById("mes").style.display="none";
+		document.getElementById("xiabaosloveletters").style.display="block";
+		var timer=setInterval(function(){
+			if (letters) {
+				getLoveLetter(0);
+				clearInterval(timer);
+			}
+		},50);
+	}
+
+	function getLoveLetter(num){
+		var loveAudio=document.getElementsByTagName("audio")[0];
+		var audioBtn=document.getElementById("music");
+		if (letters[num]) {
+			lettersIndex=letters[num];
+		}else{
+			lettersIndex=letters[0];
+		}
+		var loveContent=document.getElementById("letter_content").getElementsByTagName("p");
+		var loveDay=new Date();
+		loveDay.setFullYear(2015);
+		loveDay.setMonth(12);
+		loveDay.setDate(17);
+		loveDay.setHours(20);
+		loveDay.setMinutes(37);
+		var thisDay=new Date();
+		thisDay.setFullYear(lettersIndex.time.split("-")[0]);
+		thisDay.setMonth(lettersIndex.time.split("-")[1]);
+		thisDay.setDate(lettersIndex.time.split("-")[2]);
+		thisDay.setHours(20);
+		thisDay.setMinutes(38);
+		console.log(loveDay);
+		var day=Math.ceil((thisDay-loveDay)/1000/60/60/24);
+
+		document.getElementById("to").getElementsByTagName("span")[1].innerHTML=lettersIndex.to;
+		loveContent[0].innerHTML="今天是我们相识的第"+day+"天！";
+		loveContent[1].innerHTML=lettersIndex.loveWords;
+		document.getElementById("from").getElementsByTagName("span")[1].innerHTML=lettersIndex.from;
+		document.getElementById("time").innerHTML=lettersIndex.time;
+
+		function musicRun(state){
+			if (state) {
+				music.style.animationPlayState="running";
+				music.style.webkitAnimationPlayState="running";
+			}else{
+				music.style.animationPlayState="paused";
+				music.style.webkitAnimationPlayState="paused";
+			}
+		}
+
+		if (lettersIndex.music[0]) {
+			var inner="";
+			for (var i = 0; i < lettersIndex.music.length; i++) {
+				inner+="<source src="+lettersIndex.music[i]+">";
+			}
+			loveAudio.innerHTML=inner;
+		}
+		loveAudio.ondurationchange=function(){
+			loveAudio.play();
+		}
+		audioBtn.addEventListener("touchend",function() {
+			if (loveAudio.duration) {
+				if (loveAudio.paused) {
+					loveAudio.play();
+					musicRun(true);
+				}else{
+					loveAudio.pause();
+					musicRun(false);
+				}	
+			}
+		});
+	}	
+</script>
+</body>
+</html>
