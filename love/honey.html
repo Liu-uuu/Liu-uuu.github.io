@@ -285,7 +285,7 @@
 			"<li class=time><span>"+nowDate.getHours()+":"+nowDate.getMinutes()+"</span></li>"+
 			"<li class=me><span>亲爱的，每天我都将守候在你身边。为你提供最新的天气资讯。</span><i></i><img src=./honey/itx.jpg></li>"+
 			"<li class=me><span>"+nowWea(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg></li>"+
-			"<li class=me><span>"+dailyWea(datas.thisCity,1)+"</span><i></i><img src=./honey/itx.jpg></li>"
+			"<li class=me><span>"+rainPop(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg></li>"
 			;
 	},"北京");
 	// addCity("界首");
@@ -294,58 +294,42 @@
 		youWord.className="you";
 		youWord.innerHTML="<span>"+iForm[0].value+"</span><i></i><img src=./honey/tx.jpg>";
 		msgUl.appendChild(youWord);
+
+		function createMyWord(words){
+			var myWord=document.createElement("li");
+			myWord.className="me";
+			myWord.innerHTML="<span>"+words+"</span><i></i><img src=./honey/itx.jpg>";
+			msgUl.appendChild(myWord);
+			iForm[0].value="";
+		}
 		switch (iForm[0].value)
 		{
 		case "今天":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,0)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(dailyWea(datas.thisCity,0));
 			break;
 		case "明天":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,1)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(dailyWea(datas.thisCity,1));
 			break;
 		case "后天":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,2)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(dailyWea(datas.thisCity,2));
 			break;
 		case "近期":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+dailyWea(datas.thisCity,7)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(dailyWea(datas.thisCity,7));
 			break;
 		case "有雨吗":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+rainPop(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(rainPop(datas.thisCity));
 			break;
 		case "详情":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+hourlyWea(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord(hourlyWea(datas.thisCity));
 			break;
 		case "么么哒":
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+"么么哒，我爱你！"+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord("么么哒，我爱你！");
 			break;
 		case "看情书":
 			readLetter();
 			break;
 		default:
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+"么么哒！还没有这个关键词哦！如果要我添加，就给我一个么么哒吧！"+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
+			createMyWord("么么哒！还没有这个关键词哦！如果要我添加，就给我一个么么哒吧！");
 			break;
 		}
 
@@ -440,7 +424,7 @@
 			}
 			box="我仔细的查看了一下今天各个时段的天气，"+box;
 		}else{
-			box+="过了晚上十点，今天的每三小时天气就结束了。等待明天吧！晚安！"
+			box+="已经过了晚上十点，今天的下雨信息就没有了。晚安！明天见！"
 		}
 		return box;
 	}
