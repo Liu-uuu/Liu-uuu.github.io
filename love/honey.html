@@ -15,7 +15,6 @@
 			font-size:0.16rem;
 			line-height:1.3;
 			font-family:"微软雅黑";
-			/*overflow:hidden;*/
 		}
 		html,body{
 			height:100%;
@@ -114,12 +113,14 @@
 			padding:0 0.06rem;
 			text-align:right;
 		}
-	</style>
-	<style type="text/css">
+/*---------------------------------------------------*/
 		ul,li{
 			padding:0;
 			margin:0;
 			list-style:none;
+		}
+		p{
+			margin:0; padding:0;
 		}
 		input{
 			-webkit-appearance:none;
@@ -127,25 +128,18 @@
 			outline:medium;
 		}
 		#mes{
+			position:fixed;
+			overflow:auto;
 			background-color:#e1e1e1;
 		}
 		#mes ul{
-			margin-bottom:0.6rem;
+			top:0;
+			/*padding-bottom:0.51rem;*/
 		}
 		/*对话列表通用样式*/
 		#mes li{
 			position:relative;
 			min-height:0.4rem;
-		}
-		#mes .time{
-			min-height:1px; margin:0.12rem 0; text-align:center;
-		}
-		#mes .time span{
-			display:inline-block;
-			padding:0.02rem 0.06rem;
-			background-color:rgba(0,0,0,0.28);
-			color:#fff;
-			font-size:0.12rem;
 		}
 		#mes li img{
 			width:0.4rem;
@@ -166,6 +160,20 @@
 			width:0.0707rem; height:0.0707rem;
 			transform:rotate(45deg);
 			-webkit-transform:rotate(45deg);
+		}
+		#mes li.time{
+			margin:0.12rem 0;
+			font-size:0;
+			text-align:center;
+		}
+		#mes li.time span{
+			height:0.12rem;
+			padding:0rem 0.06rem;
+			margin:0;
+			background-color:rgba(0,0,0,0.28);
+			color:#fff;
+			font-size:0.12rem;
+			line-height:1.5;
 		}
 		/*左右对话样式*/
 		.me{
@@ -204,8 +212,9 @@
 		}
 		#send{
 			position:fixed;
-			bottom:0;
 			left:0;
+			bottom:0;
+			z-index:10;
 			height:0.38rem;
 			width:100%;
 			padding:0.06rem 0;
@@ -214,32 +223,52 @@
 			font-size:0;
 			text-align:justify;
 		}
-		#send input{
-			height:0.36rem; padding:0 0.1rem; margin:0 0 0 0.2rem;
+		#send select{
+			height:0.36rem; width:0.8rem; padding:0; margin-left:0.1rem;
 			border:1px solid #ddd;
 			background:#fff;
 			font-size:0.16rem;
+		}
+		#send input{
+			height:0.36rem; padding:0 0.1rem; margin:0 0 0 0.1rem;
+			border:1px solid #ddd;
+			background:#fff;
+			font-size:0.16rem;
+		}
+		#send .val{
+			width:1.7rem;
+		}
+		#send .btn{
+			width:0.6rem;
 		}
 	</style>
 </head>
 <div id="mes">
 	<ul>
-		<li class="time"><span>2016-12-17</span></li>
+		<!-- <li class="time"><span>2016-12-17</span></li>
 		<li class="me"><span>亲爱的，有什么可以为你效劳的？</span><i></i><img src="./honey/itx.jpg"></li>
-		<li class="you"><span>帮我捶捶腿吧！</span><i></i><img src="./honey/tx.jpg"></li>
+		<li class="you"><span>帮我捶捶腿吧！</span><i></i><img src="./honey/tx.jpg"></li> -->
 	</ul>
-	<div id="send"><input type="text" name="val" style="width:60.7%;"><input type="button"  value="发送" ></div>
-</div>
 
+</div>
+<div id="send">
+	<select>
+		<option value="comf">舒适度</option>
+		<option value="air">空气指数</option>
+		<option value="drsg" selected="">穿衣指数</option>
+		<option value="flu">感冒指数</option>
+		<option value="trav">旅游指数</option>
+		<option value="sport">运动指数</option>
+		<option value="cw">洗车指数</option>
+		<option value="uv">紫外线指数</option>
+	</select>
+	<input type="text" class="val">
+	<input type="button" value="发送" class="btn">
+</div>
 
 <div id="xiabaosloveletters">
 	<div id="music"><img src="./honey/music.png"></div>
-	<audio loop>
-		<source src="http://dl.stream.qqmusic.qq.com/C400000xdZuV2LcQ19.m4a?vkey=48C4B42890B58C8A4680F0D33DF98D5ACA2BF38768F25C349FA9C21513D17EE5DADE65DA78B7E81C91045E250BAF752695461FB4D5357F65&guid=3810148505&fromtag=30" />
-		<source src="http://ip.h5.ra03.sycdn.kuwo.cn/b11401ee309561c2f52dc6c661bdfafd/5855123c/resource/a3/7/34/586624080.aac"/>
-		<source src="http://219.238.2.179/m10.music.126.net/20161217184937/56d90da296fdc76f3339308f6219e75a/ymusic/a120/66a6/09c4/4a0124f064ff25f06e5b4b3ea465295e.mp3?wshc_tag=1&wsts_tag=58551265&wsid_tag=e835892&wsiphost=ipdbm"/>
-	</audio>
-
+	<audio loop></audio>
 	<img src="./honey/bg_top.png" class="top love100">
 	<div id="letter">
 		<div id="to"><span class="img"></span><span class="dear">霞宝</span></div>
@@ -258,14 +287,19 @@
 <script src="./letter.js"></script>
 <script>
 	document.body.style.background="#e1e1e1";
+	var msgWrap=document.getElementById("mes");
 	var msgUl=document.getElementById("mes").getElementsByTagName("ul")[0];
+	var sendBox=document.getElementById("send");
+	var sele=document.getElementById("send").getElementsByTagName("select");
 	var iForm=document.getElementById("send").getElementsByTagName("input");
-	document.body.scrollTop=msgUl.clientHeight;
+	// sendBox.style.top=document.documentElement.clientHeight/htmlW*3.75-0.51+"rem";
+	msgWrap.style.maxHeight=document.documentElement.clientHeight/htmlW*3.75-0.51+"rem";
 	var datas={
 		thisCity:"",
 		cityList:[]
 	};
 
+	// 默认北京
 	requestData(function(data){
 		if (datas.cityList[0]) {
 			for (var i = 0; i < datas.length; i++) {
@@ -282,65 +316,87 @@
 		}
 		var nowDate=new Date();
 		msgUl.innerHTML=
-			"<li class=time><span>"+nowDate.getHours()+":"+nowDate.getMinutes()+"</span></li>"+
+			"<li class=time><span>"+(nowDate.getHours()<10?0+""+nowDate.getHours():nowDate.getHours())+":"+(nowDate.getMinutes()<10?0+""+nowDate.getMinutes():nowDate.getMinutes())+"</span></li>"+
 			"<li class=me><span>亲爱的，每天我都将守候在你身边。为你提供最新的天气资讯。</span><i></i><img src=./honey/itx.jpg></li>"+
 			"<li class=me><span>"+nowWea(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg></li>"+
-			"<li class=me><span>"+rainPop(datas.thisCity)+"</span><i></i><img src=./honey/itx.jpg></li>"
+			"<li class=me><span>今天的天气舒适度"+suggestion(datas.thisCity,"comf")+"</span><i></i><img src=./honey/itx.jpg></li>"+
+			"<li class=me><span>今天天气"+suggestion(datas.thisCity,"drsg").split("年老")[0].replace("建议着","你最好穿")+"</span><i></i><img src=./honey/itx.jpg></li>"
 			;
 	},"北京");
-	// addCity("界首");
+
+	// 生成应答信息
+	function createMyWord(words){
+		var myWord=document.createElement("li");
+		myWord.className="me";
+		myWord.innerHTML="<span>"+words+"</span><i></i><img src=./honey/itx.jpg>";
+		msgUl.appendChild(myWord);
+		msgWrap.scrollTop=msgUl.offsetHeight-0.5*htmlW/3.75;
+	}
+	// 选择
+	sele[0].onchange=function(){
+		createMyWord(suggestion(datas.thisCity,this.value));
+		msgWrap.scrollTop=msgUl.offsetHeight-0.5*htmlW/3.75;
+	}
+	// // 获得焦点
+	// iForm[0].onfocus=function(){
+	// 	setTimeout(function(){
+	// 		msgWrap.style.height=msgWrap.clientHeight/htmlW*3.75-0.51+"rem";
+	// 		msgWrap.scrollTop=msgUl.offsetHeight-0.51*htmlW/3.75;
+	// 	},50)
+	// }
+	// // 失去焦点
+	// iForm[0].onblur=function(){
+	// 	setTimeout(function(){
+	// 		msgWrap.style.height=document.documentElement.clientHeight/htmlW*3.75-0.51+"rem";
+	// 		msgWrap.scrollTop=msgUl.offsetHeight-0.51*htmlW/3.75;
+	// 	},50)
+	// }
+	// 发送
 	iForm[1].onclick=function(){
-		var youWord=document.createElement("li");
-		youWord.className="you";
-		youWord.innerHTML="<span>"+iForm[0].value+"</span><i></i><img src=./honey/tx.jpg>";
-		msgUl.appendChild(youWord);
-
-		function createMyWord(words){
-			var myWord=document.createElement("li");
-			myWord.className="me";
-			myWord.innerHTML="<span>"+words+"</span><i></i><img src=./honey/itx.jpg>";
-			msgUl.appendChild(myWord);
-			iForm[0].value="";
-		}
-		switch (iForm[0].value)
-		{
-		case "今天":
-			createMyWord(dailyWea(datas.thisCity,0));
-			break;
-		case "明天":
-			createMyWord(dailyWea(datas.thisCity,1));
-			break;
-		case "后天":
-			createMyWord(dailyWea(datas.thisCity,2));
-			break;
-		case "近期":
-			createMyWord(dailyWea(datas.thisCity,7));
-			break;
-		case "有雨吗":
-			createMyWord(rainPop(datas.thisCity));
-			break;
-		case "详情":
-			createMyWord(hourlyWea(datas.thisCity));
-			break;
-		case "么么哒":
-			createMyWord("么么哒，我爱你！");
-			break;
-		case "看情书":
-			readLetter();
-			break;
-		default:
-			createMyWord("么么哒！还没有这个关键词哦！如果要我添加，就给我一个么么哒吧！");
-			break;
-		}
-
-
-
-
-
-
-		document.body.scrollTop=msgUl.clientHeight;
+		if (iForm[0].value) {
+			var youWord=document.createElement("li");
+			youWord.className="you";
+			youWord.innerHTML="<span>"+iForm[0].value+"</span><i></i><img src=./honey/tx.jpg>";
+			msgUl.appendChild(youWord);
+			switch (iForm[0].value)
+			{
+			case "想你"||"我想你":
+				alert("我也想你");
+				break;
+			case "今天":
+				createMyWord(dailyWea(datas.thisCity,0));
+				break;
+			case "明天":
+				createMyWord(dailyWea(datas.thisCity,1));
+				break;
+			case "后天":
+				createMyWord(dailyWea(datas.thisCity,2));
+				break;
+			case "近期":
+				createMyWord(dailyWea(datas.thisCity,7));
+				break;
+			case "有雨吗":
+				createMyWord(rainPop(datas.thisCity));
+				break;
+			case "详情":
+				createMyWord(hourlyWea(datas.thisCity));
+				break;
+			case "么么哒":
+				createMyWord("么么哒，我爱你！");
+				break;
+			case "看情书":
+				readLetter();
+				break;
+			default:
+				createMyWord("么么哒！我现在能回答的问题很有限。你可以输入：有雨吗、详情、今天、明天、后天、近期。如果想要我回答更多，先给我一个么么哒吧！");
+				break;
+			}
+			document.body.scrollTop=msgUl.clientHeight;
+		}	
 	}
 
+
+	//添加城市 addCity("界首");
 	function addCity(city){
 		requestData(function(data){
 			if (datas.cityList[0]) {
@@ -468,6 +524,7 @@
 
 
 	function readLetter(){
+		sendBox.style.display="none";
 		document.getElementById("mes").style.display="none";
 		document.getElementById("xiabaosloveletters").style.display="block";
 		var timer=setInterval(function(){
