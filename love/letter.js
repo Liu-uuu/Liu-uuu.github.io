@@ -1,5 +1,12 @@
 var letters=[
 	{	
+		music:["http://win.web.rh03.sycdn.kuwo.cn/145406cf5c643685aece8ac895464b70/586609d3/resource/a3/35/23/384908747.aac","http://219.238.2.179/m10.music.126.net/20161230153946/05e431303d538c60117f8cabc4dd747f/ymusic/5f9d/1466/60df/148916f4098ef9468edc45195a8d29b9.mp3?wshc_tag=0&wsts_tag=58660999&wsid_tag=e8348c5&wsiphost=ipdbm","http://dl.stream.qqmusic.qq.com/C40000495F3N3DQeRg.m4a?vkey=6363BF4DFBDA15CDE3879986B65023E508E5917481A04BAF4D2C465BDC10FAF3E74AA54E71381D59E344C07861C4BFC072DDE264EF51450B&guid=6051317120&fromtag=30"],
+		to:"小狗",
+		loveWords:"好好的爱情变得不像爱情。比起爱情，你更爱自己。你只会以自己的思维去考量一个事情，所有的我认为你温暖你的举动都变成了我的自以为。你说你对我越来越恶心了。我对你也越来越讨厌。如果我不“缠着”你，你就真正的自由了吗？人就是失去了才知道珍惜，如果真是这样，我就头也不回的走掉。希望你能体会到人生最悲哀的不是有人烦着你，而是这个人从此不再理你。",
+		from:"刘",
+		time:"2016-12-30"
+	},
+	{	
 		music:["http://om5.alicdn.com/158/7158/1136455538/1774490672_1478671781016.mp3?auth_key=e8a9079fae4137cf48916a7fd162c9eb-1482634800-0-null","http://ip.h5.rh03.sycdn.kuwo.cn/98f6d486873ca8e6065923d40a31b8a6/585691b8/resource/a3/17/74/1485368085.aac"],
 		to:"霞",
 		loveWords:"也许你根本懒得看这个。无论我做什么你都不会去在意了。两天一夜做出了这个，也只是感动了我自己。你良心让狗吃了。你听过了许多大道理，依然过不好这一生。连最基础的换位思考都做不到。就别再看什么蔡康永了。",
