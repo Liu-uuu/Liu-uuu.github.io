@@ -130,7 +130,7 @@
 		#mes{
 			position:fixed;
 			overflow:auto;
-			background-color:#e1e1e1;
+			background-color:#ebebeb;
 		}
 		#mes ul{
 			top:0;
@@ -144,7 +144,7 @@
 		#mes li img{
 			width:0.4rem;
 			height:0.4rem;
-			border:1px solid #d8d8d8;
+			/*border:1px solid #d8d8d8;*/
 			position:absolute;
 		}
 		#mes li span{
@@ -177,7 +177,7 @@
 		}
 		/*左右对话样式*/
 		.me{
-			margin:0 0.7rem 0.2rem 0.6rem;
+			margin:0 0.8rem 0.2rem 0.6rem;
 		}
 		.me img{
 			top:0; left:-0.5rem;
@@ -193,7 +193,7 @@
 			border-bottom:1px solid #ccc;
 		}
 		.you{
-			margin:0 0.6rem 0.2rem 0.7rem;
+			margin:0 0.6rem 0.2rem 0.8rem;
 			text-align:right;
 		}
 		.you img{
@@ -286,7 +286,7 @@
 </div>
 <script src="./letter.js"></script>
 <script>
-	document.body.style.background="#e1e1e1";
+	document.body.style.background="#ebebeb";
 	var msgWrap=document.getElementById("mes");
 	var msgUl=document.getElementById("mes").getElementsByTagName("ul")[0];
 	var sendBox=document.getElementById("send");
@@ -307,7 +307,7 @@
 					break;
 				}
 				if (i==datas.cityList.length-1) {
-					datas.push(data);
+					datas.cityList.push(data);
 				}
 			}
 		}else{
@@ -335,6 +335,10 @@
 	}
 	// 选择
 	sele[0].onchange=function(){
+		var youWord=document.createElement("li");
+		youWord.className="you";
+		youWord.innerHTML="<span>"+this.children[this.selectedIndex].innerHTML+"</span><i></i><img src=./honey/tx.jpg>";
+		msgUl.appendChild(youWord);
 		createMyWord(suggestion(datas.thisCity,this.value));
 		msgWrap.scrollTop=msgUl.offsetHeight-0.5*htmlW/3.75;
 	}
@@ -359,38 +363,58 @@
 			youWord.className="you";
 			youWord.innerHTML="<span>"+iForm[0].value+"</span><i></i><img src=./honey/tx.jpg>";
 			msgUl.appendChild(youWord);
-			switch (iForm[0].value)
-			{
-			case "想你"||"我想你":
-				alert("我也想你");
-				break;
-			case "今天":
-				createMyWord(dailyWea(datas.thisCity,0));
-				break;
-			case "明天":
-				createMyWord(dailyWea(datas.thisCity,1));
-				break;
-			case "后天":
-				createMyWord(dailyWea(datas.thisCity,2));
-				break;
-			case "近期":
-				createMyWord(dailyWea(datas.thisCity,7));
-				break;
-			case "有雨吗":
-				createMyWord(rainPop(datas.thisCity));
-				break;
-			case "详情":
-				createMyWord(hourlyWea(datas.thisCity));
-				break;
-			case "么么哒":
-				createMyWord("么么哒，我爱你！");
-				break;
-			case "情书":
-				readLetter();
-				break;
-			default:
-				createMyWord("么么哒！我现在能回答的问题很有限。你可以输入：有雨吗、详情、今天、明天、后天、近期。如果想要我回答更多，先给我一个么么哒吧！");
-				break;
+
+			if(iForm[0].value.indexOf("@")!=-1){
+				for (var i = 0; i < datas.cityList.length; i++) {
+					// 如果城市天气存在
+					if(datas.cityList[i].basic.city==iForm[0].value.split("@")[1]){
+						// 如果需要更新
+						if (updateCity(datas.cityList[i])) {
+							datas.cityList.splice(i,1);
+							addCity(iForm[0].value.split("@")[1]);
+							createMyWord("正在请求【"+iForm[0].value.split("@")[1]+"】的天气信息。");
+						}else{
+							datas.thisCity=datas.cityList[i];
+							createMyWord("下面回答【"+datas.cityList[i].basic.city+"】的天气。");
+						}
+						break;
+					}
+					if (i==datas.cityList.length-1) {
+						addCity(iForm[0].value.split("@")[1]);
+						createMyWord("正在请求【"+iForm[0].value.split("@")[1]+"】的天气信息。");
+					}
+				}
+			}else{
+				switch (iForm[0].value)
+				{
+				case "今天":
+					createMyWord(dailyWea(datas.thisCity,0));
+					break;
+				case "明天":
+					createMyWord(dailyWea(datas.thisCity,1));
+					break;
+				case "后天":
+					createMyWord(dailyWea(datas.thisCity,2));
+					break;
+				case "近期":
+					createMyWord(dailyWea(datas.thisCity,7));
+					break;
+				case "有雨吗":
+					createMyWord(rainPop(datas.thisCity));
+					break;
+				case "详情":
+					createMyWord(hourlyWea(datas.thisCity));
+					break;
+				case "么么哒":
+					createMyWord("么么哒，我爱你！");
+					break;
+				case "情书":
+					readLetter();
+					break;
+				default:
+					createMyWord("么么哒！我现在能回答的问题很有限。你可以输入：有雨吗、详情、今天、明天、后天、近期。");
+					break;
+				}
 			}
 			document.body.scrollTop=msgUl.clientHeight;
 		}	
@@ -400,19 +424,14 @@
 	//添加城市 addCity("界首");
 	function addCity(city){
 		requestData(function(data){
-			if (datas.cityList[0]) {
-				for (var i = 0; i < datas.length; i++) {
-					if(datas.cityList[i].basic.id==data.basic.id){
-						break;
-					}
-					if (i==datas.cityList.length-1) {
-						datas.push(data);
-					}
-				}
-			}else{
-				datas.cityList[0]=data;
+			if (data.status=="ok") {
+				datas.cityList.push(data);
 				datas.thisCity=data;
+				createMyWord("【"+city+"】天气信息已就绪，接下来回答的均是【"+city+"】的天气。");
+			}else{
+				createMyWord("没有查到【"+city+"】的天气信息，接下来回答的依旧是【"+datas.thisCity.basic.city+"】的天气。");
 			}
+
 		},city);
 	}
 
@@ -460,7 +479,7 @@
 			for (var i = 0; i < data.hourly_forecast.length; i++) {
 				info+="<br>"+data.hourly_forecast[i].date.split(" ")[1]+" 气温"+data.hourly_forecast[i].tmp+"℃，"+data.hourly_forecast[i].wind.sc+"级"+data.hourly_forecast[i].wind.dir;
 			}
-			info="今天各个时段的天气信息都在这里了。"+info;
+			info="今天【"+data.basic.city+"】各个时段的天气信息都在这里了。"+info;
 		}else{
 			info+="过了晚上十点，今天的每三小时天气就结束了。等待明天吧！晚安！"
 		}
@@ -479,7 +498,7 @@
 			if(!box){
 				box="理论上今天没有降水了!"
 			}
-			box="我仔细的查看了一下今天各个时段的天气，"+box;
+			box="我仔细的查看了一下今天【"+data.basic.city+"】各个时段的天气，"+box;
 		}else{
 			box+="已经过了晚上十点，今天的下雨信息就没有了。晚安！明天见！"
 		}
@@ -505,15 +524,15 @@
 						dayName=weekDay[j];
 					}
 
-					info+="<br>"+dayName+"概况：<br>"+data.daily_forecast[i].cond.txt_d+"/"+data.daily_forecast[i].cond.txt_n+"，"+data.daily_forecast[i].tmp.min+"℃-"+data.daily_forecast[i].tmp.max+"℃，"+data.daily_forecast[i].wind.sc+"级"+data.daily_forecast[i].wind.dir+"。";
+					info+="<br>"+dayName+"：<br>"+data.daily_forecast[i].cond.txt_d+"/"+data.daily_forecast[i].cond.txt_n+"，"+data.daily_forecast[i].tmp.min+"℃-"+data.daily_forecast[i].tmp.max+"℃，"+data.daily_forecast[i].wind.sc+"级"+data.daily_forecast[i].wind.dir+"。";
 				}
-				info="下面为您呈上今后几天的天气。"+info;
+				info="下面为您呈上今后几天【"+data.basic.city+"】的天气概况。"+info;
 			}else if (num==0) {
-				info+="今天概况：<br>"+data.daily_forecast[0].cond.txt_d+"/"+data.daily_forecast[0].cond.txt_n+"，"+data.daily_forecast[0].tmp.min+"℃-"+data.daily_forecast[0].tmp.max+"℃，"+data.daily_forecast[0].wind.sc+"级"+data.daily_forecast[0].wind.dir+"。";
+				info+="今天【"+data.basic.city+"】概况：<br>"+data.daily_forecast[0].cond.txt_d+"/"+data.daily_forecast[0].cond.txt_n+"，"+data.daily_forecast[0].tmp.min+"℃-"+data.daily_forecast[0].tmp.max+"℃，"+data.daily_forecast[0].wind.sc+"级"+data.daily_forecast[0].wind.dir+"。";
 			}else if (num==1) {
-				info+="明天概况：<br>"+data.daily_forecast[1].cond.txt_d+"/"+data.daily_forecast[1].cond.txt_n+"，"+data.daily_forecast[1].tmp.min+"℃-"+data.daily_forecast[1].tmp.max+"℃，"+data.daily_forecast[1].wind.sc+"级"+data.daily_forecast[1].wind.dir+"。";
+				info+="明天【"+data.basic.city+"】概况：<br>"+data.daily_forecast[1].cond.txt_d+"/"+data.daily_forecast[1].cond.txt_n+"，"+data.daily_forecast[1].tmp.min+"℃-"+data.daily_forecast[1].tmp.max+"℃，"+data.daily_forecast[1].wind.sc+"级"+data.daily_forecast[1].wind.dir+"。";
 			}else if (num==2) {
-				info+="后天概况：<br>"+data.daily_forecast[2].cond.txt_d+"/"+data.daily_forecast[2].cond.txt_n+"，"+data.daily_forecast[2].tmp.min+"℃-"+data.daily_forecast[2].tmp.max+"℃，"+data.daily_forecast[2].wind.sc+"级"+data.daily_forecast[2].wind.dir+"。";
+				info+="后天【"+data.basic.city+"】概况：<br>"+data.daily_forecast[2].cond.txt_d+"/"+data.daily_forecast[2].cond.txt_n+"，"+data.daily_forecast[2].tmp.min+"℃-"+data.daily_forecast[2].tmp.max+"℃，"+data.daily_forecast[2].wind.sc+"级"+data.daily_forecast[2].wind.dir+"。";
 			}
 		}else{
 			info="暂时查不到您想要了解的信息。";
@@ -521,7 +540,24 @@
 
 		return info;
 	}
-
+	// 更新本地天气信息
+	function updateCity(city){
+		var loc=city.basic.update.loc;
+		var locDate=new Date();
+		var nowDate=new Date();
+		locDate.setFullYear(loc.split(" ")[0].split("-")[0]);
+		locDate.setMonth(loc.split(" ")[0].split("-")[1]);
+		locDate.setDate(loc.split(" ")[0].split("-")[2]);
+		locDate.setHours(loc.split(" ")[1].split(":")[0]);
+		locDate.setMinutes(loc.split(" ")[1].split(":")[1]);
+		var disTime=nowDate.getTime()-locDate.getTime();
+		if (disTime>180000) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 
 
 	function readLetter(){
