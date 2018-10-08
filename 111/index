@@ -1,1 +1,50 @@
-1
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<img id="tulip" src="./1.jpg" alt="The Tulip" style="display: none" />
+<canvas id="myCanvas" width="600" height="980">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+</body>
+<script>
+window.onload=function () {
+	
+	var c=document.getElementById("myCanvas");
+	var ctx=c.getContext("2d");
+	var img=document.getElementById("tulip");
+	ctx.drawImage(img,0,0);
+	ctx.font="28px '黑体'";
+	ctx.textAlign="end";
+	ctx.textBaseline="top";
+	// 收款户名
+	ctx.fillText("上海陆家嘴国际金融资产交",564,284);
+	ctx.fillText("易市场股份有限公司",564,328);
+	// 收款账号
+	ctx.fillText("4420 **** **** 1788",564,374);
+	// 收款银行
+	ctx.fillText("中国建设银行",564,417);
+	// 转账金额
+	ctx.fillText("8779,78.00元",564,461);
+	// 付款户名
+	ctx.fillText("刘大哥",564,505);
+	// 付款账号
+	ctx.fillText("6214 **** **** 6688",564,549);
+	// 流水号
+	ctx.fillText("PI18J8B216112266",564,593);
+	// 交易时间
+	ctx.fillText("2019年01月01日",564,637);
+	
+	// document.getElementById("img0").src=c.toDataURL();
+		
+	
+	
+};
+
+</script>
+</html>
