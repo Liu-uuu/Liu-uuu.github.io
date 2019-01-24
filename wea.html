@@ -12,13 +12,16 @@
 			padding: 0;
 			list-style-type: none;
 		}
+		strong{
+			color: red;
+		}
 		.huizi{
 			font-size: 32px;
 			color: #9f9f9f;
 		}
 		#wea{
 			background: #658af5;
-			margin: 10% 10% 0 10%;
+			margin: 2% 10%;
 			padding: 4%;
 			color: #fff;
 			position: relative;
@@ -44,9 +47,14 @@
 		.xianxing img{
 			width: 30%;
 		}
+		.tim{
+			position: absolute;
+			bottom: 1em;
+			right: 1rem;
+		}
 
 		#news{
-			margin: 1% 10%;
+			margin: 0 10%;
 			box-shadow: 2px 2px 36px #ccc;
 		}
 		#news .hhh{
@@ -56,12 +64,6 @@
 			color: #fff;
 			line-height: 2.5;
 			text-align: center;
-		}
-		#news .hhh img{
-			height: 2.5em;
-			position: absolute;
-			right: 0;
-			bottom: 0;
 		}
 		#news .tit{
 			padding: 1rem 0 0 18rem;
@@ -81,22 +83,34 @@
 			font-size: 0.8em;
 			position: absolute;
 			bottom: 2rem;
-			/*right: 1rem;*/
+			right: 1rem;
 			color: red;
 			border: 1px solid red;
 			padding: 0.2em;
 			border-radius: 2px;
 		}
+		#news .bottom{
+			border-top: 1px solid #ccc;
+			padding: 1rem;
+			position: relative;
+		}
+		#news .bottom img{
+			width: 4em;
+		}
 		#news .read{
 			position: absolute;
-			bottom: 1rem;
-			right: 1rem;
+			bottom: 2em;
+			left: 5.5em;
 			font-size: 0.8em;
 			color: red;
-			border: 1px solid red;
 			padding: 0.2em;
 			border-radius: 2px;
-			text-align: center;
+		}
+		#news .me{
+			position: absolute;
+			bottom: 2em;
+			right: 1em;
+			font-weight: bold;
 		}
 
 		#wuran{
@@ -106,7 +120,7 @@
 			/*border-radius: 10px;*/
 			box-shadow: 2px 2px 36px #ccc;
 			/*width: 36.5rem;*/
-			margin: 0 10%;
+			margin: 2% 10%;
 			overflow: hidden;
 		}
 	/*	#wuran ul{
@@ -135,7 +149,7 @@
 </head>
 <body>
 	<div id="wea">
-		<ul>
+<!-- 		<ul>
 			<li class="int1em">
 				<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/day/01.png" alt="">
 			</li>
@@ -152,27 +166,13 @@
 			<div class="bigsize">1和2</div>
 			
 		</div>
-		<!-- 限行1和2
-		提醒 -->
+		<div class="tim">日期</div> -->
 		<!-- 日期data.data.forecast_24h[1].time -->
 	</div>
-	<div id="news">
-		<h3 class="hhh">
-			<span>热点资讯:多达一为您精选</span>
-			<img src="http://qr.liantu.com/api.php?text=https://news.sina.com.cn/c/2019-01-14/doc-ihqhqcis5897327.shtml"/>
-		</h3>
-		<div class="tit">
-			<span>全球“最有钱”国家宣布：美元不够 我自己印钱花</span>
-			<div class="img">
-				<img src="http://n.sinaimg.cn/translate/683/w479h204/20190114/Ha_W-hrpcmqw4559937.jpg" alt="">
-			</div>
-			<div class="src">新华社报道</div>
-			<div class="read">长按识别二维码<br>阅读资讯</div>
-		</div>
-	</div>
+
 	<div id="wuran">
 		<!-- <img src="" alt=""> -->
-		<h3>空气质量指数 112 轻度污染</h3>
+		<!-- <h3>空气质量指数 112 轻度污染</h3>
 		<ul>
 			<li>
 				<span>11</span>
@@ -198,10 +198,27 @@
 				<span>2</span>
 				<span class="huizi">CO</span>
 			</li>
-		</ul>
+		</ul> -->
 	</div>
 	
-
+	<div id="news">
+		<!-- <h3 class="hhh">
+			<span>热点资讯:<strong>多达一</strong>为您精选</span>
+		</h3>
+		<div class="tit">
+			<span>全球“最有钱”国家宣布：美元不够 我自己印钱花</span>
+			<div class="img">
+				<img src="http://n.sinaimg.cn/translate/683/w479h204/20190114/Ha_W-hrpcmqw4559937.jpg" alt="">
+			</div>
+			<div class="src">新华社报道</div>
+		</div>
+		<div class="bottom">
+			<img src="http://qr.liantu.com/api.php?text=https://news.sina.com.cn/c/2019-01-14/doc-ihqhqcis5897327.shtml"/>
+			<div class="read">长按识别二维码<br>阅读资讯</div>
+			<div class="me">瀚晖制药—刘建龙</div>
+		</div> -->
+	</div>
+	
 	<!-- 二维码 -->
 	<!-- <img src="http://qr.liantu.com/api.php?text=x"/> -->
 	<!-- 视频 -->
@@ -209,18 +226,123 @@
 
 	<script>
 		function tianqi(data) {
-			console.log(data.data.forecast_24h[1]+data.data.limit.tail_number+data.data.tips.observe[0])
-		}
-		function wuran(){
+			var index=1;
+			var d=data.data.forecast_24h[index];
+			var weaInner=document.getElementById('wea');
 
+			fillInner();
+			weaInner.onclick=function(){
+				index++;
+				if (index==8) {
+					index=0;
+				}
+				d=data.data.forecast_24h[index];
+				fillInner();
+			}
+
+
+			function fillInner(){
+				weaInner.innerHTML=
+				`
+					<ul>
+						<li class="int1em">
+							<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/day/`+d.day_weather_code+`.png">
+						</li>
+						<li>
+							<span class="tem">`+d.max_degree+"℃"+`</span><span>&nbsp;&nbsp;`+d.day_weather+"转"+d.night_weather+`</span>
+						</li>
+						<li>
+							`+d.day_wind_direction+d.day_wind_power+"级"+`
+						</li>
+					</ul>
+					<div class="tips">`+data.data.tips.observe[0]+`</div>
+					<div class="xianxing">
+						<div>今日限行</div>
+						<div class="bigsize">`+data.data.limit.tail_number+`</div>
+					</div>
+					<div class="tim">`+d.time+`</div>
+				`
+			}
+	
+			// console.log(data.data.forecast_24h[1]+data.data.limit.tail_number+data.data.tips.observe[0])
 		}
-		function aaa(data) {
-			console.log(data)
+		function wuran(d){
+			var pm25=0;
+			for(var key in d.data.air){
+			  if (key=="pm2.5") {
+			  	pm25=d.data.air[key];
+			  }    
+			 }  
+			document.getElementById('wuran').innerHTML=
+			`
+			<h3>空气质量指数 `+d.data.air.aqi+"&nbsp;"+d.data.air.aqi_name+`</h3>
+			<ul>
+				<li>
+					<span>`+pm25+`</span>
+					<span class="huizi">PM2.5</span>
+				</li>
+				<li>
+					<span>`+d.data.air.pm10+`</span>
+					<span class="huizi">PM10</span>
+				</li>
+				<li>
+					<span>`+d.data.air.so2+`</span>
+					<span class="huizi">SO2</span>
+				</li>
+				<li>
+					<span>`+d.data.air.no2+`</span>
+					<span class="huizi">NO2</span>
+				</li>
+				<li>
+					<span>`+d.data.air.o3+`</span>
+					<span class="huizi">O3</span>
+				</li>
+				<li>
+					<span>`+d.data.air.co+`</span>
+					<span class="huizi">CO</span>
+				</li>
+			</ul>	
+			`
 		}
+	
 		function ddd(){
-			console.log(1);
 			if (all_1_data01) {
-				console.log(all_1_data01)
+				var index=0;
+				var d=all_1_data01.data[index];
+				var newsInner=document.getElementById('news');
+
+				fillInner();
+				newsInner.onclick=function(){
+					index++;
+					if (index==all_1_data01.data.length) {
+						index=0;
+					}
+					d=all_1_data01.data[index];
+					fillInner();
+				}
+
+				function fillInner(){
+					var imgSrc=d.ext1||d.ext2||d.ext3||d.ext4||d.ext5;
+					newsInner.innerHTML=
+					`
+					<h3 class="hhh">
+						<span>热点资讯:<strong>多达一</strong>为您精选</span>
+					</h3>
+					<div class="tit">
+						<span>`+d.title+`</span>
+						<div class="img">
+							<img src="`+imgSrc+`" alt="">
+						</div>
+						<div class="src">`+d.media+`</div>
+					</div>
+					<div class="bottom">
+						<img src="http://qr.liantu.com/api.php?text=`+d.url+`"/>
+						<div class="read">长按识别二维码<br>阅读资讯</div>
+						<div class="me">瀚晖制药—刘建龙</div>
+					</div>
+					`
+				}
+				console.log(d)
 				clearInterval(int)
 			}
 			
