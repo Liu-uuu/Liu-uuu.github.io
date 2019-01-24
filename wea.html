@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			font-size: 36px;
+		}
+		body,ul,li,h3{
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		.huizi{
+			font-size: 32px;
+			color: #9f9f9f;
+		}
+
+
+		#wuran{
+			background: #f2f2f2;
+			text-align: center;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			box-shadow: 1px 1px 1px #ccc;
+			width: 36.5rem;
+			margin: 0 2%;
+			overflow: hidden;
+		}
+	/*	#wuran ul{
+			width: 30rem;
+			margin: 0 auto;
+		}*/
+		#wuran h3{
+			background: #86c5f7;
+			font-weight: normal;
+			color: #fff;
+			line-height: 2.5;
+		}
+		#wuran li{
+			float: left;
+			margin: 1px;
+			/*display: inline-block;*/
+			width: 8rem;
+			padding: 2rem;
+			background: #fff;
+		}
+		#wuran span{
+			display: inline-block;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="wea">
+		<div>北京</div>
+		<h3>天气</h3>
+		<ul>
+			<li>
+				12℃
+			</li>
+			<li>
+				<span>多云</span>
+				<span>图片</span>
+			</li>
+			<li>
+				东风3级
+			</li>
+		</ul>
+		限行1和2
+		提醒
+		<!-- 日期data.data.forecast_24h[1].time -->
+	</div>
+	<div id="wuran">
+		<!-- <img src="" alt=""> -->
+		<h3>空气质量指数 112 轻度污染</h3>
+		<ul>
+			<li>
+				<span>11</span>
+				<span class="huizi">PM2.5</span>
+			</li>
+			<li>
+				<span>176</span>
+				<span class="huizi">PM10</span>
+			</li>
+			<li>
+				<span>2</span>
+				<span class="huizi">SO2</span>
+			</li>
+			<li>
+				<span>11</span>
+				<span class="huizi">NO2</span>
+			</li>
+			<li>
+				<span>176</span>
+				<span class="huizi">O3</span>
+			</li>
+			<li>
+				<span>2</span>
+				<span class="huizi">CO</span>
+			</li>
+		</ul>
+	</div>
+	<div id="news">
+
+	</div>
+
+	<!-- 二维码 -->
+	<!-- <img src="http://qr.liantu.com/api.php?text=x"/> -->
+	<!-- 视频 -->
+	<!-- <video src="http://1256913445.vod2.myqcloud.com/d48fa54fvodtransgzp1256913445/4c7036375285890783160329679/v.f20.mp4" controls=""></video> -->
+
+	<script>
+		function tianqi(data) {
+			console.log(data.data.forecast_24h[1]+data.data.limit.tail_number+data.data.tips.observe[0])
+		}
+		function wuran(){
+
+		}
+		function aaa(data) {
+			console.log(data)
+		}
+	</script>
+
+	<!-- 天气 -->
+	<script src="https://wis.qq.com/weather/common?source=xw&weather_type=forecast_1h|forecast_24h|index|alarm|limit|tips&province=北京市&city=北京市&callback=tianqi
+"></script>
+
+	<!-- 污染 -->
+	<script src="https://wis.qq.com/weather/common?source=xw&weather_type=air&province=北京市&city=北京市&county=&callback=wuran"></script>
+
+	<!-- 新闻 -->
+	<script src="http://top.news.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=www_www_all_suda_suda&top_time=20190114&top_show_num=100&top_order=DESC&js_var=all_1_data01" id="abc">
+		function ddd(){
+			if (all_1_data01) {
+				console.log(all_1_data01)
+				all_1_data01=0;
+				clearInterval(int)
+			}
+			
+		}
+		var int=setInterval(ddd,1000)
+	</script>
+	
+</body>
+</html>
