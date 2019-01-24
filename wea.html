@@ -16,16 +16,74 @@
 			font-size: 32px;
 			color: #9f9f9f;
 		}
+		#wea{
+			background: #658af5;
+			margin: 10% 10% 0 10%;
+			padding: 4%;
+			color: #fff;
+			position: relative;
+		}
+		.tem{
+			font-size: 4rem;
+		}
+		.int1em{
+			text-indent: 1em;
+		}
+		.tips{
+			font-weight: bold;
+		}
+		.xianxing{
+			position: absolute;
+			right: 10%;
+			top: 30%;
+			text-align: center;
+		}
+		.bigsize{
+			font-size: 4rem;
+		}
+		.xianxing img{
+			width: 30%;
+		}
 
+		#news{
+			margin: 0 10%;
+			padding: 1rem 0 0 18rem;
+			height: 13rem;
+			position: relative;
+		}
+		/*#news img{
+			position: absolute;
+			top: 0;
+			right: 0;
+		}*/
+		#news .img{
+			position: absolute;
+			top: 1rem;
+			left: 0;
+			max-width: 16rem;
+			max-height: 12rem;
+			overflow: auto;
+			text-align: center;
+		}
+		#news .src{
+			font-size: 0.9em;
+			position: absolute;
+			bottom: 2rem;
+			right: 1rem;
+			color: red;
+			border: 1px solid red;
+			padding: 0.2em;
+			border-radius: 2px;
+		}
 
 		#wuran{
 			background: #f2f2f2;
 			text-align: center;
-			border: 1px solid #ccc;
-			border-radius: 10px;
-			box-shadow: 1px 1px 1px #ccc;
-			width: 36.5rem;
-			margin: 0 2%;
+			/*border: 1px solid #ccc;*/
+			/*border-radius: 10px;*/
+			box-shadow: 2px 2px 36px #ccc;
+			/*width: 36.5rem;*/
+			margin: 0 10%;
 			overflow: hidden;
 		}
 	/*	#wuran ul{
@@ -42,8 +100,8 @@
 			float: left;
 			margin: 1px;
 			/*display: inline-block;*/
-			width: 8rem;
-			padding: 2rem;
+			width: 29%;
+			padding: 2%;
 			background: #fff;
 		}
 		#wuran span{
@@ -54,23 +112,33 @@
 </head>
 <body>
 	<div id="wea">
-		<div>北京</div>
-		<h3>天气</h3>
 		<ul>
-			<li>
-				12℃
+			<li class="int1em">
+				<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/day/01.png" alt="">
 			</li>
 			<li>
-				<span>多云</span>
-				<span>图片</span>
+				<span class="tem">12℃</span><span>&nbsp;&nbsp;多云</span>
 			</li>
 			<li>
 				东风3级
 			</li>
 		</ul>
-		限行1和2
-		提醒
+		<div class="tips">天暗下来，你就是阳光~</div>
+		<div class="xianxing">
+			<div>今日限行</div>
+			<div class="bigsize">1和2</div>
+			<img src="http://qr.liantu.com/api.php?text=https://news.sina.com.cn/c/2019-01-14/doc-ihqhqcis5897327.shtml"/>
+		</div>
+		<!-- 限行1和2
+		提醒 -->
 		<!-- 日期data.data.forecast_24h[1].time -->
+	</div>
+	<div id="news">
+		<div>全球“最有钱”国家宣布：美元不够 我自己印钱花</div>
+		<div class="img">
+			<img src="http://n.sinaimg.cn/translate/683/w479h204/20190114/Ha_W-hrpcmqw4559937.jpg" alt="">
+		</div>
+		<div class="src">新华社报道</div>
 	</div>
 	<div id="wuran">
 		<!-- <img src="" alt=""> -->
@@ -102,9 +170,7 @@
 			</li>
 		</ul>
 	</div>
-	<div id="news">
-
-	</div>
+	
 
 	<!-- 二维码 -->
 	<!-- <img src="http://qr.liantu.com/api.php?text=x"/> -->
@@ -121,6 +187,15 @@
 		function aaa(data) {
 			console.log(data)
 		}
+		function ddd(){
+			console.log(1);
+			if (all_1_data01) {
+				console.log(all_1_data01)
+				clearInterval(int)
+			}
+			
+		}
+		var int=setInterval(ddd,1000)
 	</script>
 
 	<!-- 天气 -->
@@ -132,15 +207,7 @@
 
 	<!-- 新闻 -->
 	<script src="http://top.news.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=www_www_all_suda_suda&top_time=20190114&top_show_num=100&top_order=DESC&js_var=all_1_data01" id="abc">
-		function ddd(){
-			if (all_1_data01) {
-				console.log(all_1_data01)
-				all_1_data01=0;
-				clearInterval(int)
-			}
-			
-		}
-		var int=setInterval(ddd,1000)
+		
 	</script>
 	
 </body>
